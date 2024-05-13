@@ -30,7 +30,7 @@ from pyrogram.types import (
 from pytgcalls.exceptions import (
     NoActiveGroupCall,
     UnMuteNeeded,
-    NotInGroupCallError,
+    NotInCallError,
     AlreadyJoinedError,
 )
 from pytgcalls.types import MediaStream, AudioQuality
@@ -240,7 +240,7 @@ async def play(client, message: Message):
     if await is_active_chat(message.chat.id):
         stream = MediaStream(file_path, audio_parameters=AudioQuality.HIGH)
         try:
-            await pytgcalls.change_stream(
+            await pytgcalls.play(
                 message.chat.id,
                 stream,
             )
@@ -251,10 +251,10 @@ async def play(client, message: Message):
                 reply_markup=close_key,
             )
             await msg.delete()
-        except NotInGroupCallError:
+        except NotInCallError:
             stream = MediaStream(file_path, audio_parameters=AudioQuality.HIGH)
             try:
-                await pytgcalls.join_group_call(
+                await pytgcalls.play(
                     message.chat.id,
                     stream,
                 )
@@ -297,7 +297,7 @@ async def play(client, message: Message):
 
         except Exception as e:
             await _clear_(message.chat.id)
-            await pytgcalls.leave_group_call(message.chat.id)
+            await pytgcalls.leave_call(message.chat.id)
             if "phone.CreateGroupCall" in str(e):
                 return await msg.edit_text(
                     "**» ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ғᴏᴜɴᴅ.**\n\nᴩʟᴇᴀsᴇ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ."
@@ -310,7 +310,7 @@ async def play(client, message: Message):
     else:
         stream = MediaStream(file_path, audio_parameters=AudioQuality.HIGH)
         try:
-            await pytgcalls.join_group_call(
+            await pytgcalls.play(
                 message.chat.id,
                 stream,
             )
