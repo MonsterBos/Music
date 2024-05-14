@@ -1,9 +1,7 @@
 aiofiles
 aiohttp
 asyncio
-numpy
 dnspython==2.3.0
-fuzzysearch
 ffmpeg-python
 gitpython
 gTTS
