@@ -1,4 +1,4 @@
-import os
+"""import os
 import shutil
 import git
 
@@ -29,3 +29,4 @@ def load_external_plugin(
     copy_plugins(source_plugins_path, main_repo_path)
     # Remove the temporary cloned repository
     shutil.rmtree(temp_repo_path)
+"""
