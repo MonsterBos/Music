@@ -21,7 +21,7 @@ def load_external_plugin(
     main_repo_path="YukkiMusic/plugins/tools",
 ):
     # Clone the repository to a temporary folder
-    temp_repo_path = "/tmp/temp_repo"
+    temp_repo_path = "cache"
     git.Repo.clone_from(repo_url, temp_repo_path)
     # Navigate to the plugins folder in the cloned repository
     source_plugins_path = os.path.join(temp_repo_path, "plugins")
