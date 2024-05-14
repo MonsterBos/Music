@@ -29,6 +29,6 @@ TELEGRAPH = f"""
 
 /tgt - reply any text to past on telegraph [Coming]"""
 
-GOOGLE === """
+GOOGLE = """
 <u>❄ **ɢᴏᴏɢʟᴇ**</u>
 /google or /gle - ᴡɪᴛʜ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ sᴇᴀʀᴄʜ ᴏɴ ɢᴏᴏɢʟᴇ ᴀɴᴅ ɢᴇᴛ ᴛᴏᴘ 𝟷𝟶 ʀᴇsᴜʟᴛs""" 
