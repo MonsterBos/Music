@@ -123,4 +123,4 @@ OWNER_ID = $ownid""" > .env
 clear
 
 pprint "\n\n\nThanks for using YukkiMusic installer, your vars have been saved successfully ! \nIf you wanna add more variables add them in your env by : vi .env"
-pprint "\n\nNow you can start the bot by : python3 -m YukkiMusic\n\n"
+pprint "\n\nNow you can start the bot by : bash start\n\n"
