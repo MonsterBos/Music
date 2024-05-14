@@ -22,7 +22,7 @@ from YukkiMusic import telethn
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
-from YukkiMusic.utils.externalplugins import load_external_plugin
+#from YukkiMusic.utils.externalplugins import load_external_plugin
 from YukkiMusic.plugins.tools.clone import restart_bots
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
@@ -54,7 +54,7 @@ async def init():
     except:
         pass
     await app.start()
-    load_external_plugin()
+    #load_external_plugin()
     for all_module in ALL_MODULES:
         importlib.import_module("YukkiMusic.plugins" + all_module)
     LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
