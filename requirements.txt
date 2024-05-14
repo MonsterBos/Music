@@ -15,6 +15,7 @@ lyricsgenius
 MukeshAPI
 motor
 pillow==9.5.0
+pyfiglet
 opencv-python-headless==4.9.0.80
 pytz
 psutil
