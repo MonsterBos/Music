@@ -4,7 +4,7 @@ import shutil
 
 
 def load_external_plugin(repo_url):
-    destination_directory = "YukkiMusic/plugins/tools"
+    destination_directory = "YukkiMusic/plugins/external"
 
     try:
         subprocess.run(["git", "clone", repo_url])
