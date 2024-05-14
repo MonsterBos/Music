@@ -134,9 +134,7 @@ async def accept(client, message: ChatJoinRequest):
     if chat_id:
         mode = chat_id["mode"]
         if mode == "automatic":
-            await app.approve_chat_join_request(
-                chat_id=chat.id, user_id=user.id
-            )
+            await app.approve_chat_join_request(chat_id=chat.id, user_id=user.id)
             return
         if mode == "manual":
             is_user_in_pending = await approvaldb.count_documents(
@@ -165,9 +163,7 @@ async def accept(client, message: ChatJoinRequest):
                     if admin.user.is_bot or admin.user.is_deleted:
                         continue
                     text += f"[\u2063](tg://user?id={admin.user.id})"
-                return await app.send_message(
-                    chat.id, text, reply_markup=keyboard
-                )
+                return await app.send_message(chat.id, text, reply_markup=keyboard)
 
 
 @app.on_callback_query(filters.regex("manual_(.*)"))
