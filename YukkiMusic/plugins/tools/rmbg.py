@@ -58,4 +58,3 @@ async def rmbg(bot, message):
         await rmbg.delete()
         os.remove(y)
         return os.remove(photo)
-    await rmbg.edit("Reply only to a photo to Remove it's Background")
