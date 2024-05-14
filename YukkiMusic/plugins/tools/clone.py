@@ -19,6 +19,13 @@ CLONES = set()
 async def clone_txt(client, message):
     if len(message.command) > 1:
         bot_token = message.text.split("/clone", 1)[1].strip()
+        bots = clonebotdb.find()
+        bot_tokens = None
+
+        async for bot in bots:
+            bot_tokens = bot["token"]
+        if bot_tokens == bot_token:
+            return await message.reply_text("**©️ ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ ʙᴀʙʏ 🐥**")
         mi = await message.reply_text("**ᴡᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ʙᴏᴏᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ..... ❣️**")
         try:
             ai = Client(
