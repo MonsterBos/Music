@@ -4,7 +4,7 @@ import subprocess
 import logging
 
 
-def load_external_plugin(repo_url="https://github.com/Vivekkumar-IN/Externa-Plugins"):
+def load_external_plugin(repo_url="https://github.com/Vivekkumar-IN/External-Plugins"):
     destination_directory = "YukkiMusic/plugins/external"
 
     try:
