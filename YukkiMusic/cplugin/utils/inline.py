@@ -6,6 +6,7 @@ helpmenu = InlineKeyboardMarkup(
         [
             InlineKeyboardButton(text="ᴘʟᴀʏ", callback_data="clone_cb play"),
             InlineKeyboardButton(text="ᴛᴇʟᴇɢʀᴀᴘʜ", callback_data="clone_cb telegraph"),
+InlineKeyboardButton(text="ɢᴏᴏɢʟᴇ", callback_data="clone_cb google"),
         ],
         [
             InlineKeyboardButton(text="ʙᴀᴄᴋ", callback_data="clone_home"),
