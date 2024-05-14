@@ -13,7 +13,6 @@ def get_urls_from_text(text: str) -> bool:
     return [x[0] for x in findall(regex, str(text))]
 
 
-
 def extract_text_and_keyb(ikb, text: str, row_width: int = 2):
     keyboard = {}
     try:
