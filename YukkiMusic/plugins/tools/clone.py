@@ -15,7 +15,6 @@ from config import LOG_GROUP_ID
 CLONES = set()
 
 
-
 @app.on_message(filters.command("clone") & SUDOERS)
 async def clone_txt(client, message):
     if len(message.command) > 1:
@@ -56,9 +55,7 @@ async def clone_txt(client, message):
             }
             clonebotdb.insert_one(details)
             CLONES.add(bot.id)
-            await mi.edit_text(
-                f"<b>sᴜᴄᴄᴇssғᴜʟʟʏ ᴄʟᴏɴᴇᴅ ʏᴏᴜʀ ʙᴏᴛ: @{bot.username}.</b>"
-            )
+            await mi.edit_text(f"<b>sᴜᴄᴄᴇssғᴜʟʟʏ ᴄʟᴏɴᴇᴅ ʏᴏᴜʀ ʙᴏᴛ: @{bot.username}.</b>")
         except BaseException as e:
             logging.exception("Error while cloning bot.")
             await mi.edit_text(
