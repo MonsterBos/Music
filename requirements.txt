@@ -1,7 +1,6 @@
 aiofiles
 aiohttp
 asyncio
-bing_image_downloader==1.1.2
 numpy
 dnspython==2.3.0
 fuzzysearch
