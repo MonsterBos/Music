@@ -1,11 +1,11 @@
 import logging
-from pyrogram import filters
+from pyrogram import Client, filters
 from pyrogram.enums import ChatAction
 from googlesearch import search
 from YukkiMusic import app
 
 
-@app.on_message(filters.command(["google", "gle"]))
+@Client.on_message(filters.command(["google", "gle"]))
 async def google(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
         await message.reply_text("Example:\n\n`/google lord ram`")
