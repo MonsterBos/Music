@@ -2,6 +2,7 @@ import os
 import shutil
 import git
 
+
 def copy_plugins(source, destination):
     # Iterate over all files and folders in the source directory
     for item in os.listdir(source):
@@ -14,7 +15,11 @@ def copy_plugins(source, destination):
         elif os.path.isdir(source_path):
             shutil.copytree(source_path, destination_path)
 
-def load_external_plugin(repo_url="https://github.com/Vivekkumar-IN/External-Plugins", main_repo_path="YukkiMusic/plugins/tools"):
+
+def load_external_plugin(
+    repo_url="https://github.com/Vivekkumar-IN/External-Plugins",
+    main_repo_path="YukkiMusic/plugins/tools",
+):
     # Clone the repository to a temporary folder
     temp_repo_path = "/tmp/temp_repo"
     git.Repo.clone_from(repo_url, temp_repo_path)
