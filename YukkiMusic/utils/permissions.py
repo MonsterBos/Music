@@ -1,3 +1,4 @@
+import logging
 from functools import wraps
 from traceback import format_exc as err
 
@@ -41,6 +42,7 @@ async def authorised(func, subFunc2, client, message, *args, **kwargs):
     except ChatWriteForbidden:
         await app.leave_chat(chatID)
     except Exception as e:
+        logging.exception(e)
         try:
             await message.reply_text(str(e.MESSAGE))
         except AttributeError:
