@@ -8,6 +8,7 @@ gTTS
 googletrans
 googlesearch-python
 hachoir
+httpx[http2]
 heroku3
 img2pdf
 lyricsgenius
