@@ -1,7 +1,7 @@
-import subprocess
 import os
 import shutil
-
+import subprocess
+import logging
 
 def load_external_plugin(repo_url):
     destination_directory = "YukkiMusic/plugins/external"
@@ -16,4 +16,4 @@ def load_external_plugin(repo_url):
             shutil.move(src, dest)
         shutil.rmtree(repo_name)
     except Exception as e:
-        print("Error:", e)
+        logging.exception(e)
