@@ -1,352 +1,239 @@
-from re import findall
-
-from pyrogram import filters
-from pyrogram.types import (
-    CallbackQuery,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-)
-from inspect import getfullargspec
-from config import BANNED_USERS
 from YukkiMusic import app
-from YukkiMusic.utils.error import capture_err
-from YukkiMusic.utils.permissions import adminsOnly, member_permissions
-from YukkiMusic.utils.keyboard import ikb
-
-from YukkiMusic.utils.database import (
-    delete_note,
-    deleteall_notes,
-    get_note,
-    get_note_names,
-    save_note,
-)
-from YukkiMusic.utils.functions import (
-    check_format,
-    extract_text_and_keyb,
-    get_data_and_name,
-)
+from config import BOT_USERNAME
+from pyrogram import filters
+from YukkiMusic.mongo.notesdb import *
+from YukkiMusic.utils.notes_func import GetNoteMessage, exceNoteMessageSender, privateNote_and_admin_checker
+from YukkiMusic.utils.filter import user_admin, admin_filter
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup , Message , CallbackQuery
+from pyrogram.enums import ChatMemberStatus
 
 
-def extract_urls(reply_markup):
-    urls = []
-    if reply_markup.inline_keyboard:
-        buttons = reply_markup.inline_keyboard
-        for i, row in enumerate(buttons):
-            for j, button in enumerate(row):
-                if button.url:
-                    name = (
-                        "\n~\nbutton"
-                        if i * len(row) + j + 1 == 1
-                        else f"button{i * len(row) + j + 1}"
-                    )
-                    urls.append((f"{name}", button.text, button.url))
-    return urls
+@app.on_message(filters.command("save") & admin_filter)
+@user_admin
+async def _save(client, message):
+    chat_id = message.chat.id
+    chat_title = message.chat.title
+    if message.reply_to_message and not len(message.command) >= 2:
+        return await message.reply_text("you need to give the note a name!")
+
+    if not message.reply_to_message and not len(message.command) >= 3:
+        return await message.reply_text("You need to give the note some content!")
+
+    NoteName = message.command[1]
+    Content, Text, DataType = GetNoteMessage(message)
+    await SaveNote(chat_id, NoteName, Content, Text, DataType)
+
+    await message.reply_text(f"I've saved note `{NoteName}` in {chat_title}.")
 
 
-async def eor(msg: Message, **kwargs):
-    func = (
-        (msg.edit_text if msg.from_user.is_self else msg.reply)
-        if msg.from_user
-        else msg.reply
-    )
-    spec = getfullargspec(func.__wrapped__).args
-    return await func(**{k: v for k, v in kwargs.items() if k in spec})
 
 
-@app.on_message(filters.command("save") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
-async def save_notee(_, message):
-    try:
-        if len(message.command) < 2:
-            await eor(
-                message,
-                text="**Usage:**\nReply to a message with /save [NOTE_NAME] to save a new note.",
+@app.on_message(filters.command("get") & admin_filter)
+async def _getnote(client, message):
+    chat_id = message.chat.id
+    if not len(message.command) >= 2:
+        return await message.reply_text("You need to give the note a name!")  
+    note_name = message.command[1]
+    if not await isNoteExist(chat_id, note_name):
+         return await message.reply_text("Note not found")
+    await send_note(message, note_name)
+
+
+@app.on_message(filters.regex(pattern=(r"^#[^\s]+")) & filters.group)
+async def regex_get_note(client, message):
+    chat_id = message.chat.id
+    if message.from_user:
+        note_name = message.text.split()[0].replace('#', '')
+        if await isNoteExist(chat_id, note_name):
+            await send_note(message, note_name)
+
+
+PRIVATE_NOTES_TRUE = ['on', 'true', 'yes', 'y']
+PRIVATE_NOTES_FALSE = ['off', 'false', 'no', 'n']
+
+@app.on_message(filters.command("privatenotes") & filters.group)
+@user_admin
+async def PrivateNote(client, message):
+    chat_id = message.chat.id
+    if len(message.command) >= 2:
+        if (
+            message.command[1] in PRIVATE_NOTES_TRUE
+        ):
+            await set_private_note(chat_id, True)
+            await message.reply(
+                "Now i will send a message to your chat with a button redirecting to PM, where the user will receive the note.",
+                quote=True
+            )
+
+        elif (
+            message.command[1] in PRIVATE_NOTES_FALSE
+        ):
+            await set_private_note(chat_id, False)
+            await message.reply(
+                "I will now send notes straight to the group.",
+                quote=True
+            )  
+        else:
+            await message.reply(
+                f"failed to get boolean value from input:\n\n expected one of y/yes/on/true or n/no/off/false; got: {message.command[1]}",
+                quote=True
+            )
+    else:
+        if await is_pnote_on(chat_id):
+            await message.reply(
+                "Your notes are currently being sent in private. DAXXMUSIC will send a small note with a button which redirects to a private chat.",
+                quote=True
             )
         else:
-            replied_message = message.reply_to_message
-            if not replied_message:
-                replied_message = message
-            data, name = await get_data_and_name(replied_message, message)
-            if data == "error":
-                return await message.reply_text(
-                    "**Usage:**\n__/save [NOTE_NAME] [CONTENT]__\n`-----------OR-----------`\nReply to a message with.\n/save [NOTE_NAME]"
-                )
-            if replied_message.text:
-                _type = "text"
-                file_id = None
-            if replied_message.sticker:
-                _type = "sticker"
-                file_id = replied_message.sticker.file_id
-            if replied_message.animation:
-                _type = "animation"
-                file_id = replied_message.animation.file_id
-            if replied_message.photo:
-                _type = "photo"
-                file_id = replied_message.photo.file_id
-            if replied_message.document:
-                _type = "document"
-                file_id = replied_message.document.file_id
-            if replied_message.video:
-                _type = "video"
-                file_id = replied_message.video.file_id
-            if replied_message.video_note:
-                _type = "video_note"
-                file_id = replied_message.video_note.file_id
-            if replied_message.audio:
-                _type = "audio"
-                file_id = replied_message.audio.file_id
-            if replied_message.voice:
-                _type = "voice"
-                file_id = replied_message.voice.file_id
-            if replied_message.reply_markup and not findall(r"\[.+\,.+\]", data):
-                urls = extract_urls(replied_message.reply_markup)
-                if urls:
-                    response = "\n".join(
-                        [f"{name}=[{text}, {url}]" for name, text, url in urls]
-                    )
-                    data = data + response
-            if data:
-                data = await check_format(ikb, data)
-                if not data:
-                    return await message.reply_text(
-                        "**Wrong formatting, check the help section.**"
-                    )
-            note = {
-                "type": _type,
-                "data": data,
-                "file_id": file_id,
-            }
-            chat_id = message.chat.id
-            await save_note(chat_id, name, note)
-            await eor(message, text=f"__**Saved note {name}.**__")
-    except UnboundLocalError:
-        return await message.reply_text(
-            "**Replied message is inaccessible.\n`Forward the message and try again`**"
-        )
-
-
-@app.on_message(filters.command("notes") & filters.group & ~BANNED_USERS)
-@capture_err
-async def get_notes(_, message):
-    chat_id = message.chat.id
-
-    _notes = await get_note_names(chat_id)
-
-    if not _notes:
-        return await eor(message, text="**No notes in this chat.**")
-    _notes.sort()
-    msg = f"List of notes in {message.chat.title}\n"
-    for note in _notes:
-        msg += f"**-** `{note}`\n"
-    await eor(message, text=msg)
-
-
-@app.on_message(filters.command("get") & filters.group & ~BANNED_USERS)
-@capture_err
-async def get_one_note(_, message):
-    if len(message.text.split()) < 2:
-        return await eor(message, text="Invalid arguments")
-    from_user = message.from_user if message.from_user else message.sender_chat
-    chat_id = message.chat.id
-    name = message.text.split(None, 1)[1]
-    if not name:
-        return
-    _note = await get_note(chat_id, name)
-    if not _note:
-        return
-    type = _note["type"]
-    data = _note["data"]
-    file_id = _note.get("file_id")
-    keyb = None
-    if data:
-        if "{chat}" in data:
-            data = data.replace("{chat}", message.chat.title)
-        if "{name}" in data:
-            data = data.replace(
-                "{name}", (from_user.mention if message.from_user else from_user.title)
+            await message.reply(
+                "Your notes are currently being sent in the group.",
+                quote=True
             )
-        if findall(r"\[.+\,.+\]", data):
-            keyboard = extract_text_and_keyb(ikb, data)
-            if keyboard:
-                data, keyb = keyboard
-    replied_message = message.reply_to_message
-    if replied_message:
-        replied_user = (
-            replied_message.from_user
-            if replied_message.from_user
-            else replied_message.sender_chat
+
+@app.on_message(filters.command("clear") & admin_filter)
+@user_admin
+async def Clear_Note(client, message):
+    chat_id = message.chat.id 
+    if not (
+        len(message.command) >= 2
+    ):
+        await message.reply(
+            "You need to give the note a name!",
+            quote=True
         )
-        if replied_user.id != from_user.id:
-            message = replied_message
-    await get_reply(message, type, file_id, data, keyb)
-
-
-@app.on_message(filters.regex(r"^#.+") & filters.text & filters.group & ~BANNED_USERS)
-@capture_err
-async def get_one_note(_, message):
-    from_user = message.from_user if message.from_user else message.sender_chat
-    chat_id = message.chat.id
-    name = message.text.replace("#", "", 1)
-    if not name:
         return
-    _note = await get_note(chat_id, name)
-    if not _note:
-        return
-    type = _note["type"]
-    data = _note["data"]
-    file_id = _note.get("file_id")
-    keyb = None
-    if data:
-        if "{chat}" in data:
-            data = data.replace("{chat}", message.chat.title)
-        if "{name}" in data:
-            data = data.replace(
-                "{name}", (from_user.mention if message.from_user else from_user.title)
-            )
-        if findall(r"\[.+\,.+\]", data):
-            keyboard = extract_text_and_keyb(ikb, data)
-            if keyboard:
-                data, keyb = keyboard
-    replied_message = message.reply_to_message
-    if replied_message:
-        replied_user = (
-            replied_message.from_user
-            if replied_message.from_user
-            else replied_message.sender_chat
-        )
-        if replied_user.id != from_user.id:
-            message = replied_message
-    await get_reply(message, type, file_id, data, keyb)
 
+    note_name = message.command[1].lower()
 
-async def get_reply(message, type, file_id, data, keyb):
-    if type == "text":
-        await message.reply_text(
-            text=data,
-            reply_markup=keyb,
-            disable_web_page_preview=True,
+    if await isNoteExist(chat_id, note_name):
+        await ClearNote(chat_id, note_name)
+
+        await message.reply(
+            f"I've removed the note `{note_name}`!.",
+            quote=True
         )
-    if type == "sticker":
-        await message.reply_sticker(
-            sticker=file_id,
-        )
-    if type == "animation":
-        await message.reply_animation(
-            animation=file_id,
-            caption=data,
-            reply_markup=keyb,
-        )
-    if type == "photo":
-        await message.reply_photo(
-            photo=file_id,
-            caption=data,
-            reply_markup=keyb,
-        )
-    if type == "document":
-        await message.reply_document(
-            document=file_id,
-            caption=data,
-            reply_markup=keyb,
-        )
-    if type == "video":
-        await message.reply_video(
-            video=file_id,
-            caption=data,
-            reply_markup=keyb,
-        )
-    if type == "video_note":
-        await message.reply_video_note(
-            video_note=file_id,
-        )
-    if type == "audio":
-        await message.reply_audio(
-            audio=file_id,
-            caption=data,
-            reply_markup=keyb,
-        )
-    if type == "voice":
-        await message.reply_voice(
-            voice=file_id,
-            caption=data,
-            reply_markup=keyb,
+    else:
+        await message.reply(
+            "You haven't saved a note with this name yet!",
+            quote=True
         )
 
 
-@app.on_message(filters.command("delete") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
-async def del_note(_, message):
-    if len(message.command) < 2:
-        return await eor(message, text="**Usage**\n__/delete [NOTE_NAME]__")
-    name = message.text.split(None, 1)[1].strip()
-    if not name:
-        return await eor(message, text="**Usage**\n__/delete [NOTE_NAME]__")
+@app.on_message(filters.command("clearall") & admin_filter)
+async def ClearAll_Note(client, message):
+    owner_id = message.from_user.id
+    chat_id = message.chat.id 
+    chat_title = message.chat.title
+    user = await client.get_chat_member(chat_id,owner_id)
+    if not user.status == ChatMemberStatus.OWNER :
+        return await message.reply_text("Only Owner Can Use This!!") 
+
+    note_list = await NoteList(chat_id)
+    if note_list == 0:
+        await message.reply(
+            f"No notes in {chat_title}",
+            quote=True
+        )
+    keyboard = InlineKeyboardMarkup(
+        [[
+            InlineKeyboardButton(text='Delete all notes', callback_data=f'clearallnotes_clear_{owner_id}_{chat_id}')
+        ],
+        [
+            InlineKeyboardButton(text='Cancel', callback_data=f'clearallnotes_cancel_{owner_id}')
+        ]]
+    )
+    await message.reply(
+        f"Are you sure you want to clear **ALL** notes in {chat_title}? This action is irreversible.",
+        reply_markup=keyboard,
+        quote=True
+    )
+
+@app.on_callback_query(filters.regex("^clearallnotes_"))
+async def ClearAllCallback(client, callback_query: CallbackQuery):
+    query_data = callback_query.data.split('_')[1]
+    owner_id = int(callback_query.data.split('_')[2])
+    user_id = callback_query.from_user.id 
+
+    if owner_id == user_id:
+        if query_data == 'clear':
+            chat_id = int(callback_query.data.split('_')[3])
+            await ClearAllNotes(chat_id)
+            await callback_query.edit_message_text("Deleted all chat notes.") 
+            return
+
+        elif query_data == 'cancel':
+            await callback_query.edit_message_text("Cancelled.")
+    else:
+        await callback_query.answer("Only admins can execute this command!")
+
+@app.on_message(filters.command(['notes', 'saved']) & filters.group)
+async def Notes(client, message):
 
     chat_id = message.chat.id
+    chat_title = message.chat.title
 
-    deleted = await delete_note(chat_id, name)
-    if deleted:
-        await eor(message, text=f"**Deleted note {name} successfully.**")
+    Notes_list = await NoteList(chat_id)
+
+    NoteHeader = f"List of notes  in {chat_title}:\n"
+    if (
+        len(Notes_list) != 0
+    ): 
+        for notes in Notes_list:
+            NoteName = f" • `#{notes}`\n"
+            NoteHeader += NoteName
+        await message.reply(
+            (
+                f"{NoteHeader}\n"
+                "You can retrieve these notes by using `/get notename`, or `#notename`"
+            ),
+            quote=True
+        )
+
     else:
-        await eor(message, text="**No such note.**")
+        await message.reply(
+            f"No notes in {chat_title}.",
+            quote=True
+        )        
+
+async def send_note(message: Message, note_name: str):
+    chat_id = message.chat.id  
+    content, text, data_type = await GetNote(chat_id, note_name)
+    privateNote, allow = await privateNote_and_admin_checker(message, text)   
+    if allow:
+        if privateNote == None:
+            if await is_pnote_on(chat_id):
+                await PrivateNoteButton(message, chat_id, note_name)
+            else:
+                await exceNoteMessageSender(message, note_name)
+
+        elif privateNote is not None:
+            if await is_pnote_on(chat_id):
+                if privateNote:
+                    await PrivateNoteButton(message, chat_id, note_name)
+                else:
+                    await exceNoteMessageSender(message, note_name)
+            else: 
+                if privateNote:
+                    await PrivateNoteButton(message, chat_id, note_name)
+                else:
+                    await exceNoteMessageSender(message, note_name)
 
 
-@app.on_message(filters.command("deleteall") & filters.group & ~BANNED_USERS)
-@adminsOnly("can_change_info")
-async def delete_all(_, message):
-    _notes = await get_note_names(message.chat.id)
-    if not _notes:
-        return await message.reply_text("**No notes in this chat.**")
-    else:
-        keyboard = InlineKeyboardMarkup(
+
+async def note_redirect(message):
+    chat_id = int(message.command[1].split('_')[1])
+    note_name = message.command[1].split('_')[2]
+    await exceNoteMessageSender(message, note_name, from_chat_id=chat_id)
+
+async def PrivateNoteButton(message, chat_id, NoteName):
+    PrivateNoteButton = InlineKeyboardMarkup(
+        [
             [
-                [
-                    InlineKeyboardButton("YES, DO IT", callback_data="delete_yes"),
-                    InlineKeyboardButton("Cancel", callback_data="delete_no"),
-                ]
+                InlineKeyboardButton(text='Click me!', url=f'http://t.me/{BOT_USERNAME}?start=note_{chat_id}_{NoteName}')
             ]
-        )
-        await message.reply_text(
-            "**Are you sure you want to delete all the notes in this chat forever ?.**",
-            reply_markup=keyboard,
-        )
-
-
-@app.on_callback_query(filters.regex("delete_(.*)"))
-async def delete_all_cb(_, cb):
-    chat_id = cb.message.chat.id
-    from_user = cb.from_user
-    permissions = await member_permissions(chat_id, from_user.id)
-    permission = "can_change_info"
-    if permission not in permissions:
-        return await cb.answer(
-            f"You don't have the required permission.\n Permission: {permission}",
-            show_alert=True,
-        )
-    input = cb.data.split("_", 1)[1]
-    if input == "yes":
-        stoped_all = await deleteall_notes(chat_id)
-        if stoped_all:
-            return await cb.message.edit(
-                "**Successfully deleted all notes on this chat.**"
-            )
-    if input == "no":
-        await cb.message.reply_to_message.delete()
-        await cb.message.delete()
-
-
-__HELP__ = """/notes To Get All The Notes In The Chat.
-
-/save [NOTE_NAME] To Save A Note.
-
-Supported note types are Text, Animation, Photo, Document, Video, video notes, Audio, Voice.
-
-To change caption of any files use.\n/save [NOTE_NAME] [NEW_CAPTION].
-
-#NOTE_NAME To Get A Note.
-
-/delete [NOTE_NAME] To Delete A Note.
-/deleteall To delete all the notes in a chat (permanently).
-
-Checkout /markdownhelp to know more about formattings and other syntax.
-"""
+        ]
+    )
+    await message.reply(
+        text=f"Tap here to view '{NoteName}' in your private chat.",
+        reply_markup=PrivateNoteButton
+    )
