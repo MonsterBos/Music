@@ -15,84 +15,59 @@ from config import LOG_GROUP_ID
 CLONES = set()
 
 
-@app.on_message(filters.command("clone") & filters.private & SUDOERS)
+
+@app.on_message(filters.command("clone") & SUDOERS)
 async def clone_txt(client, message):
-    await message.reply_text(
-        f"<b>ʜᴇʟʟᴏ {message.from_user.mention} 👋 </b>\n\n1) sᴇɴᴅ <code>/newbot</code> ᴛᴏ @BotFather\n2) ɢɪᴠᴇ ᴀ ɴᴀᴍᴇ ꜰᴏʀ ʏᴏᴜʀ ʙᴏᴛ.\n3) ɢɪᴠᴇ ᴀ ᴜɴɪǫᴜᴇ ᴜsᴇʀɴᴀᴍᴇ.\n4) ᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴀ ᴍᴇssᴀɢᴇ ᴡɪᴛʜ ʏᴏᴜʀ ʙᴏᴛ ᴛᴏᴋᴇɴ.\n5) ꜰᴏʀᴡᴀʀᴅ ᴛʜᴀᴛ ᴍᴇssᴀɢᴇ ᴛᴏ ᴍᴇ.\n\nᴛʜᴇɴ ɪ ᴀᴍ ᴛʀʏ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀ ᴄᴏᴘʏ ʙᴏᴛ ᴏғ ᴍᴇ ғᴏʀ ʏᴏᴜ ᴏɴʟʏ 😌"
-    )
-
-
-@app.on_message(
-    (filters.regex(r"\d[0-9]{8,10}:[0-9A-Za-z_-]{35}")) & filters.private & SUDOERS
-)
-async def on_clone(client, message):
-    global CLONES
-    try:
-        user_id = message.from_user.id
-        bot_token = re.findall(
-            r"\d[0-9]{8,10}:[0-9A-Za-z_-]{35}", message.text, re.IGNORECASE
-        )
-        bot_token = bot_token[0] if bot_token else None
-        bot_id = re.findall(r"\d[0-9]{8,10}", message.text)
-        bots = clonebotdb.find()
-        bot_tokens = None
-
-        async for bot in bots:
-            bot_tokens = bot["token"]
-
-        forward_from_id = message.forward_from.id if message.forward_from else None
-        if bot_tokens == bot_token:
-            await message.reply_text("**©️ ᴛʜɪs ʙᴏᴛ ɪs ᴀʟʀᴇᴀᴅʏ ᴄʟᴏɴᴇᴅ ʙᴀʙʏ 🐥**")
-            return
-
-        if not forward_from_id != 93372553:
-            msg = await message.reply_text(
-                "**ᴡᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ʙᴏᴏᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ..... ❣️**"
+    if len(message.command) > 1:
+        bot_token = message.text.split("/clone", 1)[1].strip()
+        mi = await message.reply_text("**ᴡᴀɪᴛ ᴀ ᴍɪɴᴜᴛᴇ ɪ ᴀᴍ ʙᴏᴏᴛɪɴɢ ʏᴏᴜʀ ʙᴏᴛ..... ❣️**")
+        try:
+            ai = Client(
+                bot_token,
+                API_ID,
+                API_HASH,
+                bot_token=bot_token,
+                plugins=dict(root="YukkiMusic.cplugin"),
             )
-            try:
-                ai = Client(
-                    f"{bot_token}",
-                    API_ID,
-                    API_HASH,
-                    bot_token=bot_token,
-                    plugins=dict(root="YukkiMusic.cplugin"),
-                )
+            await ai.start()
+            bot = await ai.get_me()
+            bot_id = bot.id
 
-                await ai.start()
-                bot = await ai.get_me()
-                if bot.id not in CLONES:
-                    try:
-                        CLONES.add(bot.id)
-                    except Exception:
-                        pass
-                userbot = await get_assistant(LOG_GROUP_ID)
-                try:
-                    await userbot.send_message(
-                        LOG_GROUP_ID, f"Bot @{bot.username} has been restarted."
-                    )
-                except Exception:
-                    pass
-                except Exception as e:
-                    print("An error occurred:", e)
-                details = {
-                    "bot_id": bot.id,
-                    "is_bot": True,
-                    "user_id": user_id,
-                    "name": bot.first_name,
-                    "token": bot_token,
-                    "username": bot.username,
-                }
-                clonebotdb.insert_one(details)
-                await msg.edit_text(
-                    f"<b>sᴜᴄᴄᴇssғᴜʟʟʏ ᴄʟᴏɴᴇᴅ ʏᴏᴜʀ ʙᴏᴛ: @{bot.username}.</b>"
-                )
-            except BaseException as e:
-                logging.exception("Error while cloning bot.")
-                await msg.edit_text(
-                    f"⚠️ <b>ᴇʀʀᴏʀ:</b>\n\n<code>{e}</code>\n\n**ᴋɪɴᴅʟʏ ғᴏᴡᴀʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ @vk_zone ᴛᴏ ɢᴇᴛ ᴀssɪsᴛᴀɴᴄᴇ**"
-                )
-    except Exception as e:
-        logging.exception("Error while handling message.")
+        except (AccessTokenExpired, AccessTokenInvalid):
+            await mi.edit_text(
+                "You have provided an invalid bot token. Please provide a valid bot token."
+            )
+            return
+        except Exception as e:
+            await mi.edit_text(f"An error occurred: {str(e)}")
+            return
+        try:
+
+            await app.send_message(
+                LOG_GROUP_ID, f"**#New_Clones**\n\n**Bot:- @{bot.username}**"
+            )
+            details = {
+                "bot_id": bot.id,
+                "is_bot": True,
+                "user_id": message.from_user.id,
+                "name": bot.first_name,
+                "token": bot_token,
+                "username": bot.username,
+            }
+            clonebotdb.insert_one(details)
+            CLONES.add(bot.id)
+            await mi.edit_text(
+                f"<b>sᴜᴄᴄᴇssғᴜʟʟʏ ᴄʟᴏɴᴇᴅ ʏᴏᴜʀ ʙᴏᴛ: @{bot.username}.</b>"
+            )
+        except BaseException as e:
+            logging.exception("Error while cloning bot.")
+            await mi.edit_text(
+                f"⚠️ <b>ᴇʀʀᴏʀ:</b>\n\n<code>{e}</code>\n\n**ᴋɪɴᴅʟʏ ғᴏᴡᴀʀᴅ ᴛʜɪs ᴍᴇssᴀɢᴇ ᴛᴏ @vk_zone ᴛᴏ ɢᴇᴛ ᴀssɪsᴛᴀɴᴄᴇ**"
+            )
+    else:
+        await message.reply_text(
+            "<b>ʜᴇʟʟᴏ {message.from_user.mention} 👋 </b>\n\n1) sᴇɴᴅ <code>/newbot</code> ᴛᴏ @BotFather\n2) ɢɪᴠᴇ ᴀ ɴᴀᴍᴇ ꜰᴏʀ ʏᴏᴜʀ ʙᴏᴛ.\n3) ɢɪᴠᴇ ᴀ ᴜɴɪǫᴜᴇ ᴜsᴇʀɴᴀᴍᴇ.\n4) ᴛʜᴇɴ ʏᴏᴜ ᴡɪʟʟ ɢᴇᴛ ᴀ ᴍᴇssᴀɢᴇ ᴡɪᴛʜ ʏᴏᴜʀ ʙᴏᴛ ᴛᴏᴋᴇɴ.\n5) ꜰᴏʀᴡᴀʀᴅ ᴛʜᴀᴛ ᴍᴇssᴀɢᴇ ᴛᴏ ᴍᴇ.\n\nᴛʜᴇɴ ɪ ᴀᴍ ᴛʀʏ ᴛᴏ ᴄʀᴇᴀᴛᴇ ᴀ ᴄᴏᴘʏ ʙᴏᴛ ᴏғ ᴍᴇ ғᴏʀ ʏᴏᴜ ᴏɴʟʏ 😌"
+        )
 
 
 @app.on_message(filters.command(["deletecloned", "delcloned"]) & filters.private)
