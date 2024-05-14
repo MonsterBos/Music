@@ -3,6 +3,7 @@ import shutil
 import subprocess
 import logging
 
+
 def load_external_plugin(repo_url):
     destination_directory = "YukkiMusic/plugins/external"
 
