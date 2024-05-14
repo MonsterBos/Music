@@ -2,12 +2,13 @@ import subprocess
 import os
 import shutil
 
+
 def load_external_plugin(repo_url):
     destination_directory = "YukkiMusic/plugins/tools"
-        
+
     try:
         subprocess.run(["git", "clone", repo_url])
-        repo_name = repo_url.split('/')[-1].split('.')[0]
+        repo_name = repo_url.split("/")[-1].split(".")[0]
         os.makedirs(destination_directory, exist_ok=True)
         for filename in os.listdir(repo_name):
             src = os.path.join(repo_name, filename)
