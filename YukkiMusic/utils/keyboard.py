@@ -2,6 +2,7 @@ from pykeyboard import InlineKeyboard
 from pyrogram.types import InlineKeyboardButton as Ikb
 from .functions import get_urls_from_text as is_url
 
+
 def keyboard(buttons_list, row_width: int = 2):
     buttons = InlineKeyboard(row_width=row_width)
     data = [
