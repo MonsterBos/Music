@@ -30,12 +30,12 @@ async def get_user_info(user, already=False):
     is_sudo = user_id in SUDOERS
     is_premium = user.is_premium
     body = {
-      "ɪᴅ": user_id,
-      "ᴅᴄ ɪᴅ": dc_id,
-      "ɴᴀᴍᴇ": [first_name],
-      "ᴜsᴇʀɴᴀᴍᴇ": [("@" + username) if username else "Null"],
-      "ᴍᴇɴᴛɪᴏɴ": [mention],
-      "ᴘʀᴇɪᴍɪᴜᴍ": is_premium,
+        "ɪᴅ": user_id,
+        "ᴅᴄ ɪᴅ": dc_id,
+        "ɴᴀᴍᴇ": [first_name],
+        "ᴜsᴇʀɴᴀᴍᴇ": [("@" + username) if username else "Null"],
+        "ᴍᴇɴᴛɪᴏɴ": [mention],
+        "ᴘʀᴇɪᴍɪᴜᴍ": is_premium,
     }
     caption = section("ᴜsᴇʀ ɪɴғᴏ", body)
     return [caption, photo_id]
