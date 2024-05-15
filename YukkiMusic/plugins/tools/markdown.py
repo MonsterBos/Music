@@ -4,7 +4,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from YukkiMusic import app
 
-from YukkiMusic.utils.function import MARKDOWN
+from YukkiMusic.utils.functions import MARKDOWN
 
 @app.on_message(command("markdownhelp"))
 async def mkdwnhelp(_, m: Message):
