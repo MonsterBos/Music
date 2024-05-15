@@ -62,6 +62,7 @@ button2=[Github, https://github.com]
 Checkout /markdownhelp to know more about formattings and other syntax.
 """
 
+
 async def handle_new_member(member, chat):
 
     try:
@@ -78,14 +79,12 @@ async def handle_new_member(member, chat):
             return
         if member.is_bot:
             return
-        return await send_welcome_message(
-                chat, member.id
-        )
+        return await send_welcome_message(chat, member.id)
 
     except ChatAdminRequired:
         return
 
-    
+
 @app.on_chat_member_updated(filters.group, group=6)
 @capture_err
 async def welcome(_, user: ChatMemberUpdated):
@@ -204,7 +203,7 @@ async def set_welcome_func(_, message):
         )
 
 
-@app.on_message(filters.command(["delwelcome","deletewelcome"]) & ~filters.private)
+@app.on_message(filters.command(["delwelcome", "deletewelcome"]) & ~filters.private)
 @adminsOnly("can_change_info")
 async def del_welcome_func(_, message):
     chat_id = message.chat.id
@@ -220,9 +219,7 @@ async def get_welcome_func(_, message):
     if not raw_text:
         return await message.reply_text("No welcome message set.")
     if not message.from_user:
-        return await message.reply_text(
-            "You're anon, can't send welcome message."
-        )
+        return await message.reply_text("You're anon, can't send welcome message.")
 
     await send_welcome_message(chat, message.from_user.id)
 
