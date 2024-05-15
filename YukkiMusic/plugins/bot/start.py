@@ -77,7 +77,7 @@ async def start_comm(client, message: Message, _):
                 parse_mode=ParseMode.HTML,
                 disable_web_page_preview=True,
             )
-        if name == "help_greetings":
+        if name == "greetings":
             await message.reply(
                 WELCOMEHELP,
                 parse_mode=ParseMode.HTML,
