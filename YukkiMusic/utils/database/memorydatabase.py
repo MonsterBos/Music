@@ -148,7 +148,6 @@ async def save_couple(cid: int, date: str, couple: dict, img: str):
     )
 
 
-
 async def get_welcome(chat_id: int) -> (str, str, str):
     data = await welcomedb.find_one({"chat_id": chat_id})
     if not data:
@@ -175,8 +174,6 @@ async def set_welcome(chat_id: int, welcome: str, raw_text: str, file_id: str):
 
 async def del_welcome(chat_id: int):
     return await welcomedb.delete_one({"chat_id": chat_id})
-
-
 
 
 # Auto End Stream
