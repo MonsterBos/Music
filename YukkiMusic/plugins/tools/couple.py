@@ -115,8 +115,8 @@ HAA MERI JAAN
     except Exception as e:
         print(str(e))
     try:
-        os.remove()
-        os.remove()
+        os.remove(f"./downloads/pfp1.png")
+        os.remove(f"./downloads/pfp1.png")
         os.remove(f"test_{cid}.png")
     except Exception:
         pass
