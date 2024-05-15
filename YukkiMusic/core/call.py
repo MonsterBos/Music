@@ -732,27 +732,27 @@ class Call(PyTgCalls):
 
         @self.one.on_update(
             filters.chat_update(
-                GroupCallParticipant.Action.JOINED | GroupCallParticipant.Action.LEFT
+                GroupCallParticipant.Action.UPDATED
             )
         )
         @self.two.on_update(
             filters.chat_update(
-                GroupCallParticipant.Action.JOINED | GroupCallParticipant.Action.LEFT
+                GroupCallParticipant.Action.UPDATED
             )
         )
         @self.three.on_update(
             filters.chat_update(
-                GroupCallParticipant.Action.JOINED | GroupCallParticipant.Action.LEFT
+                GroupCallParticipant.Action.UPDATED
             )
         )
         @self.four.on_update(
             filters.chat_update(
-                GroupCallParticipant.Action.JOINED | GroupCallParticipant.Action.LEFT
+                GroupCallParticipant.Action.UPDATED
             )
         )
         @self.five.on_update(
             filters.chat_update(
-                GroupCallParticipant.Action.JOINED | GroupCallParticipant.Action.LEFT
+                GroupCallParticipant.Action.UPDATED
             )
         )
         async def participants_change_handler(client, update: Update):
