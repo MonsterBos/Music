@@ -42,6 +42,7 @@ from YukkiMusic.utils.inline import (
     private_panel,
     start_pannel,
 )
+from YukkiMusic.utils.function import MARKDOWN
 
 loop = asyncio.get_running_loop()
 
@@ -70,6 +71,12 @@ async def start_comm(client, message: Message, _):
         if name[0:4] == "song":
             await message.reply_text(_["song_2"])
             return
+        if name == "mkdwn_help":
+            await message.reply(
+                MARKDOWN,
+                parse_mode=ParseMode.HTML,
+                disable_web_page_preview=True,
+            )
         if name[0:3] == "sta":
             m = await message.reply_text("🔎 ғᴇᴛᴄʜɪɴɢ ʏᴏᴜʀ ᴘᴇʀsᴏɴᴀʟ sᴛᴀᴛs.!")
             stats = await get_userss(message.from_user.id)
