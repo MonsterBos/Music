@@ -10,6 +10,7 @@ from YukkiMusic import app
 from YukkiMusic.utils.database import get_couple
 from YukkiMusic.utils.database import _get_image
 
+
 def dt():
     now = datetime.now()
     dt_string = now.strftime("%d/%m/%Y %H:%M")
