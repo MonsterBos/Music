@@ -42,7 +42,7 @@ from YukkiMusic.utils.inline import (
     private_panel,
     start_pannel,
 )
-from YukkiMusic.utils.function import MARKDOWN
+from YukkiMusic.utils.functions import MARKDOWN
 
 loop = asyncio.get_running_loop()
 
