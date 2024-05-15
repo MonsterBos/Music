@@ -37,7 +37,7 @@ async def get_user_info(user, already=False):
         "ᴍᴇɴᴛɪᴏɴ": [mention],
         "ᴘʀᴇɪᴍɪᴜᴍ": is_premium,
     }
-    caption = section("  ᴜsᴇʀ ɪɴғᴏ", body)
+    caption = section("ᴜsᴇʀ ɪɴғᴏ", body)
     return [caption, photo_id]
 
 
