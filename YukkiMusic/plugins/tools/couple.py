@@ -74,8 +74,8 @@ async def ctest(_, message):
 
         img = Image.open("assets/Couple.jpg")
 
-        img1 = img1.resize((1150, 1150))
-        img2 = img2.resize((1150, 1150))
+        img1 = img1.resize((1050, 1050))
+        img2 = img2.resize((1050, 1050))
 
         mask = Image.new("L", img1.size, 0)
         draw = ImageDraw.Draw(mask)
@@ -90,8 +90,8 @@ async def ctest(_, message):
 
         draw = ImageDraw.Draw(img)
 
-        img.paste(img1, (495, 569), img1)
-        img.paste(img2, (2495, 569), img2)
+        img.paste(img1, (486, 453), img1)
+        img.paste(img2, (2770, 454), img2)
 
         img.save(f"test_{cid}.png")
 
@@ -115,8 +115,8 @@ HAA MERI JAAN
     except Exception as e:
         print(str(e))
     try:
-        os.remove(f"./downloads/pfp1.png")
-        os.remove(f"./downloads/pfp2.png")
+        os.remove()
+        os.remove()
         os.remove(f"test_{cid}.png")
     except Exception:
         pass
