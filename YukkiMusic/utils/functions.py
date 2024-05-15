@@ -4,6 +4,39 @@ from re import findall
 from re import sub as re_sub
 from pyrogram.types import Message
 
+MARKDOWN = """
+Read the below text carefully to find out how formatting works!
+
+<u>Supported Fillings:</u>
+
+<code>{name}</code> - This will mention the user with their name.
+<code>{chat}</code> - This will fill with the current chat name.
+
+NOTE: Fillings only works in greetings module.
+
+
+<u>Supported formatting:</u>
+
+<code>**Bold**</code> : This will show as <b>bold</b> text.
+<code>~~strike~~</code>: This will show as <strike>strike</strike> text.
+<code>__italic__</code>: This will show as <i>italic</i> text.
+<code>--underline--</code>: This will show as <u>underline</u> text.
+<code>`code words`</code>: This will show as <code>code</code> text.
+<code>||spoiler||</code>: This will show as <spoiler>Spoiler</spoiler> text.
+<code>[hyperlink](google.com)</code>: This will create a <a href='https://www.google.com'>hyperlink</a> text.
+<b>Note:</b> You can use both markdown & html tags.
+
+
+<u>Button formatting:</u>
+
+-> text ~ [button text, button link]
+
+
+<u>Example:</u>
+
+<b>example</b> <i>button with markdown</i> <code>formatting</code> ~ [button text, https://google.com]
+"""
+
 
 def get_urls_from_text(text: str) -> bool:
     regex = r"""(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]
