@@ -37,7 +37,7 @@ async def get_user_info(user, already=False):
         "ᴍᴇɴᴛɪᴏɴ": [mention],
         "ᴘʀᴇɪᴍɪᴜᴍ": is_premium,
     }
-    caption = section("ᴜsᴇʀ ɪɴғᴏ", body)
+    caption = section("  ᴜsᴇʀ ɪɴғᴏ", body)
     return [caption, photo_id]
 
 
@@ -80,7 +80,7 @@ async def info_func(_, message: Message):
     elif not message.reply_to_message and len(message.command) != 1:
         user = message.text.split(None, 1)[1]
 
-    m = await message.reply_text("Processing")
+    m = await message.reply_text("ᴘʀᴏᴄᴇssɪɴɢ...")
 
     try:
         info_caption, photo_id = await get_user_info(user)
