@@ -46,7 +46,7 @@ async def ctest(_, message):
         list_of_users = []
 
         async for i in app.get_chat_members(message.chat.id, limit=50):
-            if not i.user.is_bot:
+            if not i.user.is_bot and i.user.is_deleted:
                 list_of_users.append(i.user.id)
 
         c1_id = random.choice(list_of_users)
