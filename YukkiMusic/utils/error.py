@@ -4,6 +4,7 @@ from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from YukkiMusic import app
 from config import LOG_GROUP_ID
 
+
 def split_limits(text):
     if len(text) < 2048:
         return [text]
@@ -21,7 +22,6 @@ def split_limits(text):
     result.append(small_msg)
 
     return result
-
 
 
 def capture_err(func):
