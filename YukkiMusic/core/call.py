@@ -730,31 +730,11 @@ class Call(PyTgCalls):
                 return
             await self.play(client, update.chat_id)
 
-        @self.one.on_update(
-            filters.chat_update(
-                GroupCallParticipant.Action.UPDATED
-            )
-        )
-        @self.two.on_update(
-            filters.chat_update(
-                GroupCallParticipant.Action.UPDATED
-            )
-        )
-        @self.three.on_update(
-            filters.chat_update(
-                GroupCallParticipant.Action.UPDATED
-            )
-        )
-        @self.four.on_update(
-            filters.chat_update(
-                GroupCallParticipant.Action.UPDATED
-            )
-        )
-        @self.five.on_update(
-            filters.chat_update(
-                GroupCallParticipant.Action.UPDATED
-            )
-        )
+        @self.one.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.two.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.three.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.four.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.five.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
         async def participants_change_handler(client, update: Update):
             if not isinstance(
                 update, GroupCallParticipant.Action.JOINED
