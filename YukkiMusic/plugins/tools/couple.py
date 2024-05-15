@@ -7,8 +7,8 @@ from pyrogram import *
 from pyrogram.types import *
 from pyrogram.enums import *
 from YukkiMusic import app
-from YukkiMusic.utils.database import _get_image, get_couple
-
+from YukkiMusic.utils.database import get_couple
+from YukkiMusic.utils.database import _get_image
 
 def dt():
     now = datetime.now()
