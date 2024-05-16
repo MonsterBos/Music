@@ -5,13 +5,15 @@ from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 from pytgcalls.exceptions import GroupCallNotFound
 
 
-@app.on_message(filters.command(["voicechat","vcusers","vc","vcuser"]))
+@app.on_message(filters.command(["voicechat", "vcusers", "vc", "vcuser"]))
 async def get_vc_users(client, message):
     try:
         A = await message.replt_text("🔍")
         AB = await Yukki.get_participant(message.chat.id)
     except GroupCallNotFound:
-        return await A.edit("ᴍᴜsɪᴄ ɪs ɴᴏᴛ ᴘʟᴀʏɪɴɢ ʙʏ ʙᴏᴛ ᴛʜᴇʀᴇ ғᴏʀ Assɪsɪᴛᴀɴᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ ɢᴇᴛ ᴠᴏɪᴄᴇᴄʜᴀᴛ ᴜsᴇʀ's ʟɪsᴛ")
+        return await A.edit(
+            "ᴍᴜsɪᴄ ɪs ɴᴏᴛ ᴘʟᴀʏɪɴɢ ʙʏ ʙᴏᴛ ᴛʜᴇʀᴇ ғᴏʀ Assɪsɪᴛᴀɴᴛ ɪs ᴜɴᴀʙʟᴇ ᴛᴏ ɢᴇᴛ ᴠᴏɪᴄᴇᴄʜᴀᴛ ᴜsᴇʀ's ʟɪsᴛ"
+        )
     users_info = "ᴜsᴇʀs ɪɴ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ"
     for participant in AB:
         user_id = participant.user_id
