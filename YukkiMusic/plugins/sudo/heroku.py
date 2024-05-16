@@ -78,7 +78,7 @@ async def log_(client, message, _):
                 link = await Yukkibin(data)
                 return await message.reply_text(link)
             else:
-                return await message.reply_text(_["heroku_2"])
+                return await message.reply_document(config.LOG_FILE_NAME)
     except Exception as e:
         print(e)
         await message.reply_text(_["heroku_2"])
