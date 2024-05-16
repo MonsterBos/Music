@@ -11,7 +11,7 @@ from YukkiMusic import app
 
 @app.on_message(
     filters.command(
-        ["couples", "couple", "couples@CuteXMusicBot"],
+        ["couples", "couple"],
         prefixes=["/", "!", "%", ",", "", ".", "@", "#"],
     )
 )
