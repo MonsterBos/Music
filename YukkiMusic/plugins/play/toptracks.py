@@ -20,6 +20,7 @@ from pyrogram.errors import (
 )
 from pyrogram.enums import ChatMemberStatus
 from YukkiMusic.utils.database import get_assistant
+from YukkiMusic.utils.exceptions import AssistantErr
 
 from config import BANNED_USERS
 from YukkiMusic import app
