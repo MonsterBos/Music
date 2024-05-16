@@ -40,8 +40,8 @@ async def handle_bad_words(client, message):
         if bot.can_delete_messages and not bot.can_restrict_members:
             await message.delete()
             await message.reply_text(
-        f"User {message.from_user.mention} has sent **{censored_text}**. i have deleted the bad word but Please give me permission to restrict members in order to automatically mute users who send bad words for 5 minutes."
-    )
+                f"User {message.from_user.mention} has sent **{censored_text}**. i have deleted the bad word but Please give me permission to restrict members in order to automatically mute users who send bad words for 5 minutes."
+            )
         elif bot.can_restrict_members and not bot.can_delete_messages:
             mute_time = datetime.datetime.now() + datetime.timedelta(minutes=5)
             await app.restrict_chat_member(
@@ -51,12 +51,12 @@ async def handle_bad_words(client, message):
                 message.chat.id,
                 f"{message.from_user.mention} used a bad word: **{censored_text}**, so they are muted for 5 minutes but i have no permission to delete message so give me delete message permission in order to delete bad word automatically",
             )
-        elif bot.can_restrict_members and  bot.can_delete_messages:
+        elif bot.can_restrict_members and bot.can_delete_messages:
             await message.delete()
             mute_time = datetime.datetime.now() + datetime.timedelta(minutes=5)
             await app.restrict_chat_member(
                 chat_id, user_id, ChatPermissions(), until_date=mute_time
-    )
+            )
             SH = await app.send_message(
                 message.chat.id,
                 f"{message.from_user.mention} used a bad word: **{censored_text}**, so they are muted for 5 minutes",
