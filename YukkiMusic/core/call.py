@@ -335,13 +335,9 @@ class Call(PyTgCalls):
                     stream,
                 )
             except Exception as e:
-                if "phone.CreateGroupCall" in str(e):
-                    return await msg.edit_text(
-                    "**» ɴᴏ ᴀᴄᴛɪᴠᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ ғᴏᴜɴᴅ.**\n\nᴩʟᴇᴀsᴇ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ᴠɪᴅᴇᴏᴄʜᴀᴛ."
-                )
-                else:
-                    logging.exception(e)
-                    raise AssistantErr(f"Exception : {e}")
+                
+                logging.exception(e)
+                raise AssistantErr(f"Exception : {e}")
 
 
                 )
