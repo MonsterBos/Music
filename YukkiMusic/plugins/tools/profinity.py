@@ -1,4 +1,4 @@
-'''from pyrogram import Client, filters
+"""from pyrogram import Client, filters
 from profanity_check import predict, predict_prob
 from YukkiMusic import app
 
@@ -10,4 +10,4 @@ async def check_for_profanity(client, message):
         await message.reply("Please refrain from using profanity.")
     else:
         pass
-'''
+"""
