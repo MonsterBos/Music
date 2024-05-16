@@ -32,7 +32,7 @@ async def handle_bad_words(client, message):
             for admin in admins:
                 if admin.user.is_bot or admin.user.is_deleted:
                     continue
-            B += f"[\u2063](tg://user?id={admin.user.id})"
+                B += f"[\u2063](tg://user?id={admin.user.id})"
             if bot.can_restrict_members:
                 mute_time = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 await app.restrict_chat_member(
