@@ -27,7 +27,7 @@ async def handle_bad_words(client, message):
         ]:
             return
 
-        bot = await app.get_chat_member(message.chat.id, app.id).privileges
+        bot = app.get_chat_member(message.chat.id, app.id).privileges
         if bot == None:
             return
 
