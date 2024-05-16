@@ -74,7 +74,7 @@ async def couples(app, message):
         draw = ImageDraw.Draw(img)
 
         img.paste(img1, (125, 196), img1)
-        img.paste(img2, (2780, 196), img2)
+        img.paste(img2, (780, 196), img2)
 
         img.save(f"test_{cid}.png")
 
