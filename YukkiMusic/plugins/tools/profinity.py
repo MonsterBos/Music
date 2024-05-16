@@ -64,7 +64,9 @@ async def handle_bad_words(client, message):
             await asyncio.sleep(300)
             await SH.delete()
         elif not bot.can_restrict_members and not bot.can_delete_messages:
-            await message.reply_text(f"User {message.from_user.mention} has sent **{censored_text}**. the bad word but Please give me permission to restrict members in order to automatically mute users who send bad words for 5 minutes. and delete message permission to delete bad message automatically")
+            await message.reply_text(
+                f"User {message.from_user.mention} has sent **{censored_text}**. the bad word but Please give me permission to restrict members in order to automatically mute users who send bad words for 5 minutes. and delete message permission to delete bad message automatically"
+            )
 
     except Exception as e:
         logging.exception(e)
