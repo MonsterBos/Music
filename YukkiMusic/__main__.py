@@ -55,12 +55,12 @@ async def init():
     except:
         pass
     await app.start()
+    await userbot.start()
     # load_external_plugin()
     for all_module in ALL_MODULES:
         importlib.import_module("YukkiMusic.plugins" + all_module)
     LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
     await restart_bots()
-    await userbot.start()
     await Yukki.start()
     try:
         await Yukki.stream_call(
