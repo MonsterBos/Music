@@ -46,12 +46,12 @@ async def handle_bad_words(client, message):
                 )
                 SH = await app.send_message(
                     message.chat.id,
-                    f"{message.from_user.mention} used a bad word: **{censored_text}**, so they are muted for 5 minutes {mentioned_admins}",
+                    f"{message.from_user.mention} used a bad word: **{censored_text}**, so they are muted for 5 minutes",
                 )
             else:
                 SH = await app.send_message(
                     message.chat.id,
-                    f"{message.from_user.mention} used a bad word: **{censored_text}**. Please give me ban power to mute users who send bad words for 5 minutes {mentioned_admins}",
+                    f"{message.from_user.mention} used a bad word: **{censored_text}**. Please give me ban power to mute users who send bad words for 5 minutes",
                 )
 
             await asyncio.sleep(300)
