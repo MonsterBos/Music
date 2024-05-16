@@ -149,7 +149,6 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         participant = await assistant.get_participants(chat_id)
         return participant
- 
 
     async def force_stop_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
