@@ -35,12 +35,13 @@ async def handle_bad_words(client, message):
                 continue
             censored_text += f"[\u2063](tg://user?id={admin.id})"
 
-
         if profanity.contains_profanity(txt):
             if bot.can_delete_messages:
                 await message.delete()
             else:
-                return await message.reply_text(f"User {message.from_user.mention} has sended **{censored_text}** bad word give me delete message permission or ban permission to delete and mute user automatically for 5 minute who send bad word")
+                return await message.reply_text(
+                    f"User {message.from_user.mention} has sended **{censored_text}** bad word give me delete message permission or ban permission to delete and mute user automatically for 5 minute who send bad word"
+                )
             if bot.can_restrict_members:
                 mute_time = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 await app.restrict_chat_member(
