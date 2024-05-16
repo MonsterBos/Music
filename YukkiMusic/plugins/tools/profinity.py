@@ -1,3 +1,4 @@
+import logging 
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from profanity import profanity
@@ -53,4 +54,5 @@ async def handle_bad_words(client, message):
             return
 
     except Exception as e:
+        logging.exception(e)
         await app.send_message(LOG_GROUP_ID, f" in profanity module {e} ")
