@@ -23,40 +23,38 @@ async def handle_bad_words(client, message):
         ):
             admins.append(admin.user)
 
-        if message.from_user.id in SUDOERS or message.from_user.id in [
-            admin.id for admin in admins
-        ]:
+        if message.from_user.id in SUDOERS or message.from_user.id in [admin.id for admin in admins]:
             return
 
-        bot = await app.get_chat_member(message.chat.id, app.id)
-        if bot.is_bot:
+        bot = await app.get_chat_member(message.chat.id, app.id). privileges
+        if bot == None:
             return
 
         if profanity.contains_profanity(txt):
             await message.delete()
             censored_text = profanity.censor(txt)
-            mentioned_admins = ""
             for admin in admins:
                 if admin.is_bot or admin.is_deleted:
                     continue
-                mentioned_admins += f"[\u2063](tg://user?id={admin.id})"
+                censored_text += f"[\u2063](tg://user?id={admin.id})"
 
             if bot.can_restrict_members:
                 mute_time = datetime.datetime.now() + datetime.timedelta(minutes=5)
                 await app.restrict_chat_member(
                     chat_id, user_id, ChatPermissions(), until_date=mute_time
                 )
-                await app.send_message(
+                SH = await app.send_message(
                     message.chat.id,
                     f"{message.from_user.mention} used a bad word: **{censored_text}**, so they are muted for 5 minutes {mentioned_admins}",
                 )
             else:
-                await app.send_message(
+                SH = await app.send_message(
                     message.chat.id,
                     f"{message.from_user.mention} used a bad word: **{censored_text}**. Please give me ban power to mute users who send bad words for 5 minutes {mentioned_admins}",
                 )
 
             await asyncio.sleep(300)
+            await SH.delete()
         else:
             return
 
