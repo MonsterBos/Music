@@ -3,7 +3,7 @@ from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from profanity import profanity
 from pyrogram import filters
-from pyrogram.enums import ChatMembersFilter
+from pyrogram.enums import ChatMembersFilter, ChatMember
 from pyrogram.errors import ChatAdminRequired
 from config import LOG_GROUP_ID
 
