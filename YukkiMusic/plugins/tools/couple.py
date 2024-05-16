@@ -50,15 +50,15 @@ async def couples(app, message):
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
         except:
-            OWNER = f"tg://openmessage?user_id=6844821478"
+            OWNER = f"tg://openmessage?user_id={OWNER_ID[0]}"
 
         img1 = Image.open(f"{p1}")
         img2 = Image.open(f"{p2}")
 
         img = Image.open("assets/Couple.png")
 
-        img1 = img1.resize((1050, 1050))
-        img2 = img2.resize((1050, 1050))
+        img1 = img1.resize((390, 390))
+        img2 = img2.resize((390, 390))
 
         mask = Image.new("L", img1.size, 0)
         draw = ImageDraw.Draw(mask)
@@ -73,8 +73,8 @@ async def couples(app, message):
 
         draw = ImageDraw.Draw(img)
 
-        img.paste(img1, (486, 453), img1)
-        img.paste(img2, (2770, 454), img2)
+        img.paste(img1, (125, 196), img1)
+        img.paste(img2, (2780, 196), img2)
 
         img.save(f"test_{cid}.png")
 
