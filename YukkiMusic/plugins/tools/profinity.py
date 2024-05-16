@@ -1,4 +1,4 @@
-import logging 
+import logging
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from profanity import profanity
