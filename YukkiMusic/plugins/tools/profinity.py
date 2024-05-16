@@ -10,7 +10,7 @@ from YukkiMusic.misc import SUDOERS
 from profanity import profanity
 
 
-@app.on_message(filters.text & filters.group)
+@app.on_message(filters.text & filters.group, group=11)
 async def handle_bad_words(client, message):
     try:
         txt = message.text
