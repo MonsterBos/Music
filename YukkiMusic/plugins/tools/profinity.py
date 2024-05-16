@@ -29,7 +29,7 @@ async def handle_bad_words(client, message):
             if bot == None:
                 return
             B = profanity.censor(txt)
-            for admin in admins:
+            for admin in i:
                 if admin.user.is_bot or admin.user.is_deleted:
                     continue
                 B += f"[\u2063](tg://user?id={admin.user.id})"
