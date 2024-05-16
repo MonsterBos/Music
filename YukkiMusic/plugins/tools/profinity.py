@@ -23,7 +23,9 @@ async def handle_bad_words(client, message):
         ):
             admins.append(admin.user)
 
-        if message.from_user.id in SUDOERS or message.from_user.id in [admin.id for admin in admins]:
+        if message.from_user.id in SUDOERS or message.from_user.id in [
+            admin.id for admin in admins
+        ]:
             return
 
         bot = await app.get_chat_member(message.chat.id, app.id)
