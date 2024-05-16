@@ -15,7 +15,7 @@ async def handle_bad_words(client, message):
     try:
         txt = message.text
         user_id = message.from_user.id
-        if not profanity.censor(txt):
+        if not profanity.contains_profanity(txt):
             return
         censored_text = profanity.censor(txt)
         bot = (await app.get_chat_member(message.chat.id, app.id)).privileges
