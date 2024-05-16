@@ -22,6 +22,6 @@ async def get_vc_users(client, message):
             users_info += f"\n[{user.first_name}](tg://user?id={user_id})"
         except PeerIdInvalid:
             users_info += f"\n[ᴜɴᴋɴᴏᴡɴ ᴜsᴇʀ](tg://user?id={user_id})"
-    if users_info == "ᴜsᴇʀs ɪɴ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ"
+    if users_info == "ᴜsᴇʀs ɪɴ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ":
         return await A.edit("🥺ɴᴏ ᴏɴᴇ ɪɴ ᴠᴄ🥺")
     await A.edit(users_info)
