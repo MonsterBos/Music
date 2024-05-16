@@ -4,6 +4,7 @@ from YukkiMusic.core.call import Yukki
 from YukkiMusic import app
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 
+
 @app.on_message(filters.command("vcuser"))
 async def get_vc_users(client, message):
     try:
