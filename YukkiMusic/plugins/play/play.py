@@ -24,7 +24,6 @@ from YukkiMusic.utils.channelplay import get_channeplayCB
 from YukkiMusic.utils.database import is_video_allowed
 from YukkiMusic.utils.decorators.language import languageCB
 from YukkiMusic.utils.decorators.play import PlayWrapper
-from YukkiMusic.utils.exceptions import AssistantErr
 from YukkiMusic.utils.formatters import formats
 from YukkiMusic.utils.inline.play import (
     livestream_markup,
