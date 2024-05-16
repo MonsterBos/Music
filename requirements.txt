@@ -17,6 +17,7 @@ motor
 pillow==9.5.0
 pyfiglet
 opencv-python-headless==4.9.0.80
+profanity
 pytz
 psutil
 pytube
