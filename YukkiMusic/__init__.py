@@ -41,6 +41,10 @@ app = YukkiBot()
 # Assistant Client
 userbot = Userbot()
 
+### Modules
+MOD_LOAD = []
+MOD_NOLOAD = []
+
 from .platforms import *
 
 YouTube = YouTubeAPI()
