@@ -2,7 +2,7 @@ import asyncio
 import random
 from pyrogram import Client, filters
 from pyrogram.enums import ChatType, ChatMemberStatus
-from pyrogram.errors import UserNotParticipant
+from pyrogram.errors import UserNotParticipant, FloodWait
 from pyrogram.types import ChatPermissions
 from YukkiMusic import app
 from YukkiMusic.utils.filter import admin_filter
@@ -24,42 +24,48 @@ async def tag_all_users(_, message):
         )
         return
     if replied:
-        SPAM_CHATS.append(message.chat.id)
-        usernum = 0
-        usertxt = ""
-        async for m in app.get_chat_members(message.chat.id):
-            if message.chat.id not in SPAM_CHATS:
-                break
-            usernum += 5
-            usertxt += f"\n⊚ [{m.user.first_name}](tg://user?id={m.user.id})\n"
-            if usernum == 1:
-                await replied.reply_text(usertxt)
-                await asyncio.sleep(2)
-                usernum = 0
-                usertxt = ""
+        try:
+            SPAM_CHATS.append(message.chat.id)
+            usernum = 0
+            usertxt = ""
+            async for m in app.get_chat_members(message.chat.id):
+                if message.chat.id not in SPAM_CHATS:
+                    break
+                usernum += 1
+                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})"
+                if usernum == 15:
+                    await replied.reply_text(usertxt)
+                    await asyncio.sleep(1)
+                    usernum = 0
+                    usertxt = ""
+
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
         try:
             SPAM_CHATS.remove(message.chat.id)
         except Exception:
             pass
     else:
-        text = message.text.split(None, 1)[1]
-
-        SPAM_CHATS.append(message.chat.id)
-        usernum = 0
-        usertxt = ""
-        async for m in app.get_chat_members(message.chat.id):
-            if message.chat.id not in SPAM_CHATS:
-                break
-            usernum += 1
-            usertxt += f"\n⊚ [{m.user.first_name}](tg://user?id={m.user.id})\n"
-            if usernum == 5:
-                await app.send_message(
-                    message.chat.id,
-                    f"{text}\n{usertxt}\n\n|| ➥ ᴏғғ ᴛᴀɢɢɪɴɢ ʙʏ » /cancel ||",
-                )
-                await asyncio.sleep(2)
-                usernum = 0
-                usertxt = ""
+        try:
+            text = message.text.split(None, 1)[1]
+            SPAM_CHATS.append(message.chat.id)
+            usernum = 0
+            usertxt = ""
+            async for m in app.get_chat_members(message.chat.id):
+                if message.chat.id not in SPAM_CHATS:
+                    break
+                usernum += 1
+                usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})"
+                if usernum == 15:
+                    await app.send_message(
+                        message.chat.id,
+                        f"{text}\n{usertxt}",
+                    )
+                    await asyncio.sleep(2)
+                    usernum = 0
+                    usertxt = ""
+        except FloodWait as e:
+            await asyncio.sleep(e.value)
         try:
             SPAM_CHATS.remove(message.chat.id)
         except Exception:
