@@ -30,7 +30,6 @@ requests
 search-engine-parser
 speedtest-cli
 secureme==0.0.4
-SafoneAPI
 spotipy
 telethon==1.33.1
 telegraph==2.2.0
