@@ -22,7 +22,7 @@ from YukkiMusic import telethn
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
-from YukkiMusic.utils import paginate_modules
+from YukkiMusic.utils.inline import paginate_modules, is_module_loaded
 
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
