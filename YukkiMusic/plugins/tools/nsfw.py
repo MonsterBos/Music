@@ -58,8 +58,8 @@ async def nsfw(_, message: Message):
 		return 
 
 	photo = await app.download_media(message.photo.file_id)
-  a = upload_file(media)[0]
-  url = "https://telegra.ph" + a
+    a = upload_file(media)[0]
+    url = "https://telegra.ph" + a
 	try:
 
     	nsfw = check_nsfw(url)
