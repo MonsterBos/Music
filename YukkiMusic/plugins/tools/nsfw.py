@@ -1,4 +1,4 @@
-import logging 
+import logging
 from os import remove
 from lexica import Client as lexi
 from telegraph import upload_file
@@ -9,23 +9,21 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.error import capture_err
 from config import adminlist
 
+
 def check_nsfw(image_url: str) -> bool:
     client = lexi()
     response = client.AntiNsfw(image_url)
-    return not response['content']['sfw']
+    return not response["content"]["sfw"]
+
 
 @app.on_message(
-    ~filters.service
-    & ~filters.private
-    & ~filters.channel
-    & filters.photo,
-    group=6
+    ~filters.service & ~filters.private & ~filters.channel & filters.photo, group=6
 )
 @capture_err
 async def nsfw(_, message: Message):
     admins = adminlist.get(message.chat.id)
     if message.from_user.id in admins or message.from_user.id in SUDOERS:
-        return 
+        return
 
     photo = await app.download_media(message.photo.file_id)
     uploaded_file = upload_file(photo)[0]
