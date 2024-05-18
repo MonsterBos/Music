@@ -9,13 +9,10 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.error import capture_err
 from config import adminlist
 
-def check_nsfw(image_url: str) -> dict:
+def check_nsfw(image_url: str) -> bool:
     client = lexi()
     response = client.AntiNsfw(image_url)
-    if response['content']['sfw'] == True:
-        return False
-    else:
-        return True       
+    return not response['content']['sfw']
 
 @app.on_message(
     ~filters.service
@@ -24,7 +21,6 @@ def check_nsfw(image_url: str) -> dict:
     & filters.photo,
     group=6
 )
-
 @capture_err
 async def nsfw(_, message: Message):
     admins = adminlist.get(message.chat.id)
@@ -32,18 +28,15 @@ async def nsfw(_, message: Message):
         return 
 
     photo = await app.download_media(message.photo.file_id)
-    a = upload_file(media)[0]
-    url = "https://telegra.ph" + a
+    uploaded_file = upload_file(photo)[0]
+    url = "https://telegra.ph" + uploaded_file
     try:
-	nsfw = check_nsfw(url)
-        if nsfw == True:
-            await message.reply_text("Nsfw detected")
-            remove(photo)
-        elif nsfw == False:
-	    await message.reply_text("safe file no nsfw detected")
-	    remove(photo)
+        nsfw = check_nsfw(url)
+        if nsfw:
+            await message.reply_text("NSFW content detected")
+        else:
+            await message.reply_text("Safe file, no NSFW content detected")
+        remove(photo)
     except Exception as e:
         remove(photo)
-        logging.execption(e)
-
-	
+        logging.exception(e)
