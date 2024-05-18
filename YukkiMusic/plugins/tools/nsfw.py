@@ -9,10 +9,10 @@ from config import adminlist
 def check_nsfw(image_url: str) -> dict:
     client = lexi()
     response = client.AntiNsfw(image_url)
-    if response['content']['sfw'] == True:
+    if response["content"]["sfw"] == True:
         return False
     else:
-        return True       
+        return True
 
 
 @app.on_message(
