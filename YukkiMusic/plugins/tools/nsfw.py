@@ -1,3 +1,7 @@
+import logging
+from os import remove
+from lexica import Client as lexi
+from telegraph import upload_file
 from pyrogram import filters
 from pyrogram.types import Message
 from YukkiMusic import app
