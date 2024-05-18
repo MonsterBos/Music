@@ -12,6 +12,7 @@ httpx[http2]
 heroku3
 img2pdf
 lyricsgenius
+lexica-api
 MukeshAPI
 motor
 pillow==9.5.0
