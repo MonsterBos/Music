@@ -37,10 +37,10 @@ async def nsfw(_, message: Message):
 	nsfw = check_nsfw(url)
         if nsfw == True:
             await message.reply_text("Nsfw detected")
-
+            remove(photo)
         elif nsfw == False:
 	    await message.reply_text("safe file no nsfw detected")
-	remove(photo)
+	    remove(photo)
     except Exception as e:
         remove(photo)
         logging.execption(e)
