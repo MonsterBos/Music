@@ -57,21 +57,11 @@ async def init():
         pass
     await app.start()
     for all_module in ALL_MODULES:
-            imported_module = importlib.import_module(
-                "YukkiMusic.plugins" + all_module
-            )
-            if (
-                hasattr(imported_module, "__MODULE__")
-                and imported_module.__MODULE__
-            ):
-                imported_module.__MODULE__ = imported_module.__MODULE__
-                if (
-                    hasattr(imported_module, "__HELP__")
-                    and imported_module.__HELP__
-                ):
-                    HELPABLE[
-                        imported_module.__MODULE__.lower()
-                    ] = imported_module
+        imported_module = importlib.import_module("YukkiMusic.plugins" + all_module)
+        if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
+            imported_module.__MODULE__ = imported_module.__MODULE__
+            if hasattr(imported_module, "__HELP__") and imported_module.__HELP__:
+                HELPABLE[imported_module.__MODULE__.lower()] = imported_module
     LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
     # await restart_bots()
     await userbot.start()
@@ -83,9 +73,8 @@ async def init():
         await telethn.disconnect()
     else:
         await telethn.run_until_disconnected()
-        
-        
-        
+
+
 async def help_parser(name, keyboard=None):
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
@@ -95,16 +84,19 @@ async def help_parser(name, keyboard=None):
 ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
 
 ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛsᴡɪᴛʜ :-  /
-""".format(first_name=name),
+""".format(
+            first_name=name
+        ),
         keyboard,
     )
-    
+
+
 @app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
-    
-    
+
+
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
     loop.run_until_complete(init())
