@@ -27,7 +27,8 @@ def check_nsfw(image_url: str) -> dict:
 
 @capture_err
 async def nsfw(_, message: Message):
-    if message.from_user.id in adminlist or message.from_user.id in SUDOERS:
+    admins = adminlist.get(message.chat.id)
+    if message.from_user.id in admins or message.from_user.id in SUDOERS:
         return 
 
     photo = await app.download_media(message.photo.file_id)
