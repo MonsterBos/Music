@@ -7,26 +7,27 @@
 # All rights reserved.
 #
 
+import sys
+import config
 import asyncio
 import importlib
-import sys
 from sys import argv
 
-from pyrogram import idle
-from pytgcalls.exceptions import NoActiveGroupCall
-
-import config
+from pyrogram import idle, filters
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import BANNED_USERS
+
 from YukkiMusic import LOGGER, app, userbot
 from YukkiMusic import telethn
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
+from YukkiMusic.utils.inline import paginate_modules
 
-# from YukkiMusic.utils.externalplugins import load_external_plugin
-from YukkiMusic.plugins.tools.clone import restart_bots
+# from YukkiMusic.plugins.tools.clone import restart_bots
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
+HELPABLE = {}
 
 
 async def init():
@@ -55,24 +56,26 @@ async def init():
     except:
         pass
     await app.start()
-    # load_external_plugin()
     for all_module in ALL_MODULES:
-        importlib.import_module("YukkiMusic.plugins" + all_module)
+            imported_module = importlib.import_module(
+                "YukkiMusic.plugins" + all_module
+            )
+            if (
+                hasattr(imported_module, "__MODULE__")
+                and imported_module.__MODULE__
+            ):
+                imported_module.__MODULE__ = imported_module.__MODULE__
+                if (
+                    hasattr(imported_module, "__HELP__")
+                    and imported_module.__HELP__
+                ):
+                    HELPABLE[
+                        imported_module.__MODULE__.lower()
+                    ] = imported_module
     LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
+    # await restart_bots()
     await userbot.start()
-    await restart_bots()
     await Yukki.start()
-    try:
-        await Yukki.stream_call(
-            "http://docs.evostream.com/sample_content/assets/sintel1m720p.mp4"
-        )
-    except NoActiveGroupCall:
-        LOGGER("YukkiMusic").error(
-            "[ERROR] - \n\nPlease turn on your Logger Group's Voice Call. Make sure you never close/end voice call in your log group"
-        )
-        sys.exit()
-    except:
-        pass
     await Yukki.decorators()
     LOGGER("YukkiMusic").info("Yukki Music Bot Started Successfully")
     await idle()
@@ -80,8 +83,28 @@ async def init():
         await telethn.disconnect()
     else:
         await telethn.run_until_disconnected()
+        
+        
+        
+async def help_parser(name, keyboard=None):
+    if not keyboard:
+        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
+    return (
+        """ʜᴇʟʟᴏ {first_name},
 
+ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
 
+ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛsᴡɪᴛʜ :-  /
+""".format(first_name=name),
+        keyboard,
+    )
+    
+@app.on_callback_query(filters.regex("shikharbro"))
+async def shikhar(_, CallbackQuery):
+    text, keyboard = await help_parser(CallbackQuery.from_user.mention)
+    await CallbackQuery.message.edit(text, reply_markup=keyboard)
+    
+    
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
     loop.run_until_complete(init())
