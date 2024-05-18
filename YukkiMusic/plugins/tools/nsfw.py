@@ -34,22 +34,15 @@ async def nsfw(_, message: Message):
     a = upload_file(media)[0]
     url = "https://telegra.ph" + a
     try:
-        nsfw = check_nsfw(url)
+	nsfw = check_nsfw(url)
+        if nsfw == True:
+            await message.reply_text("Nsfw detected")
 
-    	   if nsfw == True:
-
-	      	await message.reply_text("Nsfw detected")
-
-    	   elif nsfw == False:
-
-	       	await message.reply_text("safe file no nsfw detected")
-
-	       remove(photo)
-
-	   except Exception as e:
-
-		   remove(photo)
-
-	   	logging.execption(e)
+    	elif nsfw == False:
+	    await message.reply_text("safe file no nsfw detected")
+	remove(photo)
+    except Exception as e:
+        remove(photo)
+        logging.execption(e)
 
 	
