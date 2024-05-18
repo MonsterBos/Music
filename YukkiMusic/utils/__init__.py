@@ -15,3 +15,4 @@ from .formatters import *
 from .inline import *
 from .pastebin import *
 from .sys import *
+from .inline import *
