@@ -315,3 +315,5 @@ async def welcome(client, message: Message):
         except:
 
             return
+__MODULE__ =""
+__HELP__ = HELP_4 = """"""
