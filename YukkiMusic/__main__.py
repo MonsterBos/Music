@@ -96,6 +96,7 @@ async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
+
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 async def help_button(client, query):
     home_match = re.match(r"help_home\((.+?)\)", query.data)
@@ -113,20 +114,14 @@ async def help_button(client, query):
     if mod_match:
         module = mod_match.group(1)
         text = (
-            "{} **{}**:\n".format(
-                "Here is the help for", HELPABLE[module].__MODULE__
-            )
+            "{} **{}**:\n".format("Here is the help for", HELPABLE[module].__MODULE__)
             + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data="help_back"
-                    ),
-                    InlineKeyboardButton(
-                        text="🔄 Close", callback_data="close"
-                    ),
+                    InlineKeyboardButton(text="↪️ Back", callback_data="help_back"),
+                    InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
         )
@@ -167,9 +162,7 @@ async def help_button(client, query):
     elif back_match:
         await query.message.edit(
             text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(0, HELPABLE, "help")
-            ),
+            reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")),
             disable_web_page_preview=True,
         )
 
@@ -182,7 +175,6 @@ async def help_button(client, query):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 
 if __name__ == "__main__":
