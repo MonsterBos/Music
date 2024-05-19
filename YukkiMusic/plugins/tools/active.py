@@ -80,6 +80,7 @@ async def activevi_(_, message: Message):
             disable_web_page_preview=True,
         )
 
+
 __MODULE__ = "Acᴛɪᴠᴇᴠᴄ"
 __HELP__ = """📈<u>sᴛᴀᴛ's Cᴏᴍᴍᴀᴅ:</u>
 /activevoice - Cʜᴇᴄᴋ ᴀᴄᴛɪᴠᴇ ᴠᴏɪᴄᴇ ᴄʜᴀᴛs ᴏɴ ʙᴏᴛ.
