@@ -32,6 +32,7 @@ from YukkiMusic.utils.functions import (
     extract_text_and_keyb,
 )
 
+
 async def handle_new_member(member, chat):
 
     try:
@@ -196,6 +197,7 @@ async def get_welcome_func(_, message):
         f'Welcome: {welcome}\n\nFile_id: `{file_id}`\n\n`{raw_text.replace("`", "")}`'
     )
 
+
 __MODULE__ = "Wᴇʟᴄᴏᴍᴇ"
 __HELP__ = """
 /setwelcome - Reply this to a message containing correct
@@ -225,4 +227,3 @@ button2=[Github, https://github.com]
 
 Checkout /markdownhelp to know more about formattings and other syntax.
 """
-
