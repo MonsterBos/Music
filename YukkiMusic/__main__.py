@@ -187,6 +187,7 @@ async def help_button(client, query, _):
 
     return await client.answer_callback_query(query.id)
 
+
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
     loop.run_until_complete(init())
