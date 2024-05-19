@@ -17,7 +17,7 @@ from YukkiMusic.utils.keyboard import ikb
 
 approvaldb = mongodb.autoapprove
 
-__MODULE__ = "Autoapprove"
+__MODULE__ = "Aᴘᴘʀᴏᴠᴇ"
 __HELP__ = """
 command: /autoapprove
 
