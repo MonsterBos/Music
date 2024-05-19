@@ -98,6 +98,7 @@ async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
+
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
@@ -107,7 +108,7 @@ async def help_button(client, query, _):
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back_(\d+)", query.data)  # Updated regex
     create_match = re.match(r"help_create", query.data)
-    
+
     top_text = f"""ʜᴇʟʟᴏ {query.from_user.first_name},
 
 ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
@@ -129,11 +130,14 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-        
+
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back_{query.message.message_id}"),  # Updated callback data
+                    InlineKeyboardButton(
+                        text="↪️ Back",
+                        callback_data=f"help_back_{query.message.message_id}",
+                    ),  # Updated callback data
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -144,7 +148,7 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
-    
+
     elif home_match:
         # Send home text in a private message
         await app.send_message(
@@ -153,7 +157,7 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
-    
+
     elif prev_match:
         # Navigate to the previous page
         curr_page = int(prev_match.group(1))
@@ -168,7 +172,9 @@ async def help_button(client, query, _):
         else:
             await query.message.edit(
                 text=top_text,
-                reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")),
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(0, HELPABLE, "help")
+                ),
                 disable_web_page_preview=True,
             )
 
@@ -204,6 +210,7 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
+
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
