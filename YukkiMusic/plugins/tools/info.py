@@ -61,7 +61,7 @@ async def get_chat_info(chat):
     photo_id = chat.photo.big_file_id if chat.photo else None
     info = f"""
 ❅─────✧❅✦❅✧─────❅
-   ✦ ᴄʜᴀᴛ ɪɴғᴏ ✦
+             ✦ ᴄʜᴀᴛ ɪɴғᴏ ✦
 
 ➻ ᴄʜᴀᴛ ɪᴅ ‣ {chat.id}
 ➻ ɴᴀᴍᴇ ‣ {chat.title}
