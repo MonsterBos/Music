@@ -99,7 +99,6 @@ async def shikhar(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
-'''
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
@@ -184,7 +183,7 @@ async def help_button(client, query, _):
             disable_web_page_preview=True,
         )
 
-    return await client.answer_callback_query(query.id)'''
+    return await client.answer_callback_query(query.id)
 
 
 if __name__ == "__main__":
