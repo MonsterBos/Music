@@ -93,12 +93,12 @@ async def help_parser(name, keyboard=None):
     )
 
 
-'''@app.on_callback_query(filters.regex("shikharbro"))
+@app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
-
+'''
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
