@@ -8,13 +8,6 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.sections import section
 
-__MODULE__ = "Info"
-__HELP__ = """
-/info [USERNAME|ID] - Get info about a user.
-/chat_info [USERNAME|ID] - Get info about a chat.
-"""
-
-
 async def get_user_info(user, already=False):
     if not already:
         user = await app.get_users(user)
@@ -96,7 +89,7 @@ async def info_func(_, message: Message):
     os.remove(photo)
 
 
-@app.on_message(filters.command("chat_info"))
+@app.on_message(filters.command("chatinfo"))
 async def chat_info_func(_, message: Message):
     splited = message.text.split()
     if len(splited) == 1:
@@ -119,3 +112,9 @@ async def chat_info_func(_, message: Message):
         os.remove(photo)
     except Exception as e:
         await m.edit(e)
+
+__MODULE__ = "Iɴғᴏ"
+__HELP__ = """
+/info [ᴜsᴇʀɴᴀᴍᴇ|ɪᴅ] - ɢᴇᴛ ɪɴғᴏ ᴀʙᴏᴜᴛ ᴀ ᴜsᴇʀ
+/chatinfo [ᴜsᴇʀɴᴀᴍᴇ|ɪᴅ] - ɢᴇᴛ ɪɴғᴏ ᴀʙᴏᴜᴛ ᴀ ᴄʜᴀᴛ
+"""
