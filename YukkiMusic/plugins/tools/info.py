@@ -9,6 +9,7 @@ from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.sections import section
 from pyrogram import enums
 
+
 async def userstatus(user_id):
     try:
         user = await app.get_users(user_id)
@@ -25,8 +26,6 @@ async def userstatus(user_id):
             return "Online."
     except:
         return "**sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ !**"
-
-
 
 
 async def get_user_info(user, already=False):
