@@ -315,6 +315,8 @@ async def welcome(client, message: Message):
         except:
 
             return
+
+
 __MODULE__ = "Boᴛ"
 __HELP__ = """✅<u>Bᴏᴛ Cᴏᴍᴍᴀɴᴅs:</u>
 
