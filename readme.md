@@ -18,7 +18,7 @@
 
 
 ## 🖇 VPS Deployment
-- Get your [Necessary Variables](https://github.com/vivekkumar0708/YukkiMusicFork/blob/master/sample.env)
+- Get your [Necessary Variables](https://github.com/Vivekkumar-IN/YukkiMusic/blob/master/sample.env)
 - Upgrade and Update by :
 `sudo apt-get update && sudo apt-get upgrade -y`
 - Clone `git clone https://github.com/Vivekkumar-IN/YukkiMusic && cd YukkiMusic`
@@ -52,7 +52,7 @@ STRING_SESSION - A PYROGRAM V2 STRING SESSION
 
 Reach out to the maintainer at one of the following places:
 
-- [GitHub Issues](https://github.com/vivekkumar0708/YukkiMusicFork/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
+- [GitHub Issues](https://github.com/Vivekkumar-IN/YukkiMusic/issues/new?assignees=&labels=question&template=SUPPORT_QUESTION.md&title=support%3A+)
 - Contact  [Telegram profile](https://t.me/vivekkumar07089)
 - [Telegram Support](https://t.me/vk_zone)
 
