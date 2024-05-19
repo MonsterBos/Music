@@ -8,6 +8,7 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.sections import section
 
+
 async def get_user_info(user, already=False):
     if not already:
         user = await app.get_users(user)
@@ -112,6 +113,7 @@ async def chat_info_func(_, message: Message):
         os.remove(photo)
     except Exception as e:
         await m.edit(e)
+
 
 __MODULE__ = "Iɴғᴏ"
 __HELP__ = """
