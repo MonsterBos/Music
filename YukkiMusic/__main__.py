@@ -117,7 +117,9 @@ async def help_button(client, query, _):
     if mod_match:
         module = mod_match.group(1)
         text = (
-            "{} **{}**:\n".format("**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__)
+            "{} **{}**:\n".format(
+                "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
+            )
             + HELPABLE[module].__HELP__
         )
         try:
