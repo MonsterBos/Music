@@ -192,9 +192,7 @@ async def help_button(client, query, _):
     elif back_match:
         # Extract the previous page number from the callback data
         prev_page_message_id = int(back_match.group(1))
-        prev_page = await app.get_messages(
-            query.message.chat.id, prev_page_message_id
-        )
+        prev_page = await app.get_messages(query.message.chat.id, prev_page_message_id)
         prev_page_text = prev_page.text
         await prev_page.edit(
             text=prev_page_text,
