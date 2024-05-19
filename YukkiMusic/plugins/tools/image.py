@@ -37,6 +37,7 @@ async def pinterest(_, message):
         await msg.delete()
         return await message.reply(f"ᴇʀʀᴏʀ : {e}")
 
+
 __MODULE__ = "Iᴍᴀɢᴇ"
 __HELP__ = """/image [ǫᴜᴇʀʏ] - ᴛᴏ ɢᴇᴛ ᴛᴏᴘ 7 ɪᴍᴀɢᴇs ғʀᴏᴍ ᴘɪɴᴛᴇʀᴇsᴛ
 /cat - ɢᴇᴛ ʀᴀɴᴅᴏᴍ ᴄᴀᴛ ɪᴍᴀɢᴇs
