@@ -28,37 +28,21 @@ def first_page(_):
                 InlineKeyboardButton(text=_["H_B_12"], callback_data="music"),
             ],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_1"], callback_data="helpcallback hb1"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_9"], callback_data="helpcallback hb8"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_8"], callback_data="helpcallback hb7"
-                ),
+                InlineKeyboardButton(text=_["H_B_1"], callback_data="helpcallback hb1"),
+                InlineKeyboardButton(text=_["H_B_9"], callback_data="helpcallback hb8"),
+                InlineKeyboardButton(text=_["H_B_8"], callback_data="helpcallback hb7"),
             ],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_3"], callback_data="helpcallback hb3"
-                ),
+                InlineKeyboardButton(text=_["H_B_3"], callback_data="helpcallback hb3"),
                 InlineKeyboardButton(
                     text=_["H_B_10"], callback_data="helpcallback hb9"
                 ),
-                InlineKeyboardButton(
-                    text=_["H_B_7"], callback_data="helpcallback hb6"
-                ),
+                InlineKeyboardButton(text=_["H_B_7"], callback_data="helpcallback hb6"),
             ],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_6"], callback_data="helpcallback hb5"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_4"], callback_data="helpcallback hb4"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_2"], callback_data="helpcallback hb2"
-                ),
+                InlineKeyboardButton(text=_["H_B_6"], callback_data="helpcallback hb5"),
+                InlineKeyboardButton(text=_["H_B_4"], callback_data="helpcallback hb4"),
+                InlineKeyboardButton(text=_["H_B_2"], callback_data="helpcallback hb2"),
             ],
             [
                 InlineKeyboardButton(
@@ -103,43 +87,23 @@ def help_pannel(_, START: Union[bool, int] = None):
 
     upl = InlineKeyboardMarkup(
         [
+            [InlineKeyboardButton(text=_["H_B_12"], callback_data="helpcallback hb11")],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_12"], callback_data="helpcallback hb11"
-                )
+                InlineKeyboardButton(text=_["H_B_1"], callback_data="helpcallback hb1"),
+                InlineKeyboardButton(text=_["H_B_9"], callback_data="helpcallback hb8"),
+                InlineKeyboardButton(text=_["H_B_8"], callback_data="helpcallback hb7"),
             ],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_1"], callback_data="helpcallback hb1"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_9"], callback_data="helpcallback hb8"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_8"], callback_data="helpcallback hb7"
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    text=_["H_B_3"], callback_data="helpcallback hb3"
-                ),
+                InlineKeyboardButton(text=_["H_B_3"], callback_data="helpcallback hb3"),
                 InlineKeyboardButton(
                     text=_["H_B_10"], callback_data="helpcallback hb9"
                 ),
-                InlineKeyboardButton(
-                    text=_["H_B_7"], callback_data="helpcallback hb6"
-                ),
+                InlineKeyboardButton(text=_["H_B_7"], callback_data="helpcallback hb6"),
             ],
             [
-                InlineKeyboardButton(
-                    text=_["H_B_6"], callback_data="helpcallback hb5"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_4"], callback_data="helpcallback hb4"
-                ),
-                InlineKeyboardButton(
-                    text=_["H_B_2"], callback_data="helpcallback hb2"
-                ),
+                InlineKeyboardButton(text=_["H_B_6"], callback_data="helpcallback hb5"),
+                InlineKeyboardButton(text=_["H_B_4"], callback_data="helpcallback hb4"),
+                InlineKeyboardButton(text=_["H_B_2"], callback_data="helpcallback hb2"),
             ],
             [
                 InlineKeyboardButton(
