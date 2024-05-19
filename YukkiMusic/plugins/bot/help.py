@@ -105,7 +105,7 @@ async def yukki_pages(client, CallbackQuery, _):
         return
 
 
-@app.on_callback_query(filters.regex("help_callback") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("helpcallback") & ~BANNED_USERS)
 @languageCB
 async def helper_cb(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()
