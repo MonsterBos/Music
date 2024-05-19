@@ -56,6 +56,7 @@ async def get_user_info(user, already=False):
 
 async def get_chat_info(chat):
     chat = await app.get_chat(chat)
+    username = chat.username
     link = f"[Link](t.me/{username})" if username else "Null"
     photo_id = chat.photo.big_file_id if chat.photo else None
     info = f"""
