@@ -142,11 +142,10 @@ async def help_button(client, query, _):
             disable_web_page_preview=True,
         )
     elif home_match:
-        out = private_panel()
         await app.send_message(
             query.from_user.id,
             text=home_text_pm,
-            reply_markup=InlineKeyboardMarkup(out[1]),
+            reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
     elif prev_match:
