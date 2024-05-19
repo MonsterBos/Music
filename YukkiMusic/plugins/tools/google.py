@@ -28,3 +28,6 @@ async def google(bot, message):
     except Exception as e:
         await b.edit(e)
         logging.exception(e)
+
+__MODULE__ = "Gᴏᴏɢʟᴇ"
+__HELP__ = """/google [ǫᴜᴇʀʏ] - ᴛᴏ sᴇᴀʀᴄʜ ᴏɴ ɢᴏᴏɢʟᴇ ᴀɴᴅ ɢᴇᴛ ʀᴇsᴜʟᴛs"""
