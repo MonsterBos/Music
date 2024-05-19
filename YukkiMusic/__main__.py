@@ -93,7 +93,7 @@ async def help_parser(name, keyboard=None):
     )
 
 
-@app.on_callback_query(filters.regex("shikharbro"))
+'''@app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
@@ -183,7 +183,7 @@ async def help_button(client, query, _):
             disable_web_page_preview=True,
         )
 
-    return await client.answer_callback_query(query.id)
+    return await client.answer_callback_query(query.id)'''
 
 
 if __name__ == "__main__":
