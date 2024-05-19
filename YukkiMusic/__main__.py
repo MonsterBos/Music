@@ -136,7 +136,7 @@ async def help_button(client, query, _):
                 [
                     InlineKeyboardButton(
                         text="↪️ Back",
-                        callback_data=f"help_back_{query.message.message_id}",
+                        callback_data=f"help_back_{query.message.id}",
                     ),  # Updated callback data
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
