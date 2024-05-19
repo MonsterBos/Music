@@ -334,7 +334,7 @@ async def delete_all_cb(_, cb):
         await cb.message.reply_to_message.delete()
         await cb.message.delete()
 
-__MODULE__ = "Nᴏᴛᴇs".
+__MODULE__ = "Nᴏᴛᴇs"
 __HELP__ = """/notes To Get All The Notes In The Chat.
 
 /save [NOTE_NAME] To Save A Note.
