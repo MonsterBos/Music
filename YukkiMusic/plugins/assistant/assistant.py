@@ -130,3 +130,19 @@ async def eor(msg: Message, **kwargs):
     )
     spec = getfullargspec(func.__wrapped__).args
     return await func(**{k: v for k, v in kwargs.items() if k in spec})
+
+
+__MODULE__ = "Assɪsᴛᴀɴᴛ"
+__HELP__ """<u> ᴀssɪsᴛᴀɴᴛ's ᴄᴏᴍᴍᴀɴᴅ:</u>
+
+.setpfp - ʀᴇᴘʟʏ ɪɴ ᴘʜᴏᴛᴏ ᴛᴏ sᴇᴛ ᴀʟʟ ʙᴏᴛ ᴀssɪsᴛᴀɴᴛ ᴘʀᴏғɪʟᴇ ᴘɪᴄᴛᴜʀᴇ [ᴏɴʟʏ ᴘʜᴏᴛᴏ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+
+.setname [ᴛᴇxᴛ] - ᴛᴏ sᴇᴛ ᴀʟʟ ᴀssɪsᴛᴀɴᴛ ɴᴀᴍᴇ [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+
+.setbio [ᴛᴇxᴛ] - ᴛᴏ sᴇᴛ ᴀʟʟ ᴀssɪsᴛᴀɴᴛ ʙɪᴏ [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+
+
+.delpfp - ᴅᴇʟᴇᴛᴇ ᴀssɪsᴛᴀɴᴛs ᴘʀɪғɪʟᴇ ᴘɪᴄ [ᴏɴʟʏ ᴏɴᴇ ᴘʀᴏғɪʟᴇ ᴘɪᴄ ᴡɪʟʟ ʙᴇ ᴅᴇʟᴇᴛᴇᴅ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+
+.delallpfp - ᴅᴇʟᴇᴛᴇ ᴀssɪsᴛᴀɴᴛs ᴀʟʟ ᴘʀɪғɪʟᴇ ᴘɪᴄ [ᴏɴʟʏ ᴏɴᴇ ᴘʀᴏғɪʟᴇ ᴘɪᴄ ᴡɪʟʟ ʙᴇ ʀᴇᴍᴀɪɴ] [ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ]
+"""
