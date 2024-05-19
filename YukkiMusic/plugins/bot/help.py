@@ -114,9 +114,13 @@ async def helper_cb(client, CallbackQuery, _):
     try:
         if cb == "hb5":
             if CallbackQuery.from_user.id not in SUDOERS:
-                return await CallbackQuery.answer("ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ's", show_alert=True)
+                return await CallbackQuery.answer(
+                    "ᴏɴʟʏ ғᴏʀ sᴜᴅᴏ ᴜsᴇʀ's", show_alert=True
+                )
             else:
-                await CallbackQuery.edit_message_text(helpers.HELP_5, reply_markup=keyboard)
+                await CallbackQuery.edit_message_text(
+                    helpers.HELP_5, reply_markup=keyboard
+                )
                 return await CallbackQuery.answer()
         try:
             await CallbackQuery.answer()
@@ -140,10 +144,16 @@ async def helper_cb(client, CallbackQuery, _):
         elif cb == "hb9":
             await CallbackQuery.edit_message_text(helpers.HELP_9, reply_markup=keyboard)
         elif cb == "hb10":
-            await CallbackQuery.edit_message_text(helpers.HELP_10, reply_markup=keyboard)
+            await CallbackQuery.edit_message_text(
+                helpers.HELP_10, reply_markup=keyboard
+            )
         elif cb == "hb11":
-            await CallbackQuery.edit_message_text(helpers.HELP_11, reply_markup=keyboard)
+            await CallbackQuery.edit_message_text(
+                helpers.HELP_11, reply_markup=keyboard
+            )
         elif cb == "hb12":
-            await CallbackQuery.edit_message_text(helpers.HELP_12, reply_markup=keyboard)
+            await CallbackQuery.edit_message_text(
+                helpers.HELP_12, reply_markup=keyboard
+            )
     except Exception as e:
         logging.exception(e)
