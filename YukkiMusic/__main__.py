@@ -108,13 +108,15 @@ async def help_button(client, query, _):
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back", query.data)
     create_match = re.match(r"help_create", query.data)
+    
     top_text = f"""ʜᴇʟʟᴏ {query.from_user.first_name},
 
 ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
 
 ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛsᴡɪᴛʜ :-  /
- """
+"""
     if mod_match:
+        # Display module-specific help
         module = mod_match.group(1)
         text = (
             "{} **{}**:\n".format(
@@ -128,7 +130,7 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-
+        
         key = InlineKeyboardMarkup(
             [
                 [
@@ -143,24 +145,36 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
+    
     elif home_match:
+        # Send home text in a private message
         await app.send_message(
             query.from_user.id,
             text=home_text_pm,
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
+    
     elif prev_match:
+        # Navigate to the previous page
         curr_page = int(prev_match.group(1))
-        await query.message.edit(
-            text=top_text,
-            reply_markup=InlineKeyboardMarkup(
-                paginate_modules(curr_page - 1, HELPABLE, "help")
-            ),
-            disable_web_page_preview=True,
-        )
+        if curr_page > 0:
+            await query.message.edit(
+                text=top_text,
+                reply_markup=InlineKeyboardMarkup(
+                    paginate_modules(curr_page - 1, HELPABLE, "help")
+                ),
+                disable_web_page_preview=True,
+            )
+        else:
+            await query.message.edit(
+                text=top_text,
+                reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")),
+                disable_web_page_preview=True,
+            )
 
     elif next_match:
+        # Navigate to the next page
         next_page = int(next_match.group(1))
         await query.message.edit(
             text=top_text,
@@ -171,6 +185,7 @@ async def help_button(client, query, _):
         )
 
     elif back_match:
+        # Go back to the first page
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")),
@@ -178,6 +193,7 @@ async def help_button(client, query, _):
         )
 
     elif create_match:
+        # Custom help creation logic
         text, keyboard = await help_parser(query)
         await query.message.edit(
             text=text,
@@ -186,7 +202,6 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
