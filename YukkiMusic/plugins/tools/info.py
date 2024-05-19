@@ -7,6 +7,26 @@ from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import is_gbanned_user
 from YukkiMusic.utils.sections import section
+from pyrogram import enums
+
+async def userstatus(user_id):
+    try:
+        user = await app.get_users(user_id)
+        x = user.status
+        if x == enums.UserStatus.RECENTLY:
+            return "Recently."
+        elif x == enums.UserStatus.LAST_WEEK:
+            return "Last week."
+        elif x == enums.UserStatus.LONG_AGO:
+            return "Long time ago."
+        elif x == enums.UserStatus.OFFLINE:
+            return "Offline."
+        elif x == enums.UserStatus.ONLINE:
+            return "Online."
+    except:
+        return "**sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ !**"
+
+
 
 
 async def get_user_info(user, already=False):
@@ -35,34 +55,33 @@ async def get_user_info(user, already=False):
     return [caption, photo_id]
 
 
-async def get_chat_info(chat, already=False):
-    if not already:
-        chat = await app.get_chat(chat)
-    chat_id = chat.id
-    username = chat.username
-    title = chat.title
-    type_ = str(chat.type).split(".", 1)[1]
-    is_scam = chat.is_scam
-    description = chat.description
-    members = chat.members_count
-    is_restricted = chat.is_restricted
+async def get_chat_info(chat):
+    chat = await app.get_chat(chat)
     link = f"[Link](t.me/{username})" if username else "Null"
-    dc_id = chat.dc_id
     photo_id = chat.photo.big_file_id if chat.photo else None
-    body = {
-        "ID": chat_id,
-        "DC": dc_id,
-        "Type": type_,
-        "Name": [title],
-        "Username": [("@" + username) if username else "Null"],
-        "Mention": [link],
-        "Members": members,
-        "Scam": is_scam,
-        "Restricted": is_restricted,
-        "Description": [description],
-    }
-    caption = section("Chat info", body)
-    return [caption, photo_id]
+    info = f"""
+❅─────✧❅✦❅✧─────❅
+   ✦ ᴄʜᴀᴛ ɪɴғᴏ ✦
+
+➻ ᴄʜᴀᴛ ɪᴅ ‣ {chat.id}
+➻ ɴᴀᴍᴇ ‣ {chat.title}
+➻ ᴜsᴇʀɴᴀᴍᴇ ‣ {chat.username}
+➻ ᴅᴄ ɪᴅ ‣ {chat.dc_id}
+➻ ᴅᴇsᴄʀɪᴘᴛɪᴏɴ  ‣ {chat.description}
+➻ ᴄʜᴀᴛᴛʏᴘᴇ ‣ {chat.type}
+➻ ɪs ᴠᴇʀɪғɪᴇᴅ ‣ {chat.is_verified}
+➻ ɪs ʀᴇsᴛʀɪᴄᴛᴇᴅ ‣ {chat.is_restricted}
+➻ ɪs ᴄʀᴇᴀᴛᴏʀ ‣ {chat.is_creator}
+➻ ɪs sᴄᴀᴍ ‣ {chat.is_scam}
+➻ ɪs ғᴀᴋᴇ ‣ {chat.is_fake}
+➻ ᴍᴇᴍʙᴇʀ's ᴄᴏᴜɴᴛ ‣ {chat.members_count}
+➻ ʟɪɴᴋ ‣ {link}
+➻ ɪɴᴠɪᴛᴇʟɪɴᴋ ‣ {chat.invite_link}
+
+
+❅─────✧❅✦❅✧─────❅"""
+
+    return info, photo_id
 
 
 @app.on_message(filters.command("info"))
