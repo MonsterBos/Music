@@ -2,7 +2,6 @@ from math import ceil
 from pyrogram.types import InlineKeyboardButton
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 
-
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
         return self.text == other.text
@@ -12,7 +11,6 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
 
     def __gt__(self, other):
         return self.text > other.text
-
 
 def paginate_modules(page_n, module_dict, prefix, chat=None):
     if not chat:
@@ -38,22 +36,9 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
             ]
         )
 
-    pairs = list(zip(modules[::3], modules[1::3], modules[2::3]))
-    i = 0
-    for m in pairs:
-        for _ in m:
-            i += 1
-    if len(modules) - i == 1:
-        pairs.append((modules[-1],))
-    elif len(modules) - i == 2:
-        pairs.append(
-            (
-                modules[-2],
-                modules[-1],
-            )
-        )
+    pairs = [modules[i:i+3] for i in range(0, len(modules), 3)]
 
-    COLUMN_SIZE = 3
+    COLUMN_SIZE = 4
 
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE)
     modulo_page = page_n % max_num_pages
