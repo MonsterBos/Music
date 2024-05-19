@@ -226,7 +226,7 @@ Tᴏᴛᴀʟ ʟᴇғᴛ: `{hours}`**ʜ**  `{minutes}`**ᴍ**  [`{percentage}`**%
     return await dyno.edit(text)
 
 
-@app.on_message(filters.command(["update", "gitpull"]) & SUDOERS)
+@app.on_message(filters.command(["update", "gitpull", "up"]) & SUDOERS)
 @language
 async def update_(client, message, _):
     if await is_heroku():
