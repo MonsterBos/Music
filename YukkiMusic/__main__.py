@@ -6,7 +6,7 @@
 #
 # All rights reserved.
 #
-
+import re
 import sys
 import config
 import asyncio
@@ -15,14 +15,16 @@ from sys import argv
 
 from pyrogram import idle, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from config import BANNED_USERS
+from config import BANNED_USERS, OWNER_ID
 
 from YukkiMusic import LOGGER, app, userbot
 from YukkiMusic import telethn
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
+from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import is_module_loaded, paginate_modules
+from YukkiMusic.utils.inline import private_panel
 
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
@@ -98,7 +100,8 @@ async def shikhar(_, CallbackQuery):
 
 
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
-async def help_button(client, query):
+@LanguageStart
+async def help_button(client, query, _):
     home_match = re.match(r"help_home\((.+?)\)", query.data)
     mod_match = re.match(r"help_module\((.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -117,6 +120,13 @@ async def help_button(client, query):
             "{} **{}**:\n".format("Here is the help for", HELPABLE[module].__MODULE__)
             + HELPABLE[module].__HELP__
         )
+        try:
+            await app.resolve_peer(OWNER_ID[0])
+            OWNER = OWNER_ID[0]
+        except:
+            OWNER = None
+        out = private_panel(_, app.username, OWNER)
+
         key = InlineKeyboardMarkup(
             [
                 [
