@@ -42,7 +42,7 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
 
     pairs = [modules[i : i + 3] for i in range(0, len(modules), 3)]
 
-    COLUMN_SIZE = 5
+    COLUMN_SIZE = 3
 
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE)
     modulo_page = page_n % max_num_pages
