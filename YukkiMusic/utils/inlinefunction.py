@@ -41,7 +41,7 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
         )
 
     COLUMN_SIZE = 3  # Controls the height of the layout
-    NUM_COLUMNS = 3  # Controls the width of the layout
+    NUM_COLUMNS = 4  # Controls the width of the layout
 
     pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
 
