@@ -113,7 +113,7 @@ async def help_button(client, query, _):
 
 ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
 
-ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛs ᴡɪᴛʜ :-  /
+ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛ ᴡɪᴛʜ :-  /
 """
 
     if mod_match:
@@ -135,9 +135,7 @@ async def help_button(client, query, _):
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
-                    ),
+                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -170,7 +168,9 @@ async def help_button(client, query, _):
         )
 
     elif next_match:
-        next_page = int(next_match.group(1))
+        next_page = int(next_match.group(1)) + 1
+        max_num_pages = ceil(len(HELPABLE) / 15)  # Adjust this according to your needs
+        next_page %= max_num_pages
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
@@ -198,7 +198,6 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
