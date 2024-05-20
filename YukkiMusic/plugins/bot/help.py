@@ -81,28 +81,6 @@ async def help_com_group(client, message: Message, _):
     await message.reply_text(_["help_2"], reply_markup=InlineKeyboardMarkup(keyboard))
 
 
-@app.on_callback_query(filters.regex("yukkisecondpage") & ~BANNED_USERS)
-@languageCB
-async def yukki_pages(client, CallbackQuery, _):
-    next_page = second_page(_)
-    try:
-        await CallbackQuery.message.edit_text(_["help_1"], reply_markup=next_page)
-        return
-    except:
-        return
-
-
-@app.on_callback_query(filters.regex("yukkifirstpage") & ~BANNED_USERS)
-@languageCB
-async def yukki_pages(client, CallbackQuery, _):
-    next_page = first_page(_)
-    try:
-        await CallbackQuery.message.edit_text(_["help_1"], reply_markup=next_page)
-        return
-    except:
-        return
-
-
 @app.on_callback_query(filters.regex("helpcallback") & ~BANNED_USERS)
 @languageCB
 async def helper_cb(client, CallbackQuery, _):
