@@ -313,10 +313,10 @@ async def kang(client, message: Message):
         await message.reply_text("The sticker png dimensions are invalid.")
 
 
+__MODULE__ = "Sᴛɪᴄᴋᴇʀ"
 __HELP__ = """
-/stickerid
-    To get FileID of a Sticker.
-/getsticker
+/stickerid - Rᴇᴘʟʏ ᴛᴏ ᴀ sᴛɪᴄᴋᴇʀ ᴛᴏ ɢᴇᴛ ʜɪs ɪᴅ
+/getsticker - 
     To get sticker as a photo and document.
 /kang
     To kang a Sticker or an Image."""
