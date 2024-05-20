@@ -7,7 +7,7 @@ from YukkiMusic import app
 
 @app.on_message(filters.command(["write"]))
 async def write_text(client, message):
-    if len(message.command) < 2:
+    if len(message.command) < 2 or not message.reply_to_message:
         await message.reply_text("**Usage**:- `/write jai shree ram`")
         return
 
