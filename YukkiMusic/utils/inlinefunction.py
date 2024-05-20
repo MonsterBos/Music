@@ -3,6 +3,11 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 
 
+
+COLUMN_SIZE = 3 # Controls the height of help menu the layout
+NUM_COLUMNS = 3  # Controls the width of the help menu button layout
+
+
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
         return self.text == other.text
@@ -39,9 +44,6 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
                 for x in module_dict.values()
             ]
         )
-
-    COLUMN_SIZE = 3  # Controls the height of the layout
-    NUM_COLUMNS = 4  # Controls the width of the layout
 
     pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
 
