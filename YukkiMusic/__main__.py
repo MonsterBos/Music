@@ -205,6 +205,75 @@ async def help_button(client, query, _):
     return await client.answer_callback_query(query.id)
 
 
+import random
+import logging
+from typing import Union
+
+from pyrogram import filters, types
+from pyrogram.types import InlineKeyboardMarkup, Message
+
+from config import BANNED_USERS, PHOTO, START_IMG_URL
+from strings import get_command, get_string, helpers
+from YukkiMusic import app
+from YukkiMusic.misc import SUDOERS
+from YukkiMusic.utils.database import get_lang, is_commanddelete_on
+from YukkiMusic.utils.decorators.language import LanguageStart, languageCB
+from YukkiMusic.utils.inline.help import (
+    first_page,
+    help_back_markup,
+    private_help_panel,
+    second_page,
+)
+
+from YukkiMusic.__main__ import help_parser
+
+### Command
+HELP_COMMAND = get_command("HELP_COMMAND")
+
+
+@app.on_message(filters.command(HELP_COMMAND) & filters.private & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
+async def helper_private(
+    client: app, update: Union[types.Message, types.CallbackQuery]
+):
+    is_callback = isinstance(update, types.CallbackQuery)
+    if is_callback:
+        try:
+            await update.answer()
+        except:
+            pass
+        text, keyboard = await help_parser(update.from_user.mention)
+        chat_id = update.message.chat.id
+        language = await get_lang(chat_id)
+        _ = get_string(language)
+        await update.edit_message_text(text, reply_markup=keyboard)
+    else:
+        chat_id = update.chat.id
+        text, keyboard = await help_parser(update.from_user.mention)
+        if await is_commanddelete_on(update.chat.id):
+            try:
+                await update.delete()
+            except:
+                pass
+        language = await get_lang(chat_id)
+        _ = get_string(language)
+        if START_IMG_URL:
+            await update.reply_photo(
+                photo=START_IMG_URL,
+                caption=text,
+                reply_markup=keyboard,
+            )
+
+        else:
+            await update.reply_photo(
+                photo=random.choice(PHOTO),
+                caption=text,
+                reply_markup=keyboard,
+            )
+
+
+
+
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
     loop.run_until_complete(init())
