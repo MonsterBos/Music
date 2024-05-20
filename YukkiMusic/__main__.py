@@ -122,7 +122,9 @@ async def help_button(client, query):
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
+                    InlineKeyboardButton(
+                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
+                    ),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -183,6 +185,7 @@ async def help_button(client, query):
         )
 
     await client.answer_callback_query(query.id)
+
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
