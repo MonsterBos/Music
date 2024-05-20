@@ -107,7 +107,8 @@ def private_help_panel(_):
     return buttons
 
 help_mark =  InlineKeyboardMarkup(
-    [[InlineKeyboardButton(text="Aʟʟ ᴄᴏᴍᴍᴀɴᴅs", callback_data="shikharbro")],
+    [[InlineKeyboardButton(text="Mᴜsɪᴄ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_music")],
+     [InlineKeyboardButton(text="Aʟʟ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_all")],
 
 [InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]
 )
