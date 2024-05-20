@@ -48,6 +48,9 @@ def web_download(client, message):
         # Save the source code to a file
         with open("website.txt", "w", encoding="utf-8") as file:
             file.write(source_code)
-
-        # Reply with the file
         message.reply_document(document="website.txt", caption=f"Source code of {url}")
+
+
+__MODULE__ = "Wᴇʙᴅʟ"
+__HELP__ = """
+/webdl [ᴜʀʟ] - Tᴏ ɢᴇᴛ sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ ᴏғ ᴜʀʟ"""
