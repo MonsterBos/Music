@@ -59,7 +59,7 @@ Reach out to the maintainer at one of the following places:
 If you want to say **thank you** or/and support active development of YukkiMusicBot:
 
 - Add a [GitHub Star](https://github.com/TeamYukki/YukkiMusicBot) to the project.
-- Fork the Repo :)
+- Fork the [Repo](https://github.com/Vivekkumar-IN/YukkiMusic) :)
 - Write interesting articles about the project on [Dev.to](https://dev.to/), [Medium](https://medium.com/) or your personal blog.
 
 Together, we can make **YukkiMusicBot** better!
