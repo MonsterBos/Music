@@ -4,6 +4,7 @@ from lexica import Client as lexi
 from telegraph import upload_file
 from pyrogram import filters
 from pyrogram.types import Message
+from pyrogram.enums import ChatMembersFilter
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.error import capture_err
@@ -24,7 +25,7 @@ def check_nsfw(image_url: str) -> dict:
 )
 @capture_err
 async def nsfw(_, message: Message):
-    admins = adminlist.get(message.chat.id)
+    admins = app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS)
     if message.from_user.id in admins or message.from_user.id in SUDOERS:
         return
 
