@@ -33,6 +33,7 @@ HELPABLE = {}
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
 
+
 async def init():
     global HELPABLE
     if (
@@ -78,6 +79,7 @@ async def init():
     else:
         await telethn.run_until_disconnected()
 
+
 async def help_parser(name, keyboard=None):
     global HELPABLE
     if not keyboard:
@@ -94,10 +96,12 @@ async def help_parser(name, keyboard=None):
         keyboard,
     )
 
+
 @app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
+
 
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
@@ -199,6 +203,7 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
+
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
