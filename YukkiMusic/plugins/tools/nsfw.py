@@ -25,8 +25,11 @@ def check_nsfw(image_url: str) -> dict:
 )
 @capture_err
 async def nsfw(_, message: Message):
-    admins = await app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS)
+    admins = await app.get_chat_members(
+        message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+    )
     admins_list = [admin.user.id async for admin in admins]
+
 
 if message.from_user.id in admins_list or message.from_user.id in SUDOERS:
     return
