@@ -26,11 +26,12 @@ from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
 
+# Global variable for HELPABLE
+HELPABLE = {}
+
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
-HELPABLE = {}
-
 
 async def init():
     global HELPABLE
@@ -77,8 +78,8 @@ async def init():
     else:
         await telethn.run_until_disconnected()
 
-
 async def help_parser(name, keyboard=None):
+    global HELPABLE
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
@@ -93,16 +94,15 @@ async def help_parser(name, keyboard=None):
         keyboard,
     )
 
-
 @app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
-
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
+    global HELPABLE
     home_match = re.match(r"help_home\((.+?)\)", query.data)
     mod_match = re.match(r"help_module\((.+?),(.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -191,7 +191,7 @@ async def help_button(client, query, _):
         )
 
     elif create_match:
-        text, keyboard = await help_parser(query)
+        text, keyboard = await help_parser(query.from_user.mention)
         await query.message.edit(
             text=text,
             reply_markup=keyboard,
@@ -199,7 +199,6 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
