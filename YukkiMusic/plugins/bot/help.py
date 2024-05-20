@@ -49,7 +49,7 @@ async def helper_private(
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
         _ = get_string(language)
-        await update.edit_message_text(text, reply_markup=keyboard)
+        await update.message.edit(text, reply_markup=keyboard)
     else:
         chat_id = update.chat.id
         text, keyboard = await help_parser(update.from_user.mention)
