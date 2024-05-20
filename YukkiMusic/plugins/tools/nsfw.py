@@ -30,7 +30,6 @@ async def nsfw(_, message: Message):
     )
     admins_list = [admin.user.id async for admin in admins]
 
-
     if message.from_user.id in admins_list or message.from_user.id in SUDOERS:
         return
 
