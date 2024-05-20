@@ -99,7 +99,6 @@ async def shikhar(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
-
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
@@ -132,11 +131,13 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-        
+
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
+                    InlineKeyboardButton(
+                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
+                    ),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -147,7 +148,7 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
-    
+
     elif home_match:
         await app.send_message(
             query.from_user.id,
@@ -155,7 +156,7 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
-    
+
     elif prev_match:
         curr_page = int(prev_match.group(1))
         if curr_page < 0:
@@ -197,6 +198,7 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
+
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
