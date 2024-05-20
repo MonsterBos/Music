@@ -29,6 +29,6 @@ async def get_vc_users(client, message):
     await A.edit(users_info)
 
 
-__MODULE__ = "ᴠᴏɪᴄᴇᴄʜᴀᴛ"
+__MODULE__ = "Vᴏɪᴄᴇᴄʜᴀᴛ"
 __HELP__ = """
 /vcusers - ᴛʏᴘᴇ ᴛʜɪs ɪɴ ɢʀᴏᴜᴘ ᴀɴᴅ ɢᴇᴛ ᴛʜᴇ ʟɪsᴛ ᴏғ ᴡʜᴏ ɪs ɪɴ ᴠᴏɪᴄᴇᴄʜᴀᴛ"""
