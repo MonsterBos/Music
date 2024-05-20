@@ -25,7 +25,6 @@ from YukkiMusic.utils.inline.help import (
     first_page,
     help_back_markup,
     private_help_panel,
-    second_page,
 )
 
 
