@@ -28,7 +28,6 @@ from YukkiMusic.utils.inline.help import (
     second_page,
 )
 
-from YukkiMusic.__main__ import help_parser
 
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
@@ -45,11 +44,11 @@ async def helper_private(
             await update.answer()
         except:
             pass
-        text, keyboard = await help_parser(update.from_user.mention)
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
         _ = get_string(language)
-        await update.message.edit(text, reply_markup=keyboard)
+        keyboard = first_page(_)
+        await update.edit_message_text(_["help_1"], reply_markup=keyboard)
     else:
         chat_id = update.chat.id
         text, keyboard = await help_parser(update.from_user.mention)
@@ -60,17 +59,18 @@ async def helper_private(
                 pass
         language = await get_lang(chat_id)
         _ = get_string(language)
+        keyboard = first_page(_)
         if START_IMG_URL:
             await update.reply_photo(
                 photo=START_IMG_URL,
-                caption=text,
+                caption=_["help_1"],
                 reply_markup=keyboard,
             )
 
         else:
             await update.reply_photo(
                 photo=random.choice(PHOTO),
-                caption=text,
+                caption=_["help_1"],
                 reply_markup=keyboard,
             )
 
