@@ -23,6 +23,7 @@ async def write_text(client, message):
         chat_id=message.chat.id, photo=photo_url, caption="Here is your note"
     )
 
+
 __MODULE__ = "ᴡʀɪᴛᴇ"
 __HELP__ = """
 /write [ʏᴏᴜʀ ᴛᴇxᴛ] - Tᴏ ᴡʀɪᴛᴇ ɪɴ ᴀ ᴘᴀɢᴇ ᴏғ ɴᴏᴛᴇʙᴏᴏᴋ"""
