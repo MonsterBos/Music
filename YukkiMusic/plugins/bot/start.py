@@ -43,7 +43,7 @@ from YukkiMusic.utils.inline import (
     start_pannel,
 )
 from YukkiMusic.utils.functions import MARKDOWN, WELCOMEHELP
-
+from YukkiMusic.__main__ import help_parser
 loop = asyncio.get_running_loop()
 
 
@@ -55,17 +55,17 @@ async def start_comm(client, message: Message, _):
     if len(message.text.split()) > 1:
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
-            keyboard = help_pannel(_)
+            text, keyboard = await help_parser(CallbackQuery.from_user.mention)
             if config.START_IMG_URL:
                 return await message.reply_photo(
                     photo=config.START_IMG_URL,
-                    caption=_["help_1"],
+                    caption=text,
                     reply_markup=keyboard,
                 )
             else:
                 return await message.reply_photo(
                     photo=random.choice(PHOTO),
-                    caption=_["help_1"],
+                    caption=text,
                     reply_markup=keyboard,
                 )
         if name[0:4] == "song":
