@@ -131,13 +131,11 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-
+        
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
-                    ),
+                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -148,7 +146,7 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
-
+    
     elif home_match:
         await app.send_message(
             query.from_user.id,
@@ -156,17 +154,18 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
-
+    
     elif prev_match:
         curr_page = int(prev_match.group(1))
-        if curr_page >= 0:
-            await query.message.edit(
-                text=top_text,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(curr_page, HELPABLE, "help")
-                ),
-                disable_web_page_preview=True,
-            )
+        if curr_page < 0:
+            curr_page = max_num_pages - 1
+        await query.message.edit(
+            text=top_text,
+            reply_markup=InlineKeyboardMarkup(
+                paginate_modules(curr_page, HELPABLE, "help")
+            ),
+            disable_web_page_preview=True,
+        )
 
     elif next_match:
         next_page = int(next_match.group(1))
