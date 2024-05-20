@@ -1,5 +1,5 @@
 #
-# Copyright (C) 2021-present by TeamYukki@Github, < https://github.com/TeamYukki >.
+# Copyright (C) 2024-present by TeamYukki@Github, < https://github.com/TeamYukki >.
 #
 # This file is part of < https://github.com/TeamYukki/YukkiMusicBot > project,
 # and is released under the "GNU v3.0 License Agreement".
@@ -33,7 +33,7 @@ from YukkiMusic.__main__ import help_parser
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
 
-
+"""
 @app.on_message(filters.command(HELP_COMMAND) & filters.private & ~BANNED_USERS)
 @app.on_callback_query(filters.regex("settings_back_helper") & ~BANNED_USERS)
 async def helper_private(
@@ -73,7 +73,7 @@ async def helper_private(
                 caption=text,
                 reply_markup=keyboard,
             )
-
+"""
 
 @app.on_message(filters.command(HELP_COMMAND) & filters.group & ~BANNED_USERS)
 @LanguageStart
