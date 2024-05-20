@@ -67,6 +67,4 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
             )
         ]
 
-    return (
-        pairs if pairs else [[InlineKeyboardButton("Close", callback_data="close")]]
-    )  # Ensure at least one valid button
+    return pairs
