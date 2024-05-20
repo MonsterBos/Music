@@ -22,7 +22,7 @@ from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import get_lang, is_commanddelete_on
 from YukkiMusic.utils.decorators.language import LanguageStart, languageCB
 from YukkiMusic.utils.inline.help import (
-    first_page,
+    help_pannel,
     help_back_markup,
     private_help_panel,
     help_mark,
@@ -80,6 +80,16 @@ async def help_com_group(client, message: Message, _):
     keyboard = private_help_panel(_)
     await message.reply_text(_["help_2"], reply_markup=InlineKeyboardMarkup(keyboard))
 
+
+@app.on_callback_query(filters.regex("only_music_help") & ~BANNED_USERS)
+@languageCB
+async def yukki_pages(client, CallbackQuery, _):
+    help_pannel = help_pannel(_)
+    try:
+        await CallbackQuery.message.edit_text(_["help_1"], reply_markup=help_pannel)
+        return
+    except:
+        return
 
 @app.on_callback_query(filters.regex("helpcallback") & ~BANNED_USERS)
 @languageCB
