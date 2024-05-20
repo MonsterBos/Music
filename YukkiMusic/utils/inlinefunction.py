@@ -58,8 +58,8 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
                     ),  # Corrected callback data
                 ),
                 EqInlineKeyboardButton(
-                    "ᴄʟᴏsᴇ",
-                    callback_data="close",
+                    "Bᴀᴄᴋ",
+                    callback_data="settingsback_helper",
                 ),
                 EqInlineKeyboardButton(
                     "❯",
