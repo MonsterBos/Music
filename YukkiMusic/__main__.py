@@ -79,7 +79,7 @@ async def init():
 
 async def help_parser(name, keyboard=None):
     if not keyboard:
-        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
+        keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help",chat=6815918609))
     return (
         """ʜᴇʟʟᴏ {first_name},
 
