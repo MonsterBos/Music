@@ -1,7 +1,6 @@
 from math import ceil
-from pyrogram.types import InlineKeyboardButton
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
-
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
@@ -12,7 +11,6 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
 
     def __gt__(self, other):
         return self.text > other.text
-
 
 def paginate_modules(page_n, module_dict, prefix, chat=None):
     if not chat:
@@ -38,7 +36,7 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
             ]
         )
 
-    pairs = [modules[i : i + 3] for i in range(0, len(modules), 3)]
+    pairs = [modules[i:i+3] for i in range(0, len(modules), 3)]
 
     COLUMN_SIZE = 5
 
@@ -54,8 +52,8 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
                     callback_data="{}_prev({})".format(prefix, modulo_page),
                 ),
                 EqInlineKeyboardButton(
-                    "ʜᴏᴍᴇ",
-                    callback_data="settingsback_helper",
+                    "ᴄʟᴏsᴇ",
+                    callback_data="close",
                 ),
                 EqInlineKeyboardButton(
                     "❯",
