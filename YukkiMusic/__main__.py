@@ -100,8 +100,7 @@ async def shikhar(_, CallbackQuery):
 
 
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
-@LanguageStart
-async def help_button(client, query, _):
+async def help_button(client, query):
     home_match = re.match(r"help_home\((.+?)\)", query.data)
     mod_match = re.match(r"help_module\((.+?),(.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -119,25 +118,11 @@ async def help_button(client, query, _):
     if mod_match:
         module = mod_match.group(1)
         prev_page_num = int(mod_match.group(2))
-        text = (
-            "{} **{}**:\n".format(
-                "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
-            )
-            + HELPABLE[module].__HELP__
-        )
-        try:
-            await app.resolve_peer(OWNER_ID[0])
-            OWNER = OWNER_ID[0]
-        except:
-            OWNER = None
-        out = private_panel(_, app.username, OWNER)
-
+        text = f"**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ {HELPABLE[module].__MODULE__}**:\n{HELPABLE[module].__HELP__}"
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
-                    ),
+                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -153,12 +138,12 @@ async def help_button(client, query, _):
         await app.send_message(
             query.from_user.id,
             text=home_text_pm,
-            reply_markup=InlineKeyboardMarkup(out),
+            reply_markup=InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help")),
         )
         await query.message.delete()
 
     elif prev_match:
-        curr_page = int(prev_match.group(1))
+        curr_page = int(prev_match.group(1)) - 1
         if curr_page < 0:
             curr_page = max_num_pages - 1
         await query.message.edit(
@@ -171,8 +156,6 @@ async def help_button(client, query, _):
 
     elif next_match:
         next_page = int(next_match.group(1)) + 1
-        max_num_pages = ceil(len(HELPABLE) / 15)  # Adjust this according to your needs
-        next_page %= max_num_pages
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
@@ -199,8 +182,7 @@ async def help_button(client, query, _):
             disable_web_page_preview=True,
         )
 
-    return await client.answer_callback_query(query.id)
-
+    await client.answer_callback_query(query.id)
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
