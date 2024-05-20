@@ -3,8 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 
 
-
-COLUMN_SIZE = 3 # Controls the height of help menu the layout
+COLUMN_SIZE = 3  # Controls the height of help menu the layout
 NUM_COLUMNS = 3  # Controls the width of the help menu button layout
 
 
