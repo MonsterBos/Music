@@ -314,9 +314,9 @@ async def kang(client, message: Message):
 
 
 __HELP__ = """
-/sticker_id
+/stickerid
     To get FileID of a Sticker.
-/get_sticker
+/getsticker
     To get sticker as a photo and document.
 /kang
     To kang a Sticker or an Image."""
