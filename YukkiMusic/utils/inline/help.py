@@ -43,7 +43,7 @@ def first_page(_):
                     text=_["H_B_13"], callback_data="helpcallback hb12"
                 ),
             ],
-[InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")]
+            [InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")],
         ]
     )
     return firsts_page
