@@ -28,6 +28,7 @@ from YukkiMusic.utils.inline.help import (
     second_page,
 )
 
+from YukkiMusic.__main__ import help_parser
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
 
@@ -37,6 +38,7 @@ HELP_COMMAND = get_command("HELP_COMMAND")
 async def helper_private(
     client: app, update: Union[types.Message, types.CallbackQuery]
 ):
+    text, keyboard = await help_parser(update.from_user.mention)
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
         try:
@@ -46,11 +48,7 @@ async def helper_private(
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
         _ = get_string(language)
-        keyboard = first_page(_)
-        if update.message.photo:
-            await update.edit_message_text(_["help_1"], reply_markup=keyboard)
-        else:
-            await update.edit_message_text(_["help_1"], reply_markup=keyboard)
+        await update.edit_message_text(text, reply_markup=keyboard)
     else:
         chat_id = update.chat.id
         if await is_commanddelete_on(update.chat.id):
@@ -60,18 +58,17 @@ async def helper_private(
                 pass
         language = await get_lang(chat_id)
         _ = get_string(language)
-        keyboard = first_page(_)
         if START_IMG_URL:
             await update.reply_photo(
                 photo=START_IMG_URL,
-                caption=_["help_1"],
+                caption=text,
                 reply_markup=keyboard,
             )
 
         else:
             await update.reply_photo(
                 photo=random.choice(PHOTO),
-                caption=_["help_1"],
+                caption=text,
                 reply_markup=keyboard,
             )
 
