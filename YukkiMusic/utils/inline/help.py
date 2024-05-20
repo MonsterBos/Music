@@ -53,8 +53,7 @@ def help_pannel(_, START: Union[bool, int] = None):
     mark = [InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")]
 
     upl = InlineKeyboardMarkup(
-[
-
+        [
             [
                 InlineKeyboardButton(text=_["H_B_1"], callback_data="helpcallback hb1"),
                 InlineKeyboardButton(text=_["H_B_9"], callback_data="helpcallback hb8"),
@@ -107,9 +106,11 @@ def private_help_panel(_):
     ]
     return buttons
 
-help_mark =  InlineKeyboardMarkup(
-    [[InlineKeyboardButton(text="Mᴜsɪᴄ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_music")],
-     [InlineKeyboardButton(text="Aʟʟ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_all")],
 
-[InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]
+help_mark = InlineKeyboardMarkup(
+    [
+        [InlineKeyboardButton(text="Mᴜsɪᴄ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_music")],
+        [InlineKeyboardButton(text="Aʟʟ Cᴏᴍᴍᴀɴᴅs", callback_data="helpmark_all")],
+        [InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")],
+    ]
 )
