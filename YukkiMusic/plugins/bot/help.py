@@ -29,6 +29,7 @@ from YukkiMusic.utils.inline.help import (
 )
 
 from YukkiMusic.__main__ import help_parser
+
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
 
