@@ -23,7 +23,7 @@ from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
 from YukkiMusic.utils.decorators.language import LanguageStart
-from YukkiMusic.utils.inlinefunction import is_module_loaded, paginate_modules
+from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
 
 # from YukkiMusic.plugins.tools.clone import restart_bots
