@@ -84,9 +84,9 @@ async def help_com_group(client, message: Message, _):
 @app.on_callback_query(filters.regex("only_music_help") & ~BANNED_USERS)
 @languageCB
 async def yukki_pages(client, CallbackQuery, _):
-    help_pannel = help_pannel(_)
+    keyboard = help_pannel(_)
     try:
-        await CallbackQuery.message.edit_text(_["help_1"], reply_markup=help_pannel)
+        await CallbackQuery.message.edit_text(_["help_1"], reply_markup=keyboard)
         return
     except:
         return
