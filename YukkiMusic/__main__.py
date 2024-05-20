@@ -33,6 +33,7 @@ HELPABLE = {}
 
 
 async def init():
+    global HELPABLE
     if (
         not config.STRING1
         and not config.STRING2
