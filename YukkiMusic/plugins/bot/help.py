@@ -25,6 +25,7 @@ from YukkiMusic.utils.inline.help import (
     first_page,
     help_back_markup,
     private_help_panel,
+    help_mark,
 )
 
 
@@ -46,7 +47,7 @@ async def helper_private(
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
         _ = get_string(language)
-        keyboard = first_page(_)
+        keyboard = help_mark
         await update.edit_message_text(_["help_1"], reply_markup=keyboard)
     else:
         chat_id = update.chat.id
@@ -57,7 +58,7 @@ async def helper_private(
                 pass
         language = await get_lang(chat_id)
         _ = get_string(language)
-        keyboard = first_page(_)
+        keyboard = help_mark
         if START_IMG_URL:
             await update.reply_photo(
                 photo=START_IMG_URL,
