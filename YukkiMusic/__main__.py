@@ -7,9 +7,12 @@
 # All rights reserved.
 #
 import re
+import sys
 import config
 import asyncio
 import importlib
+from sys import argv
+
 from pyrogram import idle, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import BANNED_USERS, OWNER_ID
@@ -23,32 +26,28 @@ from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
 
-# Global dictionary to hold help modules
-HELPABLE = {}
+# from YukkiMusic.plugins.tools.clone import restart_bots
 
-# Event loop
 loop = asyncio.get_event_loop_policy().get_event_loop()
+HELPABLE = {}
 
 
 async def init():
-    global HELPABLE
-    if not (
-        config.STRING1
-        or config.STRING2
-        or config.STRING3
-        or config.STRING4
-        or config.STRING5
+    if (
+        not config.STRING1
+        and not config.STRING2
+        and not config.STRING3
+        and not config.STRING4
+        and not config.STRING5
     ):
         LOGGER("YukkiMusic").error(
             "No Assistant Clients Vars Defined!.. Exiting Process."
         )
         return
-
-    if not (config.SPOTIFY_CLIENT_ID and config.SPOTIFY_CLIENT_SECRET):
+    if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
         LOGGER("YukkiMusic").warning(
             "No Spotify Vars defined. Your bot won't be able to play spotify queries."
         )
-
     try:
         users = await get_gbanned()
         for user_id in users:
@@ -56,29 +55,22 @@ async def init():
         users = await get_banned_users()
         for user_id in users:
             BANNED_USERS.add(user_id)
-    except Exception as e:
-        LOGGER("YukkiMusic").error(f"Error fetching banned users: {e}")
-
+    except:
+        pass
     await app.start()
-
     for all_module in ALL_MODULES:
         imported_module = importlib.import_module("YukkiMusic.plugins" + all_module)
         if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
+            imported_module.__MODULE__ = imported_module.__MODULE__
             if hasattr(imported_module, "__HELP__") and imported_module.__HELP__:
                 HELPABLE[imported_module.__MODULE__.lower()] = imported_module
-                LOGGER("YukkiMusic").info(
-                    f"Loaded module: {imported_module.__MODULE__}"
-                )
-
-    LOGGER("YukkiMusic.plugins").info("Successfully Imported Modules")
-
+    LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
+    # await restart_bots()
     await userbot.start()
     await Yukki.start()
     await Yukki.decorators()
     LOGGER("YukkiMusic").info("Yukki Music Bot Started Successfully")
-
     await idle()
-
     if len(argv) not in (1, 3, 4):
         await telethn.disconnect()
     else:
@@ -86,8 +78,6 @@ async def init():
 
 
 async def help_parser(name, keyboard=None):
-    global HELPABLE
-    LOGGER("YukkiMusic").info(f"HELPABLE: {HELPABLE}")
     if not keyboard:
         keyboard = InlineKeyboardMarkup(paginate_modules(0, HELPABLE, "help"))
     return (
@@ -109,12 +99,10 @@ async def shikhar(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
+
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
-    global HELPABLE
-    LOGGER("YukkiMusic").info(f"Received query: {query.data}")
-
     home_match = re.match(r"help_home\((.+?)\)", query.data)
     mod_match = re.match(r"help_module\((.+?),(.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
@@ -144,13 +132,11 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-
+        
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
-                    ),
+                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -161,7 +147,7 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
-
+    
     elif home_match:
         await app.send_message(
             query.from_user.id,
@@ -169,7 +155,7 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
-
+    
     elif prev_match:
         curr_page = int(prev_match.group(1))
         if curr_page < 0:
@@ -203,7 +189,7 @@ async def help_button(client, query, _):
         )
 
     elif create_match:
-        text, keyboard = await help_parser(query.from_user.mention)
+        text, keyboard = await help_parser(query)
         await query.message.edit(
             text=text,
             reply_markup=keyboard,
@@ -211,7 +197,6 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
