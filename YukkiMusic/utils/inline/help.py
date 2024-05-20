@@ -49,32 +49,8 @@ def first_page(_):
     return firsts_page
 
 
-def second_page(_):
-    lower_button = [
-        InlineKeyboardButton(text="❮", callback_data="yukkifirstpage"),
-        InlineKeyboardButton(text="ʜᴏᴍᴇ", callback_data="settingsback_helper"),
-        InlineKeyboardButton(text="❯", callback_data="yukkifirstpage"),
-    ]
-
-    seconds_page = InlineKeyboardMarkup(
-        [
-            lower_button,
-        ]
-    )
-    return seconds_page
-
-
 def help_pannel(_, START: Union[bool, int] = None):
-    first = [InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")]
-
-    second = [
-        InlineKeyboardButton(
-            text=_["BACK_BUTTON"], callback_data=f"settingsback_helper"
-        ),
-        InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close"),
-    ]
-
-    mark = second if START else first
+    mark = [InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")]
 
     upl = InlineKeyboardMarkup(
         [
