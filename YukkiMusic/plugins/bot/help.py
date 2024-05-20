@@ -39,19 +39,20 @@ HELP_COMMAND = get_command("HELP_COMMAND")
 async def helper_private(
     client: app, update: Union[types.Message, types.CallbackQuery]
 ):
-    text, keyboard = await help_parser(update.from_user.mention)
     is_callback = isinstance(update, types.CallbackQuery)
     if is_callback:
         try:
             await update.answer()
         except:
             pass
+        text, keyboard = await help_parser(update.from_user.mention)
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
         _ = get_string(language)
         await update.edit_message_text(text, reply_markup=keyboard)
     else:
         chat_id = update.chat.id
+        text, keyboard = await help_parser(update.from_user.mention)
         if await is_commanddelete_on(update.chat.id):
             try:
                 await update.delete()
