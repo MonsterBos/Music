@@ -272,8 +272,6 @@ async def helper_private(
             )
 
 
-
-
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
     loop.run_until_complete(init())
