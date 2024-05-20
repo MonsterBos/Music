@@ -5,7 +5,9 @@ from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 from pytgcalls.exceptions import GroupCallNotFound
 
 
-@app.on_message(filters.command(["voicechat", "vcusers", "vc", "vcuser"]) & filters.group)
+@app.on_message(
+    filters.command(["voicechat", "vcusers", "vc", "vcuser"]) & filters.group
+)
 async def get_vc_users(client, message):
     try:
         A = await message.reply_text("🔍")
@@ -25,6 +27,7 @@ async def get_vc_users(client, message):
     if users_info == "ᴜsᴇʀs ɪɴ ᴠᴏɪᴄᴇ ᴄʜᴀᴛ":
         return await A.edit("🧐🧐ɴᴏ ᴏɴᴇ ɪɴ ᴠᴄ")
     await A.edit(users_info)
+
 
 __MODULE__ = "ᴠᴏɪᴄᴇᴄʜᴀᴛ"
 __HELP__ = """
