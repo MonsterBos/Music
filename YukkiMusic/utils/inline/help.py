@@ -16,17 +16,8 @@ from YukkiMusic import app
 
 
 def first_page(_):
-    lower_button = [
-        InlineKeyboardButton(text="❮", callback_data="yukkisecondpage"),
-        InlineKeyboardButton(text="ʜᴏᴍᴇ", callback_data="settingsback_helper"),
-        InlineKeyboardButton(text="❯", callback_data="yukkisecondpage"),
-    ]
-
     firsts_page = InlineKeyboardMarkup(
         [
-            [
-                InlineKeyboardButton(text=_["H_B_12"], callback_data="music"),
-            ],
             [
                 InlineKeyboardButton(text=_["H_B_1"], callback_data="helpcallback hb1"),
                 InlineKeyboardButton(text=_["H_B_9"], callback_data="helpcallback hb8"),
@@ -52,7 +43,7 @@ def first_page(_):
                     text=_["H_B_13"], callback_data="helpcallback hb12"
                 ),
             ],
-            lower_button,
+[InlineKeyboardButton(text=_["CLOSEMENU_BUTTON"], callback_data=f"close")]
         ]
     )
     return firsts_page
