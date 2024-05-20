@@ -103,7 +103,7 @@ async def shikhar(_, CallbackQuery):
 @LanguageStart
 async def help_button(client, query, _):
     home_match = re.match(r"help_home\((.+?)\)", query.data)
-    mod_match = re.match(r"help_module\((.+?),(.+?)\)", query.data)  # Updated regex
+    mod_match = re.match(r"help_module\((.+?),(.+?)\)", query.data)
     prev_match = re.match(r"help_prev\((.+?)\)", query.data)
     next_match = re.match(r"help_next\((.+?)\)", query.data)
     back_match = re.match(r"help_back\((\d+)\)", query.data)
@@ -118,7 +118,7 @@ async def help_button(client, query, _):
 
     if mod_match:
         module = mod_match.group(1)
-        prev_page_num = int(mod_match.group(2))  # Get the previous page number
+        prev_page_num = int(mod_match.group(2))
         text = (
             "{} **{}**:\n".format(
                 "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
@@ -131,13 +131,11 @@ async def help_button(client, query, _):
         except:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
-
+        
         key = InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton(
-                        text="↪️ Back", callback_data=f"help_back({prev_page_num})"
-                    ),  # Store the previous page number
+                    InlineKeyboardButton(text="↪️ Back", callback_data=f"help_back({prev_page_num})"),
                     InlineKeyboardButton(text="🔄 Close", callback_data="close"),
                 ],
             ]
@@ -148,7 +146,7 @@ async def help_button(client, query, _):
             reply_markup=key,
             disable_web_page_preview=True,
         )
-
+    
     elif home_match:
         await app.send_message(
             query.from_user.id,
@@ -156,22 +154,14 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(out),
         )
         await query.message.delete()
-
+    
     elif prev_match:
         curr_page = int(prev_match.group(1))
-        if curr_page > 0:
+        if curr_page >= 0:
             await query.message.edit(
                 text=top_text,
                 reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(curr_page - 1, HELPABLE, "help")
-                ),
-                disable_web_page_preview=True,
-            )
-        else:
-            await query.message.edit(
-                text=top_text,
-                reply_markup=InlineKeyboardMarkup(
-                    paginate_modules(0, HELPABLE, "help")
+                    paginate_modules(curr_page, HELPABLE, "help")
                 ),
                 disable_web_page_preview=True,
             )
@@ -181,15 +171,13 @@ async def help_button(client, query, _):
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
-                paginate_modules(next_page + 1, HELPABLE, "help")
+                paginate_modules(next_page, HELPABLE, "help")
             ),
             disable_web_page_preview=True,
         )
 
     elif back_match:
-        prev_page_num = int(
-            back_match.group(1)
-        )  # Get the previous page number from the callback data
+        prev_page_num = int(back_match.group(1))
         await query.message.edit(
             text=top_text,
             reply_markup=InlineKeyboardMarkup(
@@ -207,7 +195,6 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
-
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
