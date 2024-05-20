@@ -29,14 +29,25 @@ HELPABLE = {}
 # Event loop
 loop = asyncio.get_event_loop_policy().get_event_loop()
 
+
 async def init():
     global HELPABLE
-    if not (config.STRING1 or config.STRING2 or config.STRING3 or config.STRING4 or config.STRING5):
-        LOGGER("YukkiMusic").error("No Assistant Clients Vars Defined!.. Exiting Process.")
+    if not (
+        config.STRING1
+        or config.STRING2
+        or config.STRING3
+        or config.STRING4
+        or config.STRING5
+    ):
+        LOGGER("YukkiMusic").error(
+            "No Assistant Clients Vars Defined!.. Exiting Process."
+        )
         return
-    
+
     if not (config.SPOTIFY_CLIENT_ID and config.SPOTIFY_CLIENT_SECRET):
-        LOGGER("YukkiMusic").warning("No Spotify Vars defined. Your bot won't be able to play spotify queries.")
+        LOGGER("YukkiMusic").warning(
+            "No Spotify Vars defined. Your bot won't be able to play spotify queries."
+        )
 
     try:
         users = await get_gbanned()
@@ -49,27 +60,30 @@ async def init():
         LOGGER("YukkiMusic").error(f"Error fetching banned users: {e}")
 
     await app.start()
-    
+
     for all_module in ALL_MODULES:
         imported_module = importlib.import_module("YukkiMusic.plugins" + all_module)
         if hasattr(imported_module, "__MODULE__") and imported_module.__MODULE__:
             if hasattr(imported_module, "__HELP__") and imported_module.__HELP__:
                 HELPABLE[imported_module.__MODULE__.lower()] = imported_module
-                LOGGER("YukkiMusic").info(f"Loaded module: {imported_module.__MODULE__}")
+                LOGGER("YukkiMusic").info(
+                    f"Loaded module: {imported_module.__MODULE__}"
+                )
 
     LOGGER("YukkiMusic.plugins").info("Successfully Imported Modules")
-    
+
     await userbot.start()
     await Yukki.start()
     await Yukki.decorators()
     LOGGER("YukkiMusic").info("Yukki Music Bot Started Successfully")
-    
+
     await idle()
-    
+
     if len(argv) not in (1, 3, 4):
         await telethn.disconnect()
     else:
         await telethn.run_until_disconnected()
+
 
 async def help_parser(name, keyboard=None):
     global HELPABLE
@@ -82,14 +96,18 @@ async def help_parser(name, keyboard=None):
 ᴄʟɪᴄᴋ ᴏɴ ʙᴇʟᴏᴡ ʙᴜᴛᴛᴏɴs ғᴏʀ ᴍᴏʀᴇ ɪɴғᴏʀᴍᴀᴛɪᴏɴ.
 
 ᴀʟʟ ᴄᴏᴍᴍᴀɴᴅs sᴛᴀʀᴛs ᴡɪᴛʜ :-  /
-""".format(first_name=name),
+""".format(
+            first_name=name
+        ),
         keyboard,
     )
+
 
 @app.on_callback_query(filters.regex("shikharbro"))
 async def shikhar(_, CallbackQuery):
     text, keyboard = await help_parser(CallbackQuery.from_user.mention)
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
+
 
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
@@ -115,7 +133,9 @@ async def help_button(client, query, _):
         module = mod_match.group(1)
         prev_page_num = int(mod_match.group(2))
         text = (
-            "{} **{}**:\n".format("**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__)
+            "{} **{}**:\n".format(
+                "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
+            )
             + HELPABLE[module].__HELP__
         )
         try:
@@ -156,7 +176,9 @@ async def help_button(client, query, _):
             curr_page = max_num_pages - 1
         await query.message.edit(
             text=top_text,
-            reply_markup=InlineKeyboardMarkup(paginate_modules(curr_page, HELPABLE, "help")),
+            reply_markup=InlineKeyboardMarkup(
+                paginate_modules(curr_page, HELPABLE, "help")
+            ),
             disable_web_page_preview=True,
         )
 
@@ -164,7 +186,9 @@ async def help_button(client, query, _):
         next_page = int(next_match.group(1))
         await query.message.edit(
             text=top_text,
-            reply_markup=InlineKeyboardMarkup(paginate_modules(next_page, HELPABLE, "help")),
+            reply_markup=InlineKeyboardMarkup(
+                paginate_modules(next_page, HELPABLE, "help")
+            ),
             disable_web_page_preview=True,
         )
 
@@ -172,7 +196,9 @@ async def help_button(client, query, _):
         prev_page_num = int(back_match.group(1))
         await query.message.edit(
             text=top_text,
-            reply_markup=InlineKeyboardMarkup(paginate_modules(prev_page_num, HELPABLE, "help")),
+            reply_markup=InlineKeyboardMarkup(
+                paginate_modules(prev_page_num, HELPABLE, "help")
+            ),
             disable_web_page_preview=True,
         )
 
@@ -185,6 +211,7 @@ async def help_button(client, query, _):
         )
 
     return await client.answer_callback_query(query.id)
+
 
 if __name__ == "__main__":
     telethn.start(bot_token=config.BOT_TOKEN)
