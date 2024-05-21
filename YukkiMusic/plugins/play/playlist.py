@@ -160,7 +160,7 @@ async def play_playlist(client, CallbackQuery, _):
     try:
         try:
             get = await app.get_chat_member(
-                CallbackQuery.message.chat.id, userbot.username
+                CallbackQuery.message.chat.id, userbot.id
             )
         except ChatAdminRequired:
             return await CallbackQuery.answer(
