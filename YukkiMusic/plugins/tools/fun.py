@@ -46,7 +46,9 @@ async def dice(c, m: Message):
         value = await c.send_dice(m.chat.id, emoji="🎳", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
 
+
 bored_api_url = "https://apis.scrimba.com/bored/api/activity"
+
 
 @app.on_message(filters.command("bored", prefixes="/"))
 async def bored_command(client, message):
@@ -60,7 +62,6 @@ async def bored_command(client, message):
             await message.reply("Nᴏ ᴀᴄᴛɪᴠɪᴛʏ ғᴏᴜɴᴅ.")
     else:
         await message.reply("Fᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ ᴀᴄᴛɪᴠɪᴛʏ.")
-
 
 
 __MODULE__ = "Fᴜɴ"
