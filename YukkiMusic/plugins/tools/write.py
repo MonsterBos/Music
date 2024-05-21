@@ -4,6 +4,7 @@ from pyrogram import filters
 import requests
 from io import BytesIO
 
+
 def text_set(text):
     lines = []
     if len(text) <= 55:
@@ -15,8 +16,9 @@ def text_set(text):
                 lines.append(line)
             else:
                 k = len(line) // 55
-                lines.extend(line[((z - 1) * 55):(z * 55)] for z in range(1, k + 2))
+                lines.extend(line[((z - 1) * 55) : (z * 55)] for z in range(1, k + 2))
     return lines[:25]
+
 
 @app.on_message(filters.command(["write"]))
 async def handwrite(client, message):
@@ -59,6 +61,7 @@ async def handwrite(client, message):
     except Exception as e:
         os.remove(file)
         return await message.reply(str(e))
+
 
 __MODULE__ = "ᴡʀɪᴛᴇ"
 __HELP__ = """
