@@ -5,6 +5,7 @@ from YukkiMusic import app
 
 @app.on_message(filters.command(["dice", "ludo", "dart", "basket", "basketball"]))
 async def dice(c, m: Message):
+    command = message.text.split()[0]
 
     value = await c.send_dice(m.chat.id, reply_to_message_id=m.id)
     await value.reply_text("results is {0}".format(value.dice.value))
