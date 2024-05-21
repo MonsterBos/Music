@@ -11,4 +11,4 @@ async def dice(c, m: Message):
 @app.on_message(filters.command(["dart"]))
 async def dice(c, m: Message):
     dart = await c.send_dice(m.chat.id,emoji="🎯, reply_to_message_id=m.id)
-    await dart.reply_text("results is {0}".format(dicen.dice.value))
+    await dart.reply_text("results is {0}".format(dart.dice.value))
