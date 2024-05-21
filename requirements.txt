@@ -24,7 +24,8 @@ psutil
 pytube
 pykeyboard
 py-tgcalls==2.0.1
-pyrogram
+#pyrogram
+pyrofork
 python-dotenv
 pyyaml
 requests
