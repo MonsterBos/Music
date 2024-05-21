@@ -24,7 +24,7 @@ async def dice(c, m: Message):
         value = await c.send_dice(m.chat.id, emoji="⚽", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
         
-     elif command == "/slot" or command == "/jackpot":
+    elif command == "/slot" or command == "/jackpot":
         value = await c.send_dice(m.chat.id, emoji="🎰", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
     elif command == "/bowling":
