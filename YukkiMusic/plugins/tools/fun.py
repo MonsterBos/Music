@@ -5,7 +5,7 @@ from YukkiMusic import app
 
 @app.on_message(filters.command(["dice", "ludo", "dart", "basket", "basketball","football","slot","bowling","jackpot"]))
 async def dice(c, m: Message):
-    command = message.text.split()[0]
+    command = m.text.split()[0]
     if command == "/dice" or command == "/ludo":
     	
         value = await c.send_dice(m.chat.id, reply_to_message_id=m.id)
