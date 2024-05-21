@@ -17,8 +17,8 @@ async def dice(c, m: Message):
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
         
     if command == "/basket" or command == "/basketball":
-    basket = await c.send_dice(m.chat.id, emoji="🏀", reply_to_message_id=m.id)
-    await basket.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(basket.dice.value))
+        basket = await c.send_dice(m.chat.id, emoji="🏀", reply_to_message_id=m.id)
+        await basket.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(basket.dice.value))
     
     if command == "/football":
         value = await c.send_dice(m.chat.id, emoji="⚽", reply_to_message_id=m.id)
