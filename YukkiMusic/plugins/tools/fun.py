@@ -11,23 +11,23 @@ async def dice(c, m: Message):
         value = await c.send_dice(m.chat.id, reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
         
-    if command == "/dart":
+    elif command == "/dart":
     	
         value = await c.send_dice(m.chat.id, emoji="🎯", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
         
-    if command == "/basket" or command == "/basketball":
+    elif command == "/basket" or command == "/basketball":
         basket = await c.send_dice(m.chat.id, emoji="🏀", reply_to_message_id=m.id)
         await basket.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(basket.dice.value))
     
-    if command == "/football":
+    elif command == "/football":
         value = await c.send_dice(m.chat.id, emoji="⚽", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
         
-     if command == "/slot" or command == "/jackpot":
+     elif command == "/slot" or command == "/jackpot":
         value = await c.send_dice(m.chat.id, emoji="🎰", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
-     if command == "/bowling":
+     elif command == "/bowling":
         value = await c.send_dice(m.chat.id, emoji="🎳", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
      
