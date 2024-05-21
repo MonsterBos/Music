@@ -14,10 +14,7 @@ from config import adminlist
 def check_nsfw(image_url: str) -> dict:
     client = lexi()
     response = client.AntiNsfw(image_url)
-    if response["content"]["sfw"] == True:
-        return False
-    else:
-        return True
+    return response["content"]["sfw"]
 
 
 @app.on_message(
@@ -39,9 +36,9 @@ async def nsfw(_, message: Message):
     try:
         nsfw = check_nsfw(url)
         if nsfw == True:
-            await message.reply_text("NSFW content detected")
-        else:
             await message.reply_text("Safe file, no NSFW content detected")
+        else:
+            await message.reply_text("NSFW content detected")
         remove(photo)
     except Exception as e:
         remove(photo)
