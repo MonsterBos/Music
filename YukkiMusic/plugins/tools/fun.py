@@ -1,4 +1,4 @@
-from pyrogram import Client, filters
+"""from pyrogram import Client, filters
 from pyrogram.types import Message
 from YukkiMusic import app
 
@@ -15,3 +15,6 @@ async def dice(c, m: Message):
 
     basket = await c.send_dice(m.chat.id, emoji="🏀", reply_to_message_id=m.id)
     await basket.reply_text("results is {0}".format(basket.dice.value))
+"""
+
+__MODULE__ = "Fun"
