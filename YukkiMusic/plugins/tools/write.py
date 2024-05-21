@@ -3,7 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 from pyrogram import filters
 import requests
 from io import BytesIO
-
+from YukkiMusic import app
 
 def text_set(text):
     lines = []
