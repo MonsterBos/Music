@@ -1,6 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 from YukkiMusic import app
+import requests
 
 
 @app.on_message(
@@ -45,9 +46,26 @@ async def dice(c, m: Message):
         value = await c.send_dice(m.chat.id, emoji="🎳", reply_to_message_id=m.id)
         await value.reply_text("ʏᴏᴜʀ sᴄᴏʀᴇ ɪs {0}".format(value.dice.value))
 
+bored_api_url = "https://apis.scrimba.com/bored/api/activity"
+
+@app.on_message(filters.command("bored", prefixes="/"))
+async def bored_command(client, message):
+    response = requests.get(bored_api_url)
+    if response.status_code == 200:
+        data = response.json()
+        activity = data.get("activity")
+        if activity:
+            await message.reply(f"𝗙𝗲𝗲𝗹𝗶𝗻𝗴 𝗯𝗼𝗿𝗲𝗱? 𝗛𝗼𝘄 𝗮𝗯𝗼𝘂𝘁:\n\n {activity}")
+        else:
+            await message.reply("Nᴏ ᴀᴄᴛɪᴠɪᴛʏ ғᴏᴜɴᴅ.")
+    else:
+        await message.reply("Fᴀɪʟᴇᴅ ᴛᴏ ғᴇᴛᴄʜ ᴀᴄᴛɪᴠɪᴛʏ.")
+
+
 
 __MODULE__ = "Fᴜɴ"
 __HELP__ = """
+/bored - ɢᴇᴛᴛɪɴɢ ʙᴏʀᴇ ᴛʀʏ ᴛʜɪs ᴄᴏᴍᴍᴀᴍᴅ
 /dice - sᴇɴᴅ ᴛʜᴇ 🎲 ᴀɴᴅ ɢᴇᴛ ʏᴏᴜʀ sᴄᴏʀᴇ
 /dart - sᴇɴᴅ ᴛʜᴇ 🎯 ᴀɴᴅ ɢᴇᴛ ʏᴏᴜʀ sᴄᴏʀᴇ
 /basketball - sᴇɴᴅ ᴛʜᴇ 🏀 ᴀɴᴅ ɢᴇᴛ ʏᴏᴜʀ sᴄᴏʀᴇ
