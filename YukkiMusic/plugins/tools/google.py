@@ -26,7 +26,7 @@ async def google(bot, message):
     try:
         search_args = (user_input, 1)
         results = bsearch.search(*search_args)
-        await b.edit(results)
+        await message.reply_text(results)
     except Exception as e:
         await b.edit(e)
 
