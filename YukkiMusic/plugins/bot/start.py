@@ -258,7 +258,7 @@ async def testbot(client, message: Message, _):
     chat_id = message.chat.id
     if config.START_IMG_URL:
         await message.reply_photo(
-            photo=config.START_IMG_URL),
+            photo=config.START_IMG_URL,
             caption=_["start_8"].format(app.mention, get_readable_time(uptime)),
             reply_markup=InlineKeyboardMarkup(out),
         )
