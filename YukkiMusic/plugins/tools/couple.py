@@ -43,8 +43,8 @@ async def couples(app, message):
         try:
             p1 = await app.download_media(photo1.big_file_id, file_name="pfp.png")
         except Exception:
-            tryupic = "https://graph.org/file/2fe311ca38773eefa5493.jpg"
-            tryresp1 = requests.get(tryupic)
+            tryupic1 = "https://graph.org/file/2fe311ca38773eefa5493.jpg"
+            tryresp1 = requests.get(tryupic1)
             p1 = Image.open(BytesIO(tryresp1.content))
         try:
             p2 = await app.download_media(photo2.big_file_id, file_name="pfp1.png")
