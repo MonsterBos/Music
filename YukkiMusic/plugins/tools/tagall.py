@@ -12,7 +12,7 @@ SPAM_CHATS = []
 
 
 @app.on_message(
-    filters.command(["all", "mention", "mentionall","tagall"], prefixes=["/", "@"])
+    filters.command(["all", "mention", "mentionall", "tagall"], prefixes=["/", "@"])
     & admin_filter
 )
 async def tag_all_users(_, message):
@@ -76,7 +76,7 @@ async def tag_all_users(_, message):
 
 
 @app.on_message(
-    filters.command(["admin", "admins","admintag","tagadmin"], prefixes=["/", "@"])
+    filters.command(["admin", "admins", "admintag", "tagadmin"], prefixes=["/", "@"])
     & admin_filter
 )
 async def tag_all_users(_, message):
@@ -95,7 +95,9 @@ async def tag_all_users(_, message):
             SPAM_CHATS.append(message.chat.id)
             usernum = 0
             usertxt = ""
-            async for m in app.get_chat_members(message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS):
+            async for m in app.get_chat_members(
+                message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+            ):
                 if message.chat.id not in SPAM_CHATS:
                     break
                 usernum += 1
@@ -137,8 +139,6 @@ async def tag_all_users(_, message):
             SPAM_CHATS.remove(message.chat.id)
         except Exception:
             pass
-
-
 
 
 @app.on_message(
