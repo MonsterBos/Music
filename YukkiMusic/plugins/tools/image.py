@@ -33,7 +33,7 @@ async def pinterest(_, message):
             return await msg.edit(f"ᴇʀʀᴏʀ : {e}")
 
     elif command == "image":
-        images = bing_image_urls(query, limit=10)
+        images = bing_image_urls(query, limit=7)
         media_group = []
 
         msg = await message.reply(f"sᴇᴀʀᴄʜɪɴɢ ɪᴍᴀɢᴇs ғʀᴏᴍ ʙɪɴɢ...")
