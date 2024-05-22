@@ -32,7 +32,7 @@ async def pinterest(_, message):
         except Exception as e:
             return await msg.edit(f"ᴇʀʀᴏʀ : {e}")
 
-    if command == "image":
+    elif command == "image":
         images = bing_image_urls(query, limit=15)
         media_group = []
 
