@@ -41,7 +41,6 @@ async def app(bot, message):
         user_input = message.reply_to_message.text
     else:
         user_input = " ".join(message.command[1:])
-    aku = await message.reply_text("**Sᴇᴀʀᴄʜɪɴɢ ᴏɴ Pʟᴀʏsᴛᴏʀᴇ....**")
 
     search = await api.apps(user_input, 5)
     for a in search:
@@ -53,10 +52,9 @@ async def app(bot, message):
        title = b["title"]
        dev = b["developer"]
        info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
-        await aku.delete()
-        try:
-           await message.reply_photo(icon, caption=info)
-        except Exception as e:
+       try:
+          await message.reply_photo(icon, caption=info)
+       except Exception as e:
            await message.reply_text(e)
 
 
