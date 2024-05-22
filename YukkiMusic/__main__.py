@@ -140,7 +140,6 @@ async def help_button(client, query, _):
         await query.message.edit_media(
             media=InputMediaPhoto(gen_image(), caption=text),
             reply_markup=key,
-
         )
 
     elif home_match:
@@ -160,7 +159,6 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(curr_page, HELPABLE, "help")
             ),
-
         )
 
     elif next_match:
@@ -170,7 +168,6 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(next_page, HELPABLE, "help")
             ),
-
         )
 
     elif back_match:
@@ -180,7 +177,6 @@ async def help_button(client, query, _):
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(prev_page_num, HELPABLE, "help")
             ),
-
         )
 
     elif create_match:
