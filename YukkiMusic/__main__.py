@@ -14,7 +14,7 @@ import importlib
 from sys import argv
 
 from pyrogram import idle, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
 from config import BANNED_USERS, OWNER_ID
 
 from YukkiMusic import LOGGER, app, userbot
