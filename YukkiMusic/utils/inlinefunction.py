@@ -7,6 +7,7 @@ NUM_COLUMNS = 3  # Controls the number of columns
 
 PHOTOS = ["url1", "url2", "url3"]  # List of photo URLs
 
+
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
         return self.text == other.text
@@ -44,13 +45,13 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
             ]
         )
 
-    pairs = [modules[i: i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
+    pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
 
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE) if len(pairs) > 0 else 1
     modulo_page = page_n % max_num_pages
 
     if len(pairs) > COLUMN_SIZE:
-        pairs = pairs[modulo_page * COLUMN_SIZE: COLUMN_SIZE * (modulo_page + 1)] + [
+        pairs = pairs[modulo_page * COLUMN_SIZE : COLUMN_SIZE * (modulo_page + 1)] + [
             (
                 EqInlineKeyboardButton(
                     "❮",
