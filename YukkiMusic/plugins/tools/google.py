@@ -41,23 +41,23 @@ async def app(bot, message):
         user_input = message.reply_to_message.text
     else:
         user_input = " ".join(message.command[1:])
-    aku = await message.reply_text("**Sᴇᴀʀᴄʜɪɴɢ ᴏɴ Gᴏᴏɢʟᴇ....**")
+    aku = await message.reply_text("**Sᴇᴀʀᴄʜɪɴɢ ᴏɴ Pʟᴀʏsᴛᴏʀᴇ....**")
 
-    a = await api.apps(user_input, 1)
-
-    b = a["results"][0]
-    icon = b["icon"]
-    id = b["id"]
-    link = b["link"]
-    ca = b["description"]
-    title = b["title"]
-    dev = b["developer"]
-    info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
-    await aku.delete()
-    try:
-        await message.reply_photo(icon, caption=info)
-    except Exception as e:
-        await message.reply_text(e)
+    search = await api.apps(user_input, 5)
+    for a in search:
+       b = a["results"][0]
+       icon = b["icon"]
+       id = b["id"]
+       link = b["link"]
+       ca = b["description"]
+       title = b["title"]
+       dev = b["developer"]
+       info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
+        await aku.delete()
+        try:
+           await message.reply_photo(icon, caption=info)
+        except Exception as e:
+           await message.reply_text(e)
 
 
 __MODULE__ = "Gᴏᴏɢʟᴇ"
