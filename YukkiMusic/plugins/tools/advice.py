@@ -22,3 +22,7 @@ async def advice(_, message):
     else:
         await message.reply_photo("ᴛʀʏ ᴀғᴛᴇʀ sᴏᴍᴇ ᴛɪᴍᴇ")
         await app.send_message(LOG_GROUP_ID, "/astronomical not working")
+
+__MODULE__ = "Cᴏɴᴛᴇɴᴛ's"
+__HELP__ = """
+/astronomical - ᴛᴏ ɢᴇᴛ ᴛᴏᴅᴀʏ's ᴀsᴛʀᴏɴᴏᴍɪᴄᴀʟ ғᴀᴄᴛ"""
