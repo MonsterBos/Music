@@ -13,4 +13,3 @@ def gen_image():
         return Z
     except Exception:
         return START_IMG_URL
-
