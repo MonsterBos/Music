@@ -80,6 +80,7 @@ async def activevi_(_, message: Message):
             disable_web_page_preview=True,
         )
 
+
 @app.on_message(filters.command(["ac"]) & SUDOERS)
 async def start(client, message: Message):
     ac_audio = str(len(await get_active_chats()))
@@ -87,9 +88,6 @@ async def start(client, message: Message):
     await message.reply_text(
         f"✫ <b><u>ᴀᴄᴛɪᴠᴇ ᴄʜᴀᴛs ɪɴғᴏ</u></b> :\n\nᴠᴏɪᴄᴇ : {ac_audio}\nᴠɪᴅᴇᴏ  : {ac_video}"
     )
-
-
-
 
 
 __MODULE__ = "Acᴛɪᴠᴇᴠᴄ"
