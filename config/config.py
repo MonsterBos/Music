@@ -228,8 +228,10 @@ autoclean = []
 
 # Images
 
-# multi photo for /start
-PHOTO = ["https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg"]
+
+PHOTOS = list(
+    filter(None, os.getenv("PHOTO_LINKS", "https://te.legra.ph/file/4ec5ae4381dffb039b4ef.jpg").split())
+)
 
 
 START_IMG_URL = getenv(
