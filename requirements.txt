@@ -30,7 +30,6 @@ pyrofork
 python-dotenv
 pyyaml
 requests
-search-engine-parser
 speedtest-cli
 secureme==0.0.4
 spotipy
