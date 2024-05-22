@@ -27,6 +27,7 @@ from YukkiMusic.utils.inline.help import (
     private_help_panel,
     help_mark,
 )
+
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
 
