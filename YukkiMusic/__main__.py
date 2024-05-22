@@ -26,6 +26,7 @@ from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
 from YukkiMusic.utils.image import gen_image
+
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
@@ -99,7 +100,6 @@ async def shikhar(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
-
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
@@ -121,10 +121,10 @@ async def help_button(client, query, _):
         module = mod_match.group(1)
         prev_page_num = int(mod_match.group(2))
         text = (
-                "{} **{}**:\n".format(
-                    "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
-                )
-                + HELPABLE[module].__HELP__
+            "{} **{}**:\n".format(
+                "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
+            )
+            + HELPABLE[module].__HELP__
         )
         key = InlineKeyboardMarkup(
             [
