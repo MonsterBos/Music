@@ -2,10 +2,11 @@ from pyrogram import filters
 from SafoneAPI import SafoneAPI
 from YukkiMusic import app
 
+
 async def get_advice():
     a = SafoneAPI()
     b = await a.advice()
-    c = b['advice']
+    c = b["advice"]
     return c
 
 
