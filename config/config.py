@@ -229,7 +229,7 @@ autoclean = []
 # Images
 
 
-PHOTOS = list(
+PHOTO = list(
     filter(
         None,
         getenv(
