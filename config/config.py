@@ -15,6 +15,7 @@ from os import getenv
 from dotenv import load_dotenv
 from pyrogram import filters
 from YukkiMusic.utils.image import IMAGE
+
 load_dotenv()
 
 # ________________________________________________________________________________#
