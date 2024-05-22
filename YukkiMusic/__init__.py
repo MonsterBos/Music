@@ -16,6 +16,7 @@ from YukkiMusic.core.dir import dirr
 from YukkiMusic.core.git import git
 from YukkiMusic.core.userbot import Userbot
 from YukkiMusic.misc import dbb, heroku, sudo
+from SafoneAPI import SafoneAPI
 
 
 from .logging import LOGGER
@@ -34,7 +35,7 @@ heroku()
 
 # Load Sudo Users from DB
 sudo()
-
+api = SafoneAPI()
 # Bot Client
 app = YukkiBot()
 
