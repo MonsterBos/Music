@@ -27,7 +27,7 @@ from YukkiMusic.utils.inline.help import (
     private_help_panel,
     help_mark,
 )
-
+from YukkiMusic.utils.image import gen_image
 
 ### Command
 HELP_COMMAND = get_command("HELP_COMMAND")
@@ -61,14 +61,14 @@ async def helper_private(
         keyboard = help_mark
         if START_IMG_URL:
             await update.reply_photo(
-                photo=START_IMG_URL,
+                photo=gen_image(),
                 caption=_["help_1"],
                 reply_markup=keyboard,
             )
 
         else:
             await update.reply_photo(
-                photo=random.choice(PHOTO),
+                photo=gen_image(),
                 caption=_["help_1"],
                 reply_markup=keyboard,
             )
