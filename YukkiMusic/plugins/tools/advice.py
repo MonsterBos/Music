@@ -19,4 +19,4 @@ async def clean(_, message):
 
 __MODULE__ = "Aᴅᴠɪᴄᴇ"
 __HELP__ = """
-/advice -ɢᴇᴛ ʀᴀɴᴅᴏᴍ ᴀᴅᴠɪᴄᴇ ʙʏ ʙᴏᴛ"""
+/advice - ɢᴇᴛ ʀᴀɴᴅᴏᴍ ᴀᴅᴠɪᴄᴇ ʙʏ ʙᴏᴛ"""
