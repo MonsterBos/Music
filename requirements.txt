@@ -1,7 +1,7 @@
 aiofiles
 aiohttp
 asyncio
-bing-image-urls # this for in google module for searching images from bing
+bing-image-urls # this for in image module for searching images from bing
 dnspython==2.3.0
 ffmpeg-python
 gitpython
