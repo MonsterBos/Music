@@ -6,7 +6,7 @@ from pyrogram.types import InputMediaPhoto
 from bing_image_urls import bing_image_urls
 
 
-@app.on_message(filters.command(["pinterest"], prefixes=["/", "!", "."]))
+@app.on_message(filters.command(["pinterest", "image"], prefixes=["/", "!", "."]))
 async def pinterest(_, message):
     command = message.text.split()[0][1:]
     chat_id = message.chat.id
