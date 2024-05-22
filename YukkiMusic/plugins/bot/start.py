@@ -225,7 +225,7 @@ async def start_comm(client, message: Message, _):
         if config.START_IMG_URL:
             try:
                 await message.reply_photo(
-                    photo=gen_image(),
+                    photo=config.START_IMG_URL,
                     caption=_["start_2"].format(app.mention),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
@@ -237,7 +237,7 @@ async def start_comm(client, message: Message, _):
                 )
         else:
             await message.reply_photo(
-                photo=gen_image(),
+                photo=choice(PHOTO),
                 caption=_["start_2"].format(app.mention),
                 reply_markup=InlineKeyboardMarkup(out),
             )
@@ -258,7 +258,7 @@ async def testbot(client, message: Message, _):
     chat_id = message.chat.id
     if config.START_IMG_URL:
         await message.reply_photo(
-            photo=choice(PHOTO),
+            photo=config.START_IMG_URL),
             caption=_["start_8"].format(app.mention, get_readable_time(uptime)),
             reply_markup=InlineKeyboardMarkup(out),
         )
