@@ -1,7 +1,9 @@
 from SafoneAPI import SafoneAPI
 from YukkiMusic import app
 from pyrogram import filters
+
 api = SafoneAPI()
+
 
 @app.on_message(filters.command(["gen", "ccgen"], [".", "!", "/"]))
 async def gen_cc(client, message):
@@ -23,8 +25,6 @@ async def gen_cc(client, message):
         resp = await api.ccgen(bin, 10)
         cards = resp.liveCC
 
-    
-
         await aux.edit(
             f"""
 ➤ Sᴏᴍᴇ Lɪᴠᴇ Gᴇɴᴇʀᴀᴛᴇᴅ Cᴄ ➻
@@ -43,4 +43,3 @@ async def gen_cc(client, message):
 
     except Exception as e:
         return await aux.edit(f"Eʀʀᴏʀ: {e}.")
- 
