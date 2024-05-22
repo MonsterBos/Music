@@ -34,17 +34,17 @@ async def pinterest(_, message):
 
     elif command == "image":
         images = bing_image_urls(query, limit=7)
-        media_group = []
+        BING = []
 
         msg = await message.reply(f"sᴇᴀʀᴄʜɪɴɢ ɪᴍᴀɢᴇs ғʀᴏᴍ ʙɪɴɢ...")
         for url in images:
 
-            media_group.append(InputMediaPhoto(media=url))
+            BING.append(InputMediaPhoto(media=url))
 
         try:
             await msg.edit("Uᴘʟᴏᴀᴅɪɴɢ....")
             await app.send_media_group(
-                chat_id=chat_id, media=media_group, reply_to_message_id=message.id
+                chat_id=chat_id, media=BING, reply_to_message_id=message.id
             )
             return await msg.delete()
 
