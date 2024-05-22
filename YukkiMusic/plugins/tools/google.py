@@ -5,8 +5,11 @@ from googlesearch import search
 from YukkiMusic import app
 from search_engine_parser.core.engines.bing import Search as BingSearch
 
+import nest_asyncio
+
 bsearch = BingSearch()
 
+nest_asyncio.apply()
 
 @app.on_message(filters.command(["bing"]))
 async def google(bot, message):
