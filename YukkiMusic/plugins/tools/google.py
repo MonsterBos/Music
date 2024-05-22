@@ -44,18 +44,18 @@ async def app(bot, message):
 
     search = await api.apps(user_input, 5)
     for a in search:
-       b = a["results"][0]
-       icon = b["icon"]
-       id = b["id"]
-       link = b["link"]
-       ca = b["description"]
-       title = b["title"]
-       dev = b["developer"]
-       info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
-       try:
-          await message.reply_photo(icon, caption=info)
-       except Exception as e:
-           await message.reply_text(e)
+        b = a["results"][0]
+        icon = b["icon"]
+        id = b["id"]
+        link = b["link"]
+        ca = b["description"]
+        title = b["title"]
+        dev = b["developer"]
+        info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
+        try:
+            await message.reply_photo(icon, caption=info)
+        except Exception as e:
+            await message.reply_text(e)
 
 
 __MODULE__ = "Gᴏᴏɢʟᴇ"
