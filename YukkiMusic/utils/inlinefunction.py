@@ -2,10 +2,10 @@ from math import ceil
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 
+COLUMN_SIZE = 3  # Controls the number of rows
+NUM_COLUMNS = 3  # Controls the number of columns
 
-COLUMN_SIZE = 3  # Controls the height of help menu the layout
-NUM_COLUMNS = 3  # Controls the width of the help menu button layout
-
+PHOTOS = ["url1", "url2", "url3"]  # List of photo URLs
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
@@ -44,13 +44,13 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
             ]
         )
 
-    pairs = [modules[i : i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
+    pairs = [modules[i: i + NUM_COLUMNS] for i in range(0, len(modules), NUM_COLUMNS)]
 
     max_num_pages = ceil(len(pairs) / COLUMN_SIZE) if len(pairs) > 0 else 1
     modulo_page = page_n % max_num_pages
 
     if len(pairs) > COLUMN_SIZE:
-        pairs = pairs[modulo_page * COLUMN_SIZE : COLUMN_SIZE * (modulo_page + 1)] + [
+        pairs = pairs[modulo_page * COLUMN_SIZE: COLUMN_SIZE * (modulo_page + 1)] + [
             (
                 EqInlineKeyboardButton(
                     "❮",
@@ -61,7 +61,7 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
                 ),
                 EqInlineKeyboardButton(
                     "Bᴀᴄᴋ",
-                    callback_data="settingsback_helper",
+                    callback_data="help_back(0)",
                 ),
                 EqInlineKeyboardButton(
                     "❯",
