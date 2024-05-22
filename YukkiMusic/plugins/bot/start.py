@@ -22,7 +22,7 @@ from pyrogram.types import (
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
-from config import BANNED_USERS, PHOTO
+from config import BANNED_USERS, PHOTO, START_IMG_URL
 from config.config import OWNER_ID
 from strings import get_string
 from YukkiMusic import Telegram, YouTube, app
