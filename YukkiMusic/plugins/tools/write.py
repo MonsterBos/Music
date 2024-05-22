@@ -3,8 +3,7 @@ from PIL import Image, ImageDraw, ImageFont
 from pyrogram import filters
 import requests
 from io import BytesIO
-from YukkiMusic import app
-
+from YukkiMusic import app 
 
 def text_set(text):
     lines = []
@@ -21,7 +20,7 @@ def text_set(text):
     return lines[:25]
 
 
-@app.on_message(filters.command(["write"]))
+@app.on_message(filters.command(["write"], COMMAND_HANDLER))
 async def handwrite(client, message):
     if message.reply_to_message and message.reply_to_message.text:
         txt = message.reply_to_message.text
@@ -29,28 +28,25 @@ async def handwrite(client, message):
         txt = message.text.split(None, 1)[1]
     else:
         return await message.reply(
-            "Please reply to message or write after command to use write CMD."
+            "Pʟᴇᴀsᴇ ʀᴇᴘʟʏ ᴛᴏ ᴍᴇssᴀɢᴇ ᴏʀ ᴡʀɪᴛᴇ ᴀғᴛᴇʀ ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ᴜsᴇ ᴡʀɪᴛᴇ CMD"
         )
-    nan = await message.reply_text("Processing...")
+    nan = await message.reply_text("Pʀᴏᴄᴇssɪɴɢ...")
     try:
-        # Download the image
-        img_url = "https://graph.org/file/00552e0917279fc954711.jpg"
-        response = requests.get(img_url)
-        img = Image.open(BytesIO(response.content))
-
-        # Download the Poetsen One Regular font from GitHub
+        tryimg = "https://graph.org/file/1f8d00177ac2429b101b9.jpg"
+        tryresp = requests.get(tryimg)
+        img = Image.open(BytesIO(tryresp.content))
+        draw = ImageDraw.Draw(img)
         font_url = "https://github.com/google/fonts/raw/main/ofl/poetsenone/PoetsenOne-Regular.ttf"
         font_response = requests.get(font_url)
-        font = ImageFont.truetype(BytesIO(font_response.content), 20)
+        font = ImageFont.truetype(BytesIO(font_response.content), 24)
 
-        draw = ImageDraw.Draw(img)
         x, y = 150, 140
         lines = text_set(txt)
         line_height = font.getbbox("hg")[3]
+        linespacing = 41
         for line in lines:
             draw.text((x, y), line, fill=(1, 22, 55), font=font)
-            y = y + line_height - 5
-
+            y = y + linespacing
         file = f"write_{message.from_user.id}.jpg"
         img.save(file)
         if os.path.exists(file):
@@ -60,9 +56,7 @@ async def handwrite(client, message):
             os.remove(file)
             await nan.delete()
     except Exception as e:
-        os.remove(file)
-        return await message.reply(str(e))
-
+        return await message.reply(e)
 
 __MODULE__ = "ᴡʀɪᴛᴇ"
 __HELP__ = """
