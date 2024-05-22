@@ -8,7 +8,7 @@
 # All rights reserved.
 #
 import asyncio
-import random
+from random import choice 
 import time
 
 from pyrogram import filters
@@ -63,13 +63,13 @@ async def start_comm(client, message: Message, _):
         if name[0:4] == "help":
             if config.START_IMG_URL:
                 return await message.reply_photo(
-                    photo=config.START_IMG_URL,
+                    photo=START_IMG_URL,
                     caption=_["help_1"],
                     reply_markup=help_mark,
                 )
             else:
                 return await message.reply_photo(
-                    photo=gen_image(),
+                    photo=choice(PHOTO),
                     caption=_["help_1"],
                     reply_markup=keyboard,
                 )
@@ -231,7 +231,7 @@ async def start_comm(client, message: Message, _):
                 )
             except:
                 await message.reply_photo(
-                    photo=gen_image(),
+                    photo=choice(PHOTO),
                     caption=_["start_2"].format(app.mention),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
@@ -258,13 +258,13 @@ async def testbot(client, message: Message, _):
     chat_id = message.chat.id
     if config.START_IMG_URL:
         await message.reply_photo(
-            photo=gen_image(),
+            photo=choice(PHOTO),
             caption=_["start_8"].format(app.mention, get_readable_time(uptime)),
             reply_markup=InlineKeyboardMarkup(out),
         )
     else:
         await message.reply_photo(
-            photo=random.choice(PHOTO),
+            photo=choice(PHOTO),
             caption=_["start_8"].format(app.mention, get_readable_time(uptime)),
             reply_markup=InlineKeyboardMarkup(out),
         )
