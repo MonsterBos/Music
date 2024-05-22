@@ -25,7 +25,7 @@ from YukkiMusic.utils.database import get_banned_users, get_gbanned
 from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
-
+from YukkiMusic.utils.image import gen_image
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
@@ -99,6 +99,7 @@ async def shikhar(_, CallbackQuery):
     await CallbackQuery.message.edit(text, reply_markup=keyboard)
 
 
+
 @app.on_callback_query(filters.regex(r"help_(.*?)"))
 @LanguageStart
 async def help_button(client, query, _):
@@ -120,18 +121,11 @@ async def help_button(client, query, _):
         module = mod_match.group(1)
         prev_page_num = int(mod_match.group(2))
         text = (
-            "{} **{}**:\n".format(
-                "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
-            )
-            + HELPABLE[module].__HELP__
+                "{} **{}**:\n".format(
+                    "**ʜᴇʀᴇ ɪs ᴛʜᴇ ʜᴇʟᴘ ғᴏʀ**", HELPABLE[module].__MODULE__
+                )
+                + HELPABLE[module].__HELP__
         )
-        try:
-            await app.resolve_peer(OWNER_ID[0])
-            OWNER = OWNER_ID[0]
-        except:
-            OWNER = None
-        out = private_panel(_, app.username, OWNER)
-
         key = InlineKeyboardMarkup(
             [
                 [
@@ -143,8 +137,8 @@ async def help_button(client, query, _):
             ]
         )
 
-        await query.message.edit(
-            text=text,
+        await query.message.edit_media(
+            media=InputMediaPhoto(gen_image(), caption=text),
             reply_markup=key,
             disable_web_page_preview=True,
         )
@@ -161,8 +155,8 @@ async def help_button(client, query, _):
         curr_page = int(prev_match.group(1))
         if curr_page < 0:
             curr_page = max_num_pages - 1
-        await query.message.edit(
-            text=top_text,
+        await query.message.edit_media(
+            media=InputMediaPhoto(gen_image(), caption=top_text),
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(curr_page, HELPABLE, "help")
             ),
@@ -171,8 +165,8 @@ async def help_button(client, query, _):
 
     elif next_match:
         next_page = int(next_match.group(1))
-        await query.message.edit(
-            text=top_text,
+        await query.message.edit_media(
+            media=InputMediaPhoto(gen_image(), caption=top_text),
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(next_page, HELPABLE, "help")
             ),
@@ -181,8 +175,8 @@ async def help_button(client, query, _):
 
     elif back_match:
         prev_page_num = int(back_match.group(1))
-        await query.message.edit(
-            text=top_text,
+        await query.message.edit_media(
+            media=InputMediaPhoto(gen_image(), caption=top_text),
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(prev_page_num, HELPABLE, "help")
             ),
@@ -191,8 +185,8 @@ async def help_button(client, query, _):
 
     elif create_match:
         text, keyboard = await help_parser(query)
-        await query.message.edit(
-            text=text,
+        await query.message.edit_media(
+            media=InputMediaPhoto(gen_image(), caption=text),
             reply_markup=keyboard,
             disable_web_page_preview=True,
         )
