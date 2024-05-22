@@ -14,5 +14,3 @@ def gen_image():
     except Exception:
         return START_IMG_URL
 
-
-IMAGE = gen_image()
