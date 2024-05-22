@@ -2,6 +2,7 @@ import requests
 import json
 from config import START_IMG_URL
 
+
 def gen_image():
     try:
         url = "https://random.imagecdn.app/v1/image?width=1280&height=720&format=json"
@@ -12,4 +13,6 @@ def gen_image():
         return Z
     except Exception:
         return START_IMG_URL
+
+
 IMAGE = gen_image()
