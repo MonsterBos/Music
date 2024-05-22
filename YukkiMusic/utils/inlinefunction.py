@@ -5,8 +5,6 @@ from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 COLUMN_SIZE = 3  # Controls the number of rows
 NUM_COLUMNS = 3  # Controls the number of columns
 
-PHOTOS = ["url1", "url2", "url3"]  # List of photo URLs
-
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
     def __eq__(self, other):
@@ -62,7 +60,7 @@ def paginate_modules(page_n, module_dict, prefix, chat=None):
                 ),
                 EqInlineKeyboardButton(
                     "Bᴀᴄᴋ",
-                    callback_data="help_back(0)",
+                    callback_data="settingsback_helper",
                 ),
                 EqInlineKeyboardButton(
                     "❯",
