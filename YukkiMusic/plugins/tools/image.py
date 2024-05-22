@@ -5,6 +5,7 @@ from pyrogram import filters
 from pyrogram.types import InputMediaPhoto
 from bing_image_urls import bing_image_urls
 
+
 @app.on_message(filters.command(["pinterest"], prefixes=["/", "!", "."]))
 async def pinterest(_, message):
     command = message.text.split()[0][1:]
@@ -57,7 +58,6 @@ async def pinterest(_, message):
 
         except Exception as e:
             return await msg.edit(f"ᴇʀʀᴏʀ : {e}")
-
 
 
 __MODULE__ = "Iᴍᴀɢᴇ"
