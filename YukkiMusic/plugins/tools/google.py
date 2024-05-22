@@ -5,6 +5,7 @@ from googlesearch import search
 from YukkiMusic import app
 from YukkiMusic import api
 
+
 @app.on_message(filters.command(["google", "gle"]))
 async def google(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
@@ -28,6 +29,8 @@ async def google(bot, message):
     except Exception as e:
         await b.edit(e)
         logging.exception(e)
+
+
 @app.on_message(filters.command(["app", "apps"]))
 async def app(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
@@ -40,15 +43,16 @@ async def app(bot, message):
         user_input = " ".join(message.command[1:])
     aku = await message.reply_text("**Sᴇᴀʀᴄʜɪɴɢ ᴏɴ Gᴏᴏɢʟᴇ....**")
 
+
 a = await api.apps(user_input, 1)
 
-b = a['results'][0]
-icon = b['icon']
-id = b['id']
-link = b['link']
-ca  = b['description']
-title = b['title']
-dev = b['developer']
+b = a["results"][0]
+icon = b["icon"]
+id = b["id"]
+link = b["link"]
+ca = b["description"]
+title = b["title"]
+dev = b["developer"]
 info = f"<b>[ᴛɪᴛʟᴇ : {title}]({link})</b>\n<b>ɪᴅ</b>: <code>{id}</code>\n<b>ᴅᴇᴠᴇʟᴏᴘᴇʀ</b> : {dev}\n<b>ᴅᴇsᴄʀɪᴘᴛɪᴏɴ </b>: {ca}"
 await aku.delete()
 await message.reply_photo(icon, caption=info)
