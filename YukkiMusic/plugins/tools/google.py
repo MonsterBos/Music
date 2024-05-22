@@ -7,6 +7,7 @@ from search_engine_parser.core.engines.bing import Search as BingSearch
 
 bsearch = BingSearch()
 
+
 @app.on_message(filters.command(["bing"]))
 async def google(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
@@ -24,8 +25,6 @@ async def google(bot, message):
         await b.edit(results)
     except Exception as e:
         await b.edit(e)
-
-
 
 
 @app.on_message(filters.command(["google", "gle"]))
