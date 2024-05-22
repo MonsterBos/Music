@@ -7,7 +7,8 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from pyrogram.enums import ChatAction, ChatType
 from YukkiMusic import app
-
+from io import BytesIO
+import requests
 
 @app.on_message(
     filters.command(
@@ -41,11 +42,15 @@ async def couples(app, message):
         try:
             p1 = await app.download_media(photo1.big_file_id, file_name="pfp.png")
         except Exception:
-            p1 = "assets/upic.png"
+            tryupic = "https://graph.org/file/2fe311ca38773eefa5493.jpg"
+            tryresp = requests.get(tryupic)
+            p1 = Image.open(BytesIO(tryresp.content))
         try:
             p2 = await app.download_media(photo2.big_file_id, file_name="pfp1.png")
         except Exception:
-            p2 = "assets/upic.png"
+            tryupic2 = "https://graph.org/file/2fe311ca38773eefa5493.jpg"
+            tryresp = requests.get(tryupic2)
+            p2 = Image.open(BytesIO(tryresp.content))
         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
@@ -54,8 +59,9 @@ async def couples(app, message):
 
         img1 = Image.open(f"{p1}")
         img2 = Image.open(f"{p2}")
-
-        img = Image.open("assets/Couple.png")
+        tryimg = "https://graph.org/file/6c75626fa07340131c784.jpg"
+        tryresp = requests.get(tryimg)
+        img = Image.open(BytesIO(tryresp.content))
 
         img1 = img1.resize((390, 390))
         img2 = img2.resize((390, 390))
