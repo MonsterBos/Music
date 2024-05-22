@@ -11,6 +11,7 @@ bsearch = BingSearch()
 
 nest_asyncio.apply()
 
+
 @app.on_message(filters.command(["bing"]))
 async def google(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
