@@ -14,7 +14,7 @@ import importlib
 from sys import argv
 
 from pyrogram import idle, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaPhoto
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from config import BANNED_USERS, OWNER_ID
 
 from YukkiMusic import LOGGER, app, userbot
@@ -25,7 +25,6 @@ from YukkiMusic.utils.database import get_banned_users, get_gbanned
 from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
-from YukkiMusic.utils.image import gen_image
 
 # from YukkiMusic.plugins.tools.clone import restart_bots
 
@@ -126,6 +125,13 @@ async def help_button(client, query, _):
             )
             + HELPABLE[module].__HELP__
         )
+        try:
+            await app.resolve_peer(OWNER_ID[0])
+            OWNER = OWNER_ID[0]
+        except:
+            OWNER = None
+        out = private_panel(_, app.username, OWNER)
+
         key = InlineKeyboardMarkup(
             [
                 [
@@ -137,9 +143,10 @@ async def help_button(client, query, _):
             ]
         )
 
-        await query.message.edit_media(
-            media=InputMediaPhoto(gen_image(), caption=text),
+        await query.message.edit(
+            text=text,
             reply_markup=key,
+            disable_web_page_preview=True,
         )
 
     elif home_match:
@@ -154,36 +161,40 @@ async def help_button(client, query, _):
         curr_page = int(prev_match.group(1))
         if curr_page < 0:
             curr_page = max_num_pages - 1
-        await query.message.edit_media(
-            media=InputMediaPhoto(gen_image(), caption=top_text),
+        await query.message.edit(
+            text=top_text,
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(curr_page, HELPABLE, "help")
             ),
+            disable_web_page_preview=True,
         )
 
     elif next_match:
         next_page = int(next_match.group(1))
-        await query.message.edit_media(
-            media=InputMediaPhoto(gen_image(), caption=top_text),
+        await query.message.edit(
+            text=top_text,
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(next_page, HELPABLE, "help")
             ),
+            disable_web_page_preview=True,
         )
 
     elif back_match:
         prev_page_num = int(back_match.group(1))
-        await query.message.edit_media(
-            media=InputMediaPhoto(gen_image(), caption=top_text),
+        await query.message.edit(
+            text=top_text,
             reply_markup=InlineKeyboardMarkup(
                 paginate_modules(prev_page_num, HELPABLE, "help")
             ),
+            disable_web_page_preview=True,
         )
 
     elif create_match:
         text, keyboard = await help_parser(query)
-        await query.message.edit_media(
-            media=InputMediaPhoto(gen_image(), caption=text),
+        await query.message.edit(
+            text=text,
             reply_markup=keyboard,
+            disable_web_page_preview=True,
         )
 
     return await client.answer_callback_query(query.id)
