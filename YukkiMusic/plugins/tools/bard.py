@@ -5,11 +5,7 @@ from pyrogram.enums import ChatAction
 from YukkiMusic import app, api
 
 
-@app.on_message(
-    filters.command(
-        ["bard"]
-    )
-)
+@app.on_message(filters.command(["bard"]))
 async def bard(bot, message):
     if len(message.command) < 2 and not message.reply_to_message:
         await message.reply_text(
