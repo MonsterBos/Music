@@ -21,7 +21,7 @@ def text_set(text):
     return lines[:25]
 
 
-@app.on_message(filters.command(["write"], COMMAND_HANDLER))
+@app.on_message(filters.command(["write"]))
 async def handwrite(client, message):
     if message.reply_to_message and message.reply_to_message.text:
         txt = message.reply_to_message.text
