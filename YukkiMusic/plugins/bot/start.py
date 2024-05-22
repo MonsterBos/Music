@@ -8,7 +8,7 @@
 # All rights reserved.
 #
 import asyncio
-from random import choice 
+from random import choice
 import time
 
 from pyrogram import filters
