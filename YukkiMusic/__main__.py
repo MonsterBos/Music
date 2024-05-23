@@ -67,6 +67,7 @@ async def init():
     LOGGER("Yukkimusic.plugins").info("Successfully Imported Modules ")
     # await restart_bots()
     await userbot.start()
+    await userbot.commands()
     await Yukki.start()
     await Yukki.decorators()
     LOGGER("YukkiMusic").info("Yukki Music Bot Started Successfully")
