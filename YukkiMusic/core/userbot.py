@@ -208,7 +208,7 @@ class Userbot(Client):
                 self.five.name = get_me.first_name
             LOGGER(__name__).info(f"Assistant Five Started as {self.five.name}")
 
-        async def commamds(self):
+        async def commands(self):
             @self.one.on_message(filters.command("a"))
             async def cat(client, message):
                 await message.reply_text("jii")
