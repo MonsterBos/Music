@@ -4,7 +4,7 @@ from YUKKI import api
 
 
 @app.on_message(filters.command(["write"]))
-async def handwrite(client, message):
+async def write(client, message):
     if message.reply_to_message and message.reply_to_message.text:
         txt = message.reply_to_message.text
     elif len(message.command) > 1:
