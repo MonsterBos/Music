@@ -39,7 +39,7 @@ BROADCAST_COMMAND = get_command("BROADCAST_COMMAND")
 IS_BROADCASTING = False
 
 
-@app.on_message(filters.command(BROADCAST_COMMAND) & SUDOERS)
+@app.on_message(filters.command(BROADCAST_COMMAND) & config.OWNER_ID)
 @language
 async def braodcast_message(client, message, _):
     global IS_BROADCASTING
