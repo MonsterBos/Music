@@ -36,8 +36,8 @@ def capture_err(func):
             errors = traceback.format_exc()
             error_feedback = split_limits(
                 "**ERROR** | `{}` | `{}`\n```python\n{}```\n\n```python\n{}```\n".format(
-                    0 if not message.from_user else message.from_user.id,
-                    0 if not message.chat else message.chat.id,
+                    0 if not message.from_user else message.from_user.mention,
+                    0 if not message.chat else message.chat.usernam if message.chat.username else message.chat.id,
                     message.text or message.caption,
                     "".join(errors),
                 ),
