@@ -21,7 +21,7 @@ from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 from pytgcalls.__version__ import __version__ as pytgver
 
 import config
-from config import BANNED_USERS, MUSIC_BOT_NAME
+from config import BANNED_USERS
 from strings import get_command
 from YukkiMusic import YouTube, app
 from YukkiMusic.core.userbot import assistants
