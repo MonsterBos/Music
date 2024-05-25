@@ -41,9 +41,9 @@ def capture_err(func):
                         0
                         if not message.chat
                         else (
-                            message.chat.username
+                            f"@{message.chat.username}"
                             if message.chat.username
-                            else message.chat.id
+                            else f"`{message.chat.id}"
                         )
                     ),
                     message.text or message.caption,
