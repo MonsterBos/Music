@@ -19,7 +19,7 @@ MAX_MESSAGE_SIZE_LIMIT = 4095
 async def lst(_, message):
     prefix = message.text.split()[0][0]
     is_ubot = bool(prefix == USERBOT_PREFIX)
-    chat_id = USERBOT_ID if is_ubot else message.chat.id
+    chat_id = message.chat.id
     path = os.getcwd()
     text = message.text.split(" ", 1)
     directory = None
