@@ -8,9 +8,10 @@ from config import LOG_GROUP_ID
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from profanity import profanity
-
+from YukkiMusic.utils.error import capture_err
 
 @app.on_message(filters.text & filters.group, group=11)
+@capture_err
 async def handle_bad_words(client, message):
     try:
         txt = message.text
