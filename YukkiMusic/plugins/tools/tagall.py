@@ -74,6 +74,7 @@ async def tag_all_users(_, message):
         except Exception:
             pass
 
+
 @app.on_message(
     filters.command(["aall", "amention", "amentionall", "atagall"], prefixes=["/", "@"])
     & admin_filter
@@ -102,7 +103,11 @@ async def tag_all_users(_, message):
                 usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})"
                 if usernum == 7:
                     ftext = f"{message.reply_to_message.text}\n{usertxt}"
-                    await userbot.send_message(chat_id=message.chat.id, text=ftext, disable_web_page_preview=True)
+                    await userbot.send_message(
+                        chat_id=message.chat.id,
+                        text=ftext,
+                        disable_web_page_preview=True,
+                    )
                     await asyncio.sleep(1)
                     usernum = 0
                     usertxt = ""
@@ -138,8 +143,6 @@ async def tag_all_users(_, message):
             SPAM_CHATS.remove(message.chat.id)
         except Exception:
             pass
-
-
 
 
 @app.on_message(
