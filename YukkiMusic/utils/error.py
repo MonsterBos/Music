@@ -41,7 +41,7 @@ def capture_err(func):
                         0
                         if not message.chat
                         else (
-                            message.chat.usernam
+                            message.chat.username
                             if message.chat.username
                             else message.chat.id
                         )
