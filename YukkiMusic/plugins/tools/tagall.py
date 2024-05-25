@@ -94,9 +94,9 @@ async def tag_all_users(_, message):
             "** ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ »** `@aall Hi Friends`"
         )
         return
-    userbot = get_assistant(message.chat.id)
     if replied:
         try:
+            userbot = get_assistant(message.chat.id)
             SPAM_CHATS.append(message.chat.id)
             usernum = 0
             usertxt = ""
@@ -124,6 +124,7 @@ async def tag_all_users(_, message):
             pass
     else:
         try:
+            userbot = get_assistant(message.chat.id)
             text = message.text.split(None, 1)[1]
             SPAM_CHATS.append(message.chat.id)
             usernum = 0
