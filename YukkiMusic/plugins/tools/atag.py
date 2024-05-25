@@ -60,7 +60,7 @@ async def tag_all_users(_, message):
         return
     if replied:
         try:
-             SPAM_CHATS.append(message.chat.id)
+            SPAM_CHATS.append(message.chat.id)
             usernum = 0
             usertxt = ""
             async for m in app.get_chat_members(message.chat.id):
