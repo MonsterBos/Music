@@ -39,9 +39,6 @@ async def cancelcmd(_, message):
         return
 
 
-
-
-
 @app.on_message(
     filters.command(["aall", "amention", "amentionall", "atagall"], prefixes=["/", "@"])
     & admin_filter
