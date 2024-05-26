@@ -12,7 +12,7 @@ SPAM_CHATS = []
 
 
 @app.on_message(
-    filters.command(["all", "mention", "mentionall", "tagall"], prefixes=["/", "@"])
+    filters.command(["all", "allmention", "mentionall", "tagall"], prefixes=["/", "@"])
     & admin_filter
 )
 async def tag_all_users(_, message):
@@ -226,7 +226,7 @@ async def tag_all_useres(_, message):
             "mentionoff",
             "cancelall",
         ],
-        prefixes=["/", "@", "#"],
+        prefixes=["/", "@"],
     )
     & admin_filter
 )
@@ -242,3 +242,19 @@ async def cancelcmd(_, message):
     else:
         await message.reply_text("**ɴᴏ ᴘʀᴏᴄᴇss ᴏɴɢᴏɪɴɢ!**")
         return
+
+__MODULE__ = "Tᴀɢᴀʟʟ"
+__HELP__ = """
+
+/tagall ᴏʀ  @tagall | /mentionall ᴏʀ  @mentionall | @all ᴏʀ /all [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴜsᴇʀ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ʙᴛ ʙᴏᴛ
+
+/atagall ᴏʀ  @atagall | /amentionall ᴏʀ  @amentionall | @aall ᴏʀ /aall [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴜsᴇʀ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ʙʏ ʙᴏᴛ's ᴀssɪsᴛᴀɴᴛ
+
+
+/admintag ᴏʀ @admintag | /tagadmin ᴏʀ @tagadmin | /admins Oʀ @admins | /admin ᴏʀ @admin [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ
+
+/cancel Oʀ @cancel |  /offmention Oʀ @offmention | /mentionoff Oʀ @mentionoff | /cancelall Oʀ @cancelall - ᴛᴏ sᴛᴏᴘ ʀᴜɴɴɪɴɢ ᴀɴʏ ᴛᴀɢ ᴘʀᴏᴄᴇss
+
+**__Nᴏᴛᴇ__** Tʜɪs ᴄᴏᴍᴍᴀɴᴅ ᴄᴀɴ ᴏɴʟʏ ᴜsᴇ ᴛʜᴇ Aᴅᴍɪɴs ᴏғ Cʜᴀᴛ ᴀɴᴅ ᴍᴀᴋᴇ Sᴜʀᴇ Bᴏᴛ ᴀɴᴅ ᴀssɪsᴛᴀɴᴛ ɪs ᴀɴ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ's
+"""
+
