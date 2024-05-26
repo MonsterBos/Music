@@ -148,6 +148,7 @@ async def tag_all_users(_, message):
         except Exception:
             pass
 
+
 @app.on_message(
     filters.command(
         ["atag", "aall", "amention", "amentionall"], prefixes=["/", "@", ".", "#"]
@@ -174,9 +175,7 @@ async def tag_all_useres(_, message):
             if message.chat.id not in SPAM_CHATS:
                 break
             usernum += 1
-            usertxt += (
-                f"[{m.user.first_name}](tg://openmessage?user_id={m.user.id})"
-            )
+            usertxt += f"[{m.user.first_name}](tg://openmessage?user_id={m.user.id})"
             if usernum == 7:
                 await replied.reply_text(usertxt)
                 await asyncio.sleep(2)
@@ -210,8 +209,6 @@ async def tag_all_useres(_, message):
             SPAM_CHATS.remove(message.chat.id)
         except Exception:
             pass
-
-
 
 
 @app.on_message(
