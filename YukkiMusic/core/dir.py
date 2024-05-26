@@ -14,6 +14,7 @@ import sys
 from os import listdir, mkdir
 import shutil
 
+
 def dirr():
     assets_folder = "assets"
     downloads_folder = "downloads"
