@@ -62,7 +62,7 @@ async def langs_command(client, message: Message, _):
 async def lanuagecb(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     keyboard = lanuages_keyboard(_)
     return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)
@@ -82,7 +82,7 @@ async def language_markup(client, CallbackQuery, _):
         await CallbackQuery.answer(
             "ʏᴏᴜʀ ʟᴀɴɢᴜᴀɢᴇ ᴄʜᴀɴɢᴇᴅ sᴜᴄᴇssғᴜʟʟʏ..", show_alert=True
         )
-    except:
+    except BaseException:
         return await CallbackQuery.answer(
             "ғᴀɪʟᴇᴅ ᴛᴏ ᴄʜᴀɴɢᴇ ʟᴀɴɢᴜᴀɢᴇ ᴏʀ ʟᴀɴɢᴜᴀɢᴇ ɪs ɪɴ ᴜɴᴅᴇʀ ᴜᴘᴅᴀᴛᴇ",
             show_alert=True,

@@ -13,7 +13,7 @@ async def gen_cc(client, message):
 
     try:
         await message.delete()
-    except:
+    except BaseException:
         pass
 
     aux = await message.reply_text("ɢᴇɴᴇʀᴀᴛɪɴɢ....")
@@ -32,7 +32,7 @@ async def gen_cc(client, message):
 ⦿ Tɪᴍᴇ Tᴏᴏᴋ: {resp.took}\n\n
 ➤ Sᴏᴍᴇ Lɪᴠᴇ Gᴇɴᴇʀᴀᴛᴇᴅ Cᴄ ➻
 
-╭✠╼━━━━━━❖━━━━━━━✠╮ 
+╭✠╼━━━━━━❖━━━━━━━✠╮
 
 {cards[0]}\n{cards[1]}\n{cards[2]}
 {cards[3]}\n{cards[4]}\n{cards[5]}

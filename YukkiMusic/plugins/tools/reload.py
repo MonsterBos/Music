@@ -23,7 +23,7 @@ from YukkiMusic.utils.database import get_authuser_names, get_cmode
 from YukkiMusic.utils.decorators import ActualAdminCB, AdminActual, language
 from YukkiMusic.utils.formatters import alpha_to_int
 
-### Multi-Lang Commands
+# Multi-Lang Commands
 RELOAD_COMMAND = get_command("RELOAD_COMMAND")
 REBOOT_COMMAND = get_command("REBOOT_COMMAND")
 
@@ -43,7 +43,7 @@ async def reload_admin_cache(client, message: Message, _):
             user_id = await alpha_to_int(user)
             adminlist[chat_id].append(user_id)
         await message.reply_text(_["admin_20"])
-    except:
+    except BaseException:
         await message.reply_text(
             "ғᴀɪʟᴇᴅ ᴛᴏ ʀᴇʟᴏᴀᴅ ᴀᴅᴍɪɴᴄᴀᴄʜᴇ  ᴍᴀᴋᴇ sᴜʀᴇ ʙᴏᴛ ɪs ᴀɴ ᴀᴅᴍɪɴ ɪɴ ʏᴏᴜʀ ᴄʜᴀᴛ."
         )
@@ -59,18 +59,18 @@ async def restartbot(client, message: Message, _):
     try:
         db[message.chat.id] = []
         await Yukki.stop_stream(message.chat.id)
-    except:
+    except BaseException:
         pass
     chat_id = await get_cmode(message.chat.id)
     if chat_id:
         try:
             await app.get_chat(chat_id)
-        except:
+        except BaseException:
             pass
         try:
             db[chat_id] = []
             await Yukki.stop_stream(chat_id)
-        except:
+        except BaseException:
             pass
     return await mystic.edit_text("sᴜᴄᴇssғᴜʟʟʏ ʀᴇsᴛᴀʀᴛᴇᴅ. \nTʀʏ ᴘʟᴀʏɪɴɢ ɴᴏᴡ..")
 
@@ -80,7 +80,7 @@ async def close_menu(_, CallbackQuery):
     try:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         return
 
 
@@ -89,7 +89,7 @@ async def close_menu(_, CallbackQuery):
     try:
         await CallbackQuery.message.delete()
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         return
 
 
@@ -112,13 +112,13 @@ async def stop_download(client, CallbackQuery: CallbackQuery, _):
             task.cancel()
             try:
                 lyrical.pop(message_id)
-            except:
+            except BaseException:
                 pass
             await CallbackQuery.answer("ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴄᴀɴᴄᴇʟʟᴇᴅ", show_alert=True)
             return await CallbackQuery.edit_message_text(
                 f"ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ ᴄᴀɴᴄᴇʟʟᴇᴅ ʙʏ {CallbackQuery.from_user.mention}"
             )
-        except:
+        except BaseException:
             return await CallbackQuery.answer(
                 "ғᴀɪʟᴇᴅ ᴛᴏ sᴛᴏᴘ ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ", show_alert=True
             )

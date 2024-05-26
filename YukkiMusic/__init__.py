@@ -19,6 +19,7 @@ from YukkiMusic.core.userbot import Userbot
 from YukkiMusic.misc import dbb, heroku, sudo
 
 from .logging import LOGGER
+from .platforms import *
 
 # Directories
 dirr()
@@ -41,7 +42,6 @@ app = YukkiBot()
 # Assistant Client
 userbot = Userbot()
 
-from .platforms import *
 
 YouTube = YouTubeAPI()
 Carbon = CarbonAPI()

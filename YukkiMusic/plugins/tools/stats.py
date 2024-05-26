@@ -27,15 +27,25 @@ from YukkiMusic import YouTube, app
 from YukkiMusic.core.userbot import assistants
 from YukkiMusic.misc import SUDOERS, pymongodb
 from YukkiMusic.plugins import ALL_MODULES
-from YukkiMusic.utils.database import (get_global_tops, get_particulars,
-                                       get_queries, get_served_chats,
-                                       get_served_users, get_sudoers,
-                                       get_top_chats, get_topp_users)
+from YukkiMusic.utils.database import (
+    get_global_tops,
+    get_particulars,
+    get_queries,
+    get_served_chats,
+    get_served_users,
+    get_sudoers,
+    get_top_chats,
+    get_topp_users,
+)
 from YukkiMusic.utils.decorators.language import language, languageCB
-from YukkiMusic.utils.inline.stats import (back_stats_buttons,
-                                           back_stats_markup, get_stats_markup,
-                                           overallback_stats_markup,
-                                           stats_buttons, top_ten_stats_markup)
+from YukkiMusic.utils.inline.stats import (
+    back_stats_buttons,
+    back_stats_markup,
+    get_stats_markup,
+    overallback_stats_markup,
+    stats_buttons,
+    top_ten_stats_markup,
+)
 
 loop = asyncio.get_running_loop()
 
@@ -122,7 +132,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
     upl = back_stats_markup(_)
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     mystic = await CallbackQuery.edit_message_text(
         _["gstats_3"].format(
@@ -205,7 +215,7 @@ async def top_users_ten(client, CallbackQuery: CallbackQuery, _):
                 if extract is None:
                     continue
                 await asyncio.sleep(0.5)
-            except:
+            except BaseException:
                 continue
             limit += 1
             msg += f"🔗`{extract}` ᴘʟᴀʏᴇᴅ {count} ᴛɪᴍᴇs ᴏɴ ʙᴏᴛ.\n\n"
@@ -235,7 +245,7 @@ async def overall_stats(client, CallbackQuery, _):
         upl = back_stats_buttons(_)
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     await CallbackQuery.edit_message_text(_["gstats_8"])
     served_chats = len(await get_served_chats())
@@ -256,12 +266,12 @@ async def overall_stats(client, CallbackQuery, _):
     text = f"""**ʙᴏᴛ's sᴛᴀᴛs ᴀɴᴅ ɪɴғᴏʀᴍᴀᴛɪᴏɴ:**
 
 **ɪᴍᴘᴏʀᴛᴇᴅ ᴍᴏᴅᴜʟᴇs:** {mod}
-**sᴇʀᴠᴇᴅ ᴄʜᴀᴛs:** {served_chats} 
-**sᴇʀᴠᴇᴅ ᴜsᴇʀs:** {served_users} 
-**ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs:** {blocked} 
-**sᴜᴅᴏ ᴜsᴇʀs:** {sudoers} 
-    
-**ᴛᴏᴛᴀʟ ǫᴜᴇʀɪᴇs:** {total_queries} 
+**sᴇʀᴠᴇᴅ ᴄʜᴀᴛs:** {served_chats}
+**sᴇʀᴠᴇᴅ ᴜsᴇʀs:** {served_users}
+**ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs:** {blocked}
+**sᴜᴅᴏ ᴜsᴇʀs:** {sudoers}
+
+**ᴛᴏᴛᴀʟ ǫᴜᴇʀɪᴇs:** {total_queries}
 **ᴛᴏᴛᴀʟ ᴀssɪsᴛᴀɴᴛs:** {assistant}
 **ᴀᴜᴛᴏ ʟᴇᴀᴠɪɴɢ ᴀssɪsᴛᴀɴᴛ:** {ass}
 
@@ -291,7 +301,7 @@ async def overall_stats(client, CallbackQuery, _):
         upl = back_stats_buttons(_)
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     await CallbackQuery.edit_message_text(_["gstats_8"])
     sc = platform.system()
@@ -304,7 +314,7 @@ async def overall_stats(client, CallbackQuery, _):
             cpu_freq = f"{round(cpu_freq / 1000, 2)}GHz"
         else:
             cpu_freq = f"{round(cpu_freq, 2)}MHz"
-    except:
+    except BaseException:
         cpu_freq = "Unable to Fetch"
     hdd = psutil.disk_usage("/")
     total = hdd.total / (1024.0**3)
@@ -344,10 +354,10 @@ async def overall_stats(client, CallbackQuery, _):
 **sᴛᴏʀᴀɢᴇ ᴜsᴇᴅ:** {used[:4]} ɢiʙ
 **sᴛᴏʀᴀɢᴇ ʟᴇғᴛ:** {free[:4]} ɢiʙ
 
-**sᴇʀᴠᴇᴅ ᴄʜᴀᴛs:** {served_chats} 
-**sᴇʀᴠᴇᴅ ᴜsᴇʀs:** {served_users} 
-**ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs:** {blocked} 
-**sᴜᴅᴏ ᴜsᴇʀs:** {sudoers} 
+**sᴇʀᴠᴇᴅ ᴄʜᴀᴛs:** {served_chats}
+**sᴇʀᴠᴇᴅ ᴜsᴇʀs:** {served_users}
+**ʙʟᴏᴄᴋᴇᴅ ᴜsᴇʀs:** {blocked}
+**sᴜᴅᴏ ᴜsᴇʀs:** {sudoers}
 
 **ᴛᴏᴛᴀʟ ᴅʙ sᴛᴏʀᴀɢᴇ:** {storage} ᴍʙ
 **ᴛᴏᴛᴀʟ ᴅʙ ᴄᴏʟʟᴇᴄᴛɪᴏɴs:** {collections}
@@ -370,7 +380,7 @@ async def overall_stats(client, CallbackQuery, _):
 async def back_buttons(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     command = CallbackQuery.matches[0].group(1)
     if command == "TOPMARKUPGET":

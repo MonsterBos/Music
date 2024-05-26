@@ -159,12 +159,12 @@ def telegram_markup(_, chat_id):
     return buttons
 
 
-## By Anon
+# By Anon
 close_keyboard = InlineKeyboardMarkup(
     [[InlineKeyboardButton(text="〆 ᴄʟᴏsᴇ 〆", callback_data="close")]]
 )
 
-## Search Query Inline
+# Search Query Inline
 
 
 def track_markup(_, videoid, user_id, channel, fplay):
@@ -209,7 +209,7 @@ def playlist_markup(_, videoid, user_id, ptype, channel, fplay):
     return buttons
 
 
-## Live Stream Markup
+# Live Stream Markup
 
 
 def livestream_markup(_, videoid, user_id, mode, channel, fplay):
@@ -228,7 +228,7 @@ def livestream_markup(_, videoid, user_id, mode, channel, fplay):
     return buttons
 
 
-## Slider Query Markup
+# Slider Query Markup
 
 
 def slider_markup(_, videoid, user_id, query, query_type, channel, fplay):

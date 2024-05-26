@@ -27,7 +27,7 @@ async def auto_clean(popped):
                 try:
                     if os.path.exists(rem):
                         os.remove(rem)
-                except:
+                except BaseException:
                     pass
-    except:
+    except BaseException:
         pass

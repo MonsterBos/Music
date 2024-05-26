@@ -16,9 +16,15 @@ from config import adminlist
 from strings import get_string
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.database import (get_authuser_names, get_cmode, get_lang,
-                                       is_active_chat, is_commanddelete_on,
-                                       is_maintenance, is_nonadmin_chat)
+from YukkiMusic.utils.database import (
+    get_authuser_names,
+    get_cmode,
+    get_lang,
+    is_active_chat,
+    is_commanddelete_on,
+    is_maintenance,
+    is_nonadmin_chat,
+)
 
 from ..formatters import int_to_alpha
 
@@ -33,12 +39,12 @@ def AdminRightsCheck(mystic):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -58,7 +64,7 @@ def AdminRightsCheck(mystic):
                 return await message.reply_text(_["setting_12"])
             try:
                 await app.get_chat(chat_id)
-            except:
+            except BaseException:
                 return await message.reply_text(_["cplay_4"])
         else:
             chat_id = message.chat.id
@@ -88,12 +94,12 @@ def AdminActual(mystic):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -133,7 +139,7 @@ def ActualAdminCB(mystic):
         try:
             language = await get_lang(CallbackQuery.message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if CallbackQuery.message.chat.type == ChatType.PRIVATE:
             return await mystic(client, CallbackQuery, _)
@@ -177,12 +183,12 @@ def CAdminRightsCheck(mystic):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -202,7 +208,7 @@ def CAdminRightsCheck(mystic):
                 return await message.reply_text(_["setting_12"])
             try:
                 await client.get_chat(chat_id)
-            except:
+            except BaseException:
                 return await message.reply_text(_["cplay_4"])
         else:
             chat_id = message.chat.id
@@ -232,12 +238,12 @@ def CAdminActual(mystic):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
         try:
             language = await get_lang(message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
@@ -277,7 +283,7 @@ def CActualAdminCB(mystic):
         try:
             language = await get_lang(CallbackQuery.message.chat.id)
             _ = get_string(language)
-        except:
+        except BaseException:
             _ = get_string("en")
         if CallbackQuery.message.chat.type == ChatType.PRIVATE:
             return await mystic(client, CallbackQuery, _)

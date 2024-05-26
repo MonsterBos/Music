@@ -23,7 +23,7 @@ async def userstatus(user_id):
             return "Offline."
         elif x == enums.UserStatus.ONLINE:
             return "Online."
-    except:
+    except BaseException:
         return "**sᴏᴍᴇᴛʜɪɴɢ ᴡʀᴏɴɢ ʜᴀᴘᴘᴇɴᴇᴅ !**"
 
 

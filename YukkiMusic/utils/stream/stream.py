@@ -17,11 +17,13 @@ import config
 from YukkiMusic import Carbon, YouTube, app
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.misc import db
-from YukkiMusic.utils.database import (add_active_video_chat, is_active_chat,
-                                       is_video_allowed)
+from YukkiMusic.utils.database import (
+    add_active_video_chat,
+    is_active_chat,
+    is_video_allowed,
+)
 from YukkiMusic.utils.exceptions import AssistantErr
-from YukkiMusic.utils.inline.play import (queue_markup, stream_markup,
-                                          telegram_markup)
+from YukkiMusic.utils.inline.play import queue_markup, stream_markup, telegram_markup
 from YukkiMusic.utils.inline.playlist import close_markup
 from YukkiMusic.utils.pastebin import Yukkibin
 from YukkiMusic.utils.stream.queue import put_queue, put_queue_index
@@ -62,7 +64,7 @@ async def stream(
                     thumbnail,
                     vidid,
                 ) = await YouTube.details(search, False if spotify else True)
-            except:
+            except BaseException:
                 continue
             if str(duration_min) == "None":
                 continue
@@ -92,7 +94,7 @@ async def stream(
                     file_path, direct = await YouTube.download(
                         vidid, mystic, video=status, videoid=True
                     )
-                except:
+                except BaseException:
                     raise AssistantErr(_["play_16"])
                 await Yukki.join_call(
                     chat_id, original_chat_id, file_path, video=status, image=thumbnail
@@ -152,7 +154,7 @@ async def stream(
             file_path, direct = await YouTube.download(
                 vidid, mystic, videoid=True, video=status
             )
-        except:
+        except BaseException:
             raise AssistantErr(_["play_16"])
         if await is_active_chat(chat_id):
             await put_queue(

@@ -11,6 +11,8 @@
 
 from typing import Dict, List, Union
 
+from pytgcalls.types import AudioQuality, VideoQuality
+
 import config
 from config import PRIVATE_BOT_MODE
 from YukkiMusic.core.mongo import mongodb, pymongodb
@@ -419,7 +421,7 @@ async def commanddelete_off(chat_id: int):
 async def commanddelete_on(chat_id: int):
     try:
         command.remove(chat_id)
-    except:
+    except BaseException:
         pass
 
 
@@ -439,7 +441,7 @@ async def cleanmode_off(chat_id: int):
 async def cleanmode_on(chat_id: int):
     try:
         cleanmode.remove(chat_id)
-    except:
+    except BaseException:
         pass
 
 
@@ -587,9 +589,6 @@ async def maintenance_on():
 
 
 # Audio Video Limit
-
-
-from pytgcalls.types import AudioQuality, VideoQuality
 
 
 async def save_audio_bitrate(chat_id: int, bitrate: str):

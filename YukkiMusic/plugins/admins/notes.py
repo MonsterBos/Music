@@ -6,11 +6,19 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import BANNED_USERS
 from YukkiMusic import app
-from YukkiMusic.utils.database import (delete_note, deleteall_notes, get_note,
-                                       get_note_names, save_note)
+from YukkiMusic.utils.database import (
+    delete_note,
+    deleteall_notes,
+    get_note,
+    get_note_names,
+    save_note,
+)
 from YukkiMusic.utils.error import capture_err
-from YukkiMusic.utils.functions import (check_format, extract_text_and_keyb,
-                                        get_data_and_name)
+from YukkiMusic.utils.functions import (
+    check_format,
+    extract_text_and_keyb,
+    get_data_and_name,
+)
 from YukkiMusic.utils.keyboard import ikb
 from YukkiMusic.utils.permissions import adminsOnly, member_permissions
 

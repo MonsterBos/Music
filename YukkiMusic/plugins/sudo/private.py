@@ -15,10 +15,12 @@ import config
 from strings import get_command
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.database import (add_private_chat,
-                                       get_private_served_chats,
-                                       is_served_private_chat,
-                                       remove_private_chat)
+from YukkiMusic.utils.database import (
+    add_private_chat,
+    get_private_served_chats,
+    is_served_private_chat,
+    remove_private_chat,
+)
 from YukkiMusic.utils.decorators.language import language
 
 AUTHORIZE_COMMAND = get_command("AUTHORIZE_COMMAND")
@@ -35,7 +37,7 @@ async def authorize(client, message: Message, _):
         return await message.reply_text(_["pbot_1"])
     try:
         chat_id = int(message.text.strip().split()[1])
-    except:
+    except BaseException:
         return await message.reply_text(_["pbot_7"])
     if not await is_served_private_chat(chat_id):
         await add_private_chat(chat_id)
@@ -53,7 +55,7 @@ async def unauthorize(client, message: Message, _):
         return await message.reply_text(_["pbot_2"])
     try:
         chat_id = int(message.text.strip().split()[1])
-    except:
+    except BaseException:
         return await message.reply_text(_["pbot_7"])
     if not await is_served_private_chat(chat_id):
         return await message.reply_text(_["pbot_6"])

@@ -36,7 +36,7 @@ async def handle_bad_words(client, message):
             admin.id for admin in admins
         ]:
             return
-        if bot == None:
+        if bot is None:
             return
         for admin in admins:
             if admin.is_bot or admin.is_deleted:

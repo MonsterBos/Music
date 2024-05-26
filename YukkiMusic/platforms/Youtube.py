@@ -158,7 +158,7 @@ class YouTubeAPI:
             for key in result:
                 if key == "":
                     result.remove(key)
-        except:
+        except BaseException:
             result = []
         return result
 
@@ -196,7 +196,7 @@ class YouTubeAPI:
             for format in r["formats"]:
                 try:
                     str(format["format"])
-                except:
+                except BaseException:
                     continue
                 if not "dash" in str(format["format"]).lower():
                     try:
@@ -205,7 +205,7 @@ class YouTubeAPI:
                         format["format_id"]
                         format["ext"]
                         format["format_note"]
-                    except:
+                    except BaseException:
                         continue
                     formats_available.append(
                         {

@@ -14,25 +14,36 @@ from typing import Union
 
 from ntgcalls import TelegramServerError
 from pyrogram import Client
-from pyrogram.errors import (ChatAdminRequired, UserAlreadyParticipant,
-                             UserNotParticipant)
+from pyrogram.errors import (
+    ChatAdminRequired,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, filters
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
-from pytgcalls.types import (ChatUpdate, GroupCallParticipant, MediaStream,
-                             Update)
+from pytgcalls.types import ChatUpdate, GroupCallParticipant, MediaStream, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
 from strings import get_string
 from YukkiMusic import LOGGER, YouTube, app
 from YukkiMusic.misc import db
-from YukkiMusic.utils.database import (add_active_chat, add_active_video_chat,
-                                       get_assistant, get_audio_bitrate,
-                                       get_lang, get_loop, get_video_bitrate,
-                                       group_assistant, is_autoend, music_on,
-                                       remove_active_chat,
-                                       remove_active_video_chat, set_loop)
+from YukkiMusic.utils.database import (
+    add_active_chat,
+    add_active_video_chat,
+    get_assistant,
+    get_audio_bitrate,
+    get_lang,
+    get_loop,
+    get_video_bitrate,
+    group_assistant,
+    is_autoend,
+    music_on,
+    remove_active_chat,
+    remove_active_video_chat,
+    set_loop,
+)
 from YukkiMusic.utils.exceptions import AssistantErr
 from YukkiMusic.utils.inline.play import stream_markup, telegram_markup
 from YukkiMusic.utils.stream.autoclear import auto_clean
@@ -123,7 +134,7 @@ class Call(PyTgCalls):
         try:
             await _clear_(chat_id)
             await assistant.leave_call(chat_id)
-        except:
+        except BaseException:
             pass
 
     async def set_volume(self, chat_id: int, volume: int):
@@ -140,13 +151,13 @@ class Call(PyTgCalls):
         try:
             check = db.get(chat_id)
             check.pop(0)
-        except:
+        except BaseException:
             pass
         await remove_active_video_chat(chat_id)
         await remove_active_chat(chat_id)
         try:
             await assistant.leave_call(chat_id)
-        except:
+        except BaseException:
             pass
 
     async def skip_stream(
@@ -222,7 +233,7 @@ class Call(PyTgCalls):
             if get.status == "banned" or get.status == "kicked":
                 try:
                     await app.unban_chat_member(chat_id, userbot.id)
-                except:
+                except BaseException:
                     raise AssistantErr(
                         _["call_2"].format(
                             app.mention,
@@ -247,7 +258,7 @@ class Call(PyTgCalls):
                             invitelink = chat.invite_link
                             if invitelink is None:
                                 invitelink = await app.export_chat_invite_link(chat_id)
-                        except:
+                        except BaseException:
                             invitelink = await app.export_chat_invite_link(chat_id)
                     except ChatAdminRequired:
                         raise AssistantErr(_["call_4"])
@@ -372,11 +383,11 @@ class Call(PyTgCalls):
             if not check:
                 await _clear_(chat_id)
                 return await client.leave_call(chat_id)
-        except:
+        except BaseException:
             try:
                 await _clear_(chat_id)
                 return await client.leave_call(chat_id)
-            except:
+            except BaseException:
                 return
         else:
             queued = check[0]["file"]
@@ -408,7 +419,7 @@ class Call(PyTgCalls):
                 else:
                     try:
                         image = await YouTube.thumbnail(videoid, True)
-                    except:
+                    except BaseException:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
@@ -453,7 +464,7 @@ class Call(PyTgCalls):
                         videoid=True,
                         video=True if str(streamtype) == "video" else False,
                     )
-                except:
+                except BaseException:
                     return await mystic.edit_text(
                         _["call_9"], disable_web_page_preview=True
                     )
@@ -466,7 +477,7 @@ class Call(PyTgCalls):
                 else:
                     try:
                         image = await YouTube.thumbnail(videoid, True)
-                    except:
+                    except BaseException:
                         image = None
                     if image and config.PRIVATE_BOT_MODE == str(True):
                         stream = MediaStream(
@@ -537,7 +548,7 @@ class Call(PyTgCalls):
                 else:
                     try:
                         image = await YouTube.thumbnail(videoid, True)
-                    except:
+                    except BaseException:
                         image = None
                 if video:
                     stream = MediaStream(
@@ -667,7 +678,7 @@ class Call(PyTgCalls):
             if not users:
                 try:
                     got = len(await client.get_participants(chat_id))
-                except:
+                except BaseException:
                     return
                 counter[chat_id] = got
                 if got == 1:

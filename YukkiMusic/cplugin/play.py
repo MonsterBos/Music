@@ -16,11 +16,18 @@ from typing import Union
 from ntgcalls import ConnectionError, TelegramServerError
 from pyrogram import Client, filters
 from pyrogram.enums import ChatMemberStatus, MessageEntityType
-from pyrogram.errors import (ChatAdminRequired, UserAlreadyParticipant,
-                             UserNotParticipant)
+from pyrogram.errors import (
+    ChatAdminRequired,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 from pyrogram.types import Audio, Message, Voice
-from pytgcalls.exceptions import (AlreadyJoinedError, NoActiveGroupCall,
-                                  NotInCallError, UnMuteNeeded)
+from pytgcalls.exceptions import (
+    AlreadyJoinedError,
+    NoActiveGroupCall,
+    NotInCallError,
+    UnMuteNeeded,
+)
 from pytgcalls.types import AudioQuality, MediaStream
 from youtube_search import YoutubeSearch
 
@@ -89,7 +96,7 @@ async def play(client, message: Message):
     BOT_USERNAME = viv.username
     try:
         await message.delete()
-    except:
+    except BaseException:
         pass
 
     try:
@@ -140,7 +147,7 @@ async def play(client, message: Message):
             )
         try:
             await app2.resolve_peer(invitelink)
-        except:
+        except BaseException:
             pass
 
     ruser = message.from_user.first_name
@@ -215,7 +222,7 @@ async def play(client, message: Message):
 
     try:
         videoid = videoid
-    except:
+    except BaseException:
         videoid = "fuckitstgaudio"
     if await is_active_chat(message.chat.id):
         stream = MediaStream(file_path, audio_parameters=AudioQuality.HIGH)

@@ -21,7 +21,7 @@ from YukkiMusic.utils import bot_sys_stats
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.inline import supp_markup
 
-### Commands
+# Commands
 PING_COMMAND = get_command("PING_COMMAND")
 
 

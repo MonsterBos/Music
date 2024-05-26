@@ -27,8 +27,11 @@ import config
 from strings import get_command
 from YukkiMusic import app
 from YukkiMusic.misc import HAPP, SUDOERS, XCB
-from YukkiMusic.utils.database import (get_active_chats, remove_active_chat,
-                                       remove_active_video_chat)
+from YukkiMusic.utils.database import (
+    get_active_chats,
+    remove_active_chat,
+    remove_active_video_chat,
+)
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.pastebin import Yukkibin
 
@@ -68,7 +71,7 @@ async def log_(client, message, _):
                 data = ""
                 try:
                     NUMB = int(message.text.split(None, 1)[1])
-                except:
+                except BaseException:
                     NUMB = 100
                 for x in lines[-NUMB:]:
                     data += x
@@ -169,7 +172,7 @@ async def set_var(client, message, _):
 @app.on_message(filters.command(USAGE_COMMAND) & SUDOERS)
 @language
 async def usage_dynos(client, message, _):
-    ### Credits CatUserbot
+    # Credits CatUserbot
     if await is_heroku():
         if HAPP is None:
             return await message.reply_text(_["heroku_1"])
@@ -245,10 +248,13 @@ async def update_(client, message, _):
         verification = str(checks.count())
     if verification == "":
         return await response.edit("» ʙᴏᴛ ɪs ᴜᴘ-ᴛᴏ-ᴅᴀᴛᴇ.")
-    ordinal = lambda format: "%d%s" % (
-        format,
-        "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
-    )
+
+    def ordinal(format):
+        return "%d%s" % (
+            format,
+            "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
+        )
+
     updates = "".join(
         f"<b>➣ #{info.count()}: <a href={REPO_}/commit/{info}>{info.summary}</a> ʙʏ -> {info.author}</b>\n\t\t\t\t<b>➥ ᴄᴏᴍᴍɪᴛᴇᴅ ᴏɴ :</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
         for info in repo.iter_commits(f"HEAD..origin/{config.UPSTREAM_BRANCH}")
@@ -276,12 +282,12 @@ async def update_(client, message, _):
                 )
                 await remove_active_chat(x)
                 await remove_active_video_chat(x)
-            except:
+            except BaseException:
                 pass
         await response.edit(
             f"{nrs.text}\n\n» ʙᴏᴛ ᴜᴩᴅᴀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ! ɴᴏᴡ ᴡᴀɪᴛ ғᴏʀ ғᴇᴡ ᴍɪɴᴜᴛᴇs ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ ʀᴇsᴛᴀʀᴛs"
         )
-    except:
+    except BaseException:
         pass
 
     if await is_heroku():
@@ -325,10 +331,13 @@ async def updater_(client, message, _):
         verification = str(checks.count())
     if verification == "":
         return await response.edit("» ʙᴏᴛ ɪs ᴜᴘ-ᴛᴏ-ᴅᴀᴛᴇ.")
-    ordinal = lambda format: "%d%s" % (
-        format,
-        "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
-    )
+
+    def ordinal(format):
+        return "%d%s" % (
+            format,
+            "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
+        )
+
     updates = "".join(
         f"<b>➣ #{info.count()}: <a href={REPO_}/commit/{info}>{info.summary}</a> ʙʏ -> {info.author}</b>\n\t\t\t\t<b>➥ ᴄᴏᴍᴍɪᴛᴇᴅ ᴏɴ :</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
         for info in repo.iter_commits(f"HEAD..origin/{config.UPSTREAM_BRANCH}")
@@ -356,12 +365,12 @@ async def updater_(client, message, _):
                 )
                 await remove_active_chat(x)
                 await remove_active_video_chat(x)
-            except:
+            except BaseException:
                 pass
         await response.edit(
             f"{nrs.text}\n\n» ʙᴏᴛ ᴜᴩᴅᴀᴛᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ ! ɴᴏᴡ ᴡᴀɪᴛ ғᴏʀ ғᴇᴡ ᴍɪɴᴜᴛᴇs ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ ʀᴇsᴛᴀʀᴛs"
         )
-    except:
+    except BaseException:
         pass
     os.system("pip3 install --no-cache-dir -U -r requirements.txt")
     os.system(f"kill -9 {os.getpid()} && python3 -m YukkiMusic")
@@ -380,14 +389,14 @@ async def restart_(_, message):
             )
             await remove_active_chat(x)
             await remove_active_video_chat(x)
-        except:
+        except BaseException:
             pass
 
     try:
         shutil.rmtree("downloads")
         shutil.rmtree("raw_files")
         shutil.rmtree("cache")
-    except:
+    except BaseException:
         pass
     await response.edit_text(
         "» ʀᴇsᴛᴀʀᴛ ᴘʀᴏᴄᴇss sᴛᴀʀᴛᴇᴅ, ᴘʟᴇᴀsᴇ ᴡᴀɪᴛ ғᴏʀ ғᴇᴡ sᴇᴄᴏɴᴅs ᴜɴᴛɪʟ ᴛʜᴇ ʙᴏᴛ sᴛᴀʀᴛs..."
@@ -407,10 +416,10 @@ __HELP__ = """🔰<u>Aᴅᴅ Aɴᴅ Rᴇᴍᴏᴠᴇ Sᴜᴅᴏ Usᴇʀ's:</u>
 /set_var [Vᴀʀ Nᴀᴍᴇ] [Vᴀʟᴜᴇ] - Sᴇᴛ ᴀ Vᴀʀ ᴏʀ Uᴘᴅᴀᴛᴇ ᴀ Vᴀʀ ᴏɴ ʜᴇʀᴏᴋᴜ ᴏʀ .ᴇɴᴠ. Sᴇᴘᴇʀᴀᴛᴇ Vᴀʀ ᴀɴᴅ ɪᴛs Vᴀʟᴜᴇ ᴡɪᴛʜ ᴀ sᴘᴀᴄᴇ.
 
 🤖<u>Bᴏᴛ Cᴏᴍᴍᴀɴᴅs:</u>
-/restart - Rᴇsᴛᴀʀᴛ ʏᴏᴜʀ Bᴏᴛ. 
+/restart - Rᴇsᴛᴀʀᴛ ʏᴏᴜʀ Bᴏᴛ.
 /update , /gitpull - Uᴘᴅᴀᴛᴇ Bᴏᴛ.
 /speedtest - Cʜᴇᴄᴋ sᴇʀᴠᴇʀ sᴘᴇᴇᴅs
-/maintenance [ᴇɴᴀʙʟᴇ / ᴅɪsᴀʙʟᴇ] 
+/maintenance [ᴇɴᴀʙʟᴇ / ᴅɪsᴀʙʟᴇ]
 /logger [ᴇɴᴀʙʟᴇ / ᴅɪsᴀʙʟᴇ] - Bᴏᴛ ʟᴏɢs ᴛʜᴇ sᴇᴀʀᴄʜᴇᴅ ǫᴜᴇʀɪᴇs ɪɴ ʟᴏɢɢᴇʀ ɢʀᴏᴜᴘ.
 /get_log [Nᴜᴍʙᴇʀ ᴏғ Lɪɴᴇs] - Gᴇᴛ ʟᴏɢ ᴏғ ʏᴏᴜʀ ʙᴏᴛ ғʀᴏᴍ ʜᴇʀᴏᴋᴜ ᴏʀ ᴠᴘs. Wᴏʀᴋs ғᴏʀ ʙᴏᴛʜ.
 /autoend [ᴇɴᴀʙʟᴇ|ᴅɪsᴀʙʟᴇ] - Eɴᴀʙʟᴇ Aᴜᴛᴏ sᴛʀᴇᴀᴍ ᴇɴᴅ ᴀғᴛᴇʀ 𝟹 ᴍɪɴs ɪғ ɴᴏ ᴏɴᴇ ɪs ʟɪsᴛᴇɴɪɴɢ.

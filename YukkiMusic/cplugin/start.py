@@ -54,7 +54,7 @@ async def clone_st(client, message: Message):
                     link = result["link"]
                     published = result["publishedTime"]
                 searched_text = f"""
-➻ **ᴛʀᴀᴄᴋ ɪɴғᴏʀɴᴀᴛɪᴏɴ** 
+➻ **ᴛʀᴀᴄᴋ ɪɴғᴏʀɴᴀᴛɪᴏɴ**
 
 📌 **ᴛɪᴛʟᴇ :** {title}
 

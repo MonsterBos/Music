@@ -5,8 +5,7 @@ from config import PK
 from YukkiMusic import app
 from YukkiMusic.core.userbot import assistants
 from YukkiMusic.utils.assistant import assistant, get_assistant_details
-from YukkiMusic.utils.database import (get_assistant, save_assistant,
-                                       set_assistant)
+from YukkiMusic.utils.database import get_assistant, save_assistant, set_assistant
 from YukkiMusic.utils.filter import admin_filter
 
 
@@ -24,13 +23,13 @@ async def assis_change(_, message: Message):
     DETAILS = f"ʏᴏᴜʀ ᴄʜᴀᴛ's ᴀssɪsᴛᴀɴᴛ ʜᴀs ʙᴇᴇɴ ᴄʜᴀɴɢᴇᴅ ғʀᴏᴍ [{a.name}](https://t.me/{a.username}) "
     try:
         await a.leave_chat(message.chat.id)
-    except:
+    except BaseException:
         pass
     b = await set_assistant(message.chat.id)
     DETAILS += f"ᴛᴏ [{b.name}](https://t.me/{b.username})"
     try:
         await b.join_chat(message.chat.id)
-    except:
+    except BaseException:
         pass
     await message.reply_text(DETAILS, disable_web_page_preview=True, protect_content=PK)
 
@@ -55,13 +54,13 @@ async def assis_set(_, message: Message):
     a = await get_assistant(message.chat.id)
     try:
         await a.leave_chat(message.chat.id)
-    except:
+    except BaseException:
         pass
     await save_assistant(message.chat.id, query)
     b = await get_assistant(message.chat.id)
     try:
         await b.join_chat(message.chat.id)
-    except:
+    except BaseException:
         pass
     DETAILS = f""" ʏᴏᴜʀ ᴄʜᴀᴛ's  ɴᴇᴡ ᴀssɪsᴛᴀɴᴛ ᴅᴇᴛᴀɪʟs:
                    ᴀssɪsᴛᴀɴᴛ ɴᴀᴍᴇ :- {a.name}

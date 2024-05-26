@@ -11,8 +11,7 @@ import logging
 from random import choice
 
 from pyrogram import Client, filters
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup)
+from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
 
 from config import *
 
@@ -30,12 +29,12 @@ async def close_(client, CallbackQuery):
             return await CallbackQuery.answer(
                 "» ɪᴛ'ʟʟ ʙᴇ ʙᴇᴛᴛᴇʀ ɪғ ʏᴏᴜ sᴛᴀʏ ɪɴ ʏᴏᴜʀ ʟɪᴍɪᴛs ʙᴀʙʏ.", show_alert=True
             )
-        except:
+        except BaseException:
             return
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         return
 
 
@@ -43,11 +42,11 @@ async def close_(client, CallbackQuery):
 async def forceclose_command(client, CallbackQuery):
     try:
         await CallbackQuery.message.delete()
-    except:
+    except BaseException:
         return
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
 
 
@@ -55,7 +54,7 @@ async def forceclose_command(client, CallbackQuery):
 async def help_menu(client, query: CallbackQuery):
     try:
         await query.answer()
-    except:
+    except BaseException:
         pass
 
     try:
@@ -85,7 +84,7 @@ async def open_hmenu(client, query: CallbackQuery):
 
     try:
         await query.answer()
-    except:
+    except BaseException:
         pass
 
     if cb == "play":
@@ -100,7 +99,7 @@ async def open_hmenu(client, query: CallbackQuery):
 async def home_fallen(client, query: CallbackQuery):
     try:
         await query.answer()
-    except:
+    except BaseException:
         pass
     try:
         vi = await client.get_me()

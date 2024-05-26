@@ -1,7 +1,12 @@
 import requests
 from pyrogram import filters
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, InputMediaPhoto, Message)
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InputMediaPhoto,
+    Message,
+)
 
 from config import BANNED_USERS
 from YukkiMusic import app

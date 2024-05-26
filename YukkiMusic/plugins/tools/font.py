@@ -189,5 +189,5 @@ async def style(c, m):
     new_text = cls(m.message.reply_to_message.text.split(" ", 1)[1])
     try:
         await m.message.edit_text(f"`{new_text}`")
-    except:
+    except BaseException:
         pass

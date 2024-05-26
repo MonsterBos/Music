@@ -1,6 +1,5 @@
 from pyrogram import filters
-from pyrogram.errors import (ChatAdminRequired, InviteRequestSent,
-                             UserAlreadyParticipant)
+from pyrogram.errors import ChatAdminRequired, InviteRequestSent, UserAlreadyParticipant
 
 from YukkiMusic import app
 from YukkiMusic.utils.database import get_assistant
@@ -23,7 +22,7 @@ async def invite_assistant(client, message):
         # Unban the assistant if it's banned in the group
         try:
             await client.unban_chat_member(message.chat.id, userbot.id)
-        except:
+        except BaseException:
             pass
 
         # Get the invite link for the group

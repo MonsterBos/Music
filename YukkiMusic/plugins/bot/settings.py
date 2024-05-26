@@ -11,29 +11,43 @@
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.errors import MessageNotModified
-from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
-                            InlineKeyboardMarkup, Message)
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message,
+)
 
 from config import BANNED_USERS, CLEANMODE_DELETE_MINS, OWNER_ID
 from strings import get_command
 from YukkiMusic import app
-from YukkiMusic.utils.database import (add_nonadmin_chat, get_aud_bit_name,
-                                       get_authuser, get_authuser_names,
-                                       get_playmode, get_playtype,
-                                       get_vid_bit_name, is_nonadmin_chat,
-                                       remove_nonadmin_chat,
-                                       save_audio_bitrate, save_video_bitrate,
-                                       set_playmode, set_playtype)
+from YukkiMusic.utils.database import (
+    add_nonadmin_chat,
+    get_aud_bit_name,
+    get_authuser,
+    get_authuser_names,
+    get_playmode,
+    get_playtype,
+    get_vid_bit_name,
+    is_nonadmin_chat,
+    remove_nonadmin_chat,
+    save_audio_bitrate,
+    save_video_bitrate,
+    set_playmode,
+    set_playtype,
+)
 from YukkiMusic.utils.decorators.admins import ActualAdminCB
 from YukkiMusic.utils.decorators.language import language, languageCB
-from YukkiMusic.utils.inline.settings import (audio_quality_markup,
-                                              auth_users_markup,
-                                              playmode_users_markup,
-                                              setting_markup,
-                                              video_quality_markup)
+from YukkiMusic.utils.inline.settings import (
+    audio_quality_markup,
+    auth_users_markup,
+    playmode_users_markup,
+    setting_markup,
+    video_quality_markup,
+)
 from YukkiMusic.utils.inline.start import private_panel
 
-### Command
+# Command
 SETTINGS_COMMAND = get_command("SETTINGS_COMMAND")
 
 
@@ -52,7 +66,7 @@ async def settings_mar(client, message: Message, _):
 async def settings_cb(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer(_["set_cb_8"])
-    except:
+    except BaseException:
         pass
     buttons = setting_markup(_)
     return await CallbackQuery.edit_message_text(
@@ -76,7 +90,7 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
-        except:
+        except BaseException:
             OWNER = None
         buttons = private_panel(_, app.username, OWNER)
         try:
@@ -96,7 +110,7 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
             pass
 
 
-## Audio and Video Quality
+# Audio and Video Quality
 async def gen_buttons_aud(_, aud):
     if aud == "STUDIO":
         buttons = audio_quality_markup(_, STUDIO=True)
@@ -140,22 +154,22 @@ async def without_Admin_rights(client, CallbackQuery, _):
     if command == "SEARCHANSWER":
         try:
             return await CallbackQuery.answer(_["setting_3"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "PLAYMODEANSWER":
         try:
             return await CallbackQuery.answer(_["setting_10"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "PLAYTYPEANSWER":
         try:
             return await CallbackQuery.answer(_["setting_11"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "AUTHANSWER":
         try:
             return await CallbackQuery.answer(_["setting_4"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "CMANSWER":
         try:
@@ -163,36 +177,36 @@ async def without_Admin_rights(client, CallbackQuery, _):
                 _["setting_9"].format(CLEANMODE_DELETE_MINS),
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     if command == "COMMANDANSWER":
         try:
             return await CallbackQuery.answer(_["setting_14"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "SUGGANSWER":
         try:
             return await CallbackQuery.answer(_["setting_16"], show_alert=True)
-        except:
+        except BaseException:
             return
     if command == "AQ":
         try:
             await CallbackQuery.answer(_["set_cb_1"], show_alert=True)
-        except:
+        except BaseException:
             pass
         aud = await get_aud_bit_name(CallbackQuery.message.chat.id)
         buttons = await gen_buttons_aud(_, aud)
     if command == "VQ":
         try:
             await CallbackQuery.answer(_["set_cb_2"], show_alert=True)
-        except:
+        except BaseException:
             pass
         aud = await get_vid_bit_name(CallbackQuery.message.chat.id)
         buttons = await gen_buttons_vid(_, aud)
     if command == "PM":
         try:
             await CallbackQuery.answer(_["set_cb_4"], show_alert=True)
-        except:
+        except BaseException:
             pass
         playmode = await get_playmode(CallbackQuery.message.chat.id)
         if playmode == "Direct":
@@ -213,7 +227,7 @@ async def without_Admin_rights(client, CallbackQuery, _):
     if command == "AU":
         try:
             await CallbackQuery.answer(_["set_cb_3"], show_alert=True)
-        except:
+        except BaseException:
             pass
         is_non_admin = await is_nonadmin_chat(CallbackQuery.message.chat.id)
         if not is_non_admin:
@@ -242,7 +256,7 @@ async def aud_vid_cb(client, CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     try:
         await CallbackQuery.answer(_["set_cb_6"], show_alert=True)
-    except:
+    except BaseException:
         pass
     if command == "LOW":
         await save_audio_bitrate(CallbackQuery.message.chat.id, "LOW")
@@ -312,7 +326,7 @@ async def playmode_ans(client, CallbackQuery, _):
     if command == "MODECHANGE":
         try:
             await CallbackQuery.answer(_["set_cb_6"], show_alert=True)
-        except:
+        except BaseException:
             pass
         playmode = await get_playmode(CallbackQuery.message.chat.id)
         if playmode == "Direct":
@@ -335,7 +349,7 @@ async def playmode_ans(client, CallbackQuery, _):
     if command == "PLAYTYPECHANGE":
         try:
             await CallbackQuery.answer(_["set_cb_6"], show_alert=True)
-        except:
+        except BaseException:
             pass
         playty = await get_playtype(CallbackQuery.message.chat.id)
         if playty == "Everyone":
@@ -373,12 +387,12 @@ async def authusers_mar(client, CallbackQuery, _):
         if not _authusers:
             try:
                 return await CallbackQuery.answer(_["setting_5"], show_alert=True)
-            except:
+            except BaseException:
                 return
         else:
             try:
                 await CallbackQuery.answer(_["set_cb_7"], show_alert=True)
-            except:
+            except BaseException:
                 pass
             j = 0
             await CallbackQuery.edit_message_text(_["auth_6"])
@@ -415,7 +429,7 @@ async def authusers_mar(client, CallbackQuery, _):
                 return
     try:
         await CallbackQuery.answer(_["set_cb_6"], show_alert=True)
-    except:
+    except BaseException:
         pass
     if command == "AUTH":
         is_non_admin = await is_nonadmin_chat(CallbackQuery.message.chat.id)
@@ -445,7 +459,7 @@ __HELP__ = """✅<u>Gʀᴏᴜᴘ Sᴇᴛᴛɪɴɢs:</u>
 4 **Cʟᴇᴀɴ Mᴏᴅᴇ:**ʙᴏᴛ's ᴅᴇʟᴇᴛᴇs ᴛʜᴇ ʙᴏᴛ's ᴍᴇssᴀɢᴇs ᴀғᴛᴇʀ 𝟻 ᴍɪɴs ғʀᴏᴍ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴛᴏ ᴍᴀᴋᴇ sᴜʀᴇ ʏᴏᴜʀ ᴄʜᴀᴛ ʀᴇᴍᴀɪɴs ᴄʟᴇᴀɴ ᴀɴᴅ ɢᴏᴏᴅ.
 5 **Cᴏᴍᴍᴀɴᴅ Cʟᴇᴀɴ** : Wʜᴇɴ ᴀᴄᴛɪᴠᴀᴛᴇᴅ, Bᴏᴛ ᴡɪʟʟ ᴅᴇʟᴇᴛᴇ ɪᴛs ᴇxᴇᴄᴜᴛᴇᴅ ᴄᴏᴍᴍᴀɴᴅs lɪᴍᴍᴇᴅɪᴀᴛᴇʟʏ.
        <b><u>Pʟᴀʏ Sᴇᴛᴛɪɴɢs:</></b>
-/playmode - Gᴇᴛ ᴀ ᴄᴏᴍᴘʟᴇᴛᴇ ᴘʟᴀʏ sᴇᴛᴛɪɴɢs ᴘᴀɴᴇʟ ᴡɪᴛʜ ʙᴜᴛᴛᴏɴs ᴡʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ sᴇᴛ ʏᴏᴜʀ ɢʀᴏᴜᴘ's ᴘʟᴀʏ sᴇᴛᴛɪɴɢs. 
+/playmode - Gᴇᴛ ᴀ ᴄᴏᴍᴘʟᴇᴛᴇ ᴘʟᴀʏ sᴇᴛᴛɪɴɢs ᴘᴀɴᴇʟ ᴡɪᴛʜ ʙᴜᴛᴛᴏɴs ᴡʜᴇʀᴇ ʏᴏᴜ ᴄᴀɴ sᴇᴛ ʏᴏᴜʀ ɢʀᴏᴜᴘ's ᴘʟᴀʏ sᴇᴛᴛɪɴɢs.
       <b><u>Oᴘᴛɪᴏɴs ɪɴ Pʟᴀʏᴍᴏᴅᴇ:</u></b>
 1 **Sᴇᴀʀᴄʜ Mᴏᴅᴇ** [Dɪʀᴇᴄᴛ ᴏʀ Iɴʟɪɴᴇ] - Cʜᴀɴɢᴇs ʏᴏᴜʀ sᴇᴀʀᴄʜ ᴍᴏᴅᴇ ᴡʜɪʟᴇ ʏᴏᴜ ɢɪᴠᴇ /playmode
 2 **Aᴅᴍɪɴ Cᴏᴍᴍᴀɴᴅs** [Eᴠᴇʀʏᴏɴᴇ ᴏʀ Aᴅᴍɪɴs] - Iғ ᴇᴠᴇʀʏᴏɴᴇ, ᴀɴʏᴏɴᴇ  ɪɴ ʏᴏᴜ ɢʀᴏᴜᴘ ᴡɪʟʟ ʙᴇ ᴀʙʟᴇ ᴛᴏ ᴜsᴇ ᴀᴅᴍɪɴ ᴄᴏᴍᴍᴀɴᴅ (ʟɪᴋᴇ /skip, /stop etc)

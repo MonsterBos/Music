@@ -19,12 +19,11 @@ from strings import get_command
 from YukkiMusic import app
 from YukkiMusic.misc import db
 from YukkiMusic.utils import Yukkibin, get_channeplayCB, seconds_to_min
-from YukkiMusic.utils.database import (get_cmode, is_active_chat,
-                                       is_music_playing)
+from YukkiMusic.utils.database import get_cmode, is_active_chat, is_music_playing
 from YukkiMusic.utils.decorators.language import language, languageCB
 from YukkiMusic.utils.inline import queue_back_markup, queue_markup
 
-###Commands
+# Commands
 QUEUE_COMMAND = get_command("QUEUE_COMMAND")
 
 basic = {}
@@ -58,7 +57,7 @@ async def ping_com(client, message: Message, _):
             return await message.reply_text(_["setting_12"])
         try:
             await app.get_chat(chat_id)
-        except:
+        except BaseException:
             return await message.reply_text(_["cplay_4"])
         cplay = True
     else:
@@ -143,7 +142,7 @@ async def ping_com(client, message: Message, _):
                         break
                 else:
                     break
-        except:
+        except BaseException:
             return
 
 
@@ -151,7 +150,7 @@ async def ping_com(client, message: Message, _):
 async def quite_timer(client, CallbackQuery: CallbackQuery):
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
 
 
@@ -163,7 +162,7 @@ async def queued_tracks(client, CallbackQuery: CallbackQuery, _):
     what, videoid = callback_request.split("|")
     try:
         chat_id, channel = await get_channeplayCB(_, what, CallbackQuery)
-    except:
+    except BaseException:
         return
     if not await is_active_chat(chat_id):
         return await CallbackQuery.answer(_["general_6"], show_alert=True)
@@ -211,7 +210,7 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
     cplay = callback_data.split(None, 1)[1]
     try:
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
-    except:
+    except BaseException:
         return
     if not await is_active_chat(chat_id):
         return await CallbackQuery.answer(_["general_6"], show_alert=True)
@@ -295,5 +294,5 @@ async def queue_back(client, CallbackQuery: CallbackQuery, _):
                         break
                 else:
                     break
-        except:
+        except BaseException:
             return

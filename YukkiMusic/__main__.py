@@ -53,7 +53,7 @@ async def init():
         users = await get_banned_users()
         for user_id in users:
             BANNED_USERS.add(user_id)
-    except:
+    except BaseException:
         pass
     await app.start()
     for all_module in ALL_MODULES:
@@ -126,7 +126,7 @@ async def help_button(client, query, _):
         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
-        except:
+        except BaseException:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
 

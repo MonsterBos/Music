@@ -8,31 +8,31 @@ async def get_assistant_details():
     try:
         a = await get_client(1)
         msg += f"ᴀssɪsᴛᴀɴᴛ ɴᴜᴍʙᴇʀ:- `1` ɴᴀᴍᴇ :- [{a.name}](https://t.me/{a.username})  ᴜsᴇʀɴᴀᴍᴇ :-  @{a.username} ɪᴅ :- {a.id}\n\n"
-    except:
+    except BaseException:
         pass
 
     try:
         b = await get_client(2)
         msg += f"ᴀssɪsᴛᴀɴᴛ ɴᴜᴍʙᴇʀ:- `2` ɴᴀᴍᴇ :- [{b.name}](https://t.me/{b.username})  ᴜsᴇʀɴᴀᴍᴇ :-  @{b.username} ɪᴅ :- {b.id}\n"
-    except:
+    except BaseException:
         pass
 
     try:
         c = await get_client(3)
         msg += f"ᴀssɪsᴛᴀɴᴛ ɴᴜᴍʙᴇʀ:- `3` ɴᴀᴍᴇ :- [{c.name}](https://t.me/{c.username})  ᴜsᴇʀɴᴀᴍᴇ :-  @{c.username} ɪᴅ :- {c.id}\n"
-    except:
+    except BaseException:
         pass
 
     try:
         d = await get_client(4)
         msg += f"ᴀssɪsᴛᴀɴᴛ ɴᴜᴍʙᴇʀ:- `4` ɴᴀᴍᴇ :- [{d.name}](https://t.me/{d.username})  ᴜsᴇʀɴᴀᴍᴇ :-  @{d.username} ɪᴅ :- {d.id}\n"
-    except:
+    except BaseException:
         pass
 
     try:
         e = await get_client(5)
         msg += f"ᴀssɪsᴛᴀɴᴛ ɴᴜᴍʙᴇʀ:- `5` ɴᴀᴍᴇ :- [{e.name}](https://t.me/{e.username})  ᴜsᴇʀɴᴀᴍᴇ :-  @{e.username} ɪᴅ :- {e.id}\n"
-    except:
+    except BaseException:
         pass
 
     return msg

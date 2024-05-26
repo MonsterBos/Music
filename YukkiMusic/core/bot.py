@@ -44,7 +44,7 @@ class YukkiBot(Client):
                 config.LOG_GROUP_ID,
                 text=f"<u><b>{self.mention} ʙᴏᴛ sᴛᴀʀᴛᴇᴅ :</b><u>\n\nɪᴅ : <code>{self.id}</code>\nɴᴀᴍᴇ : {self.name}\nᴜsᴇʀɴᴀᴍᴇ : @{self.username}",
             )
-        except:
+        except BaseException:
             LOGGER(__name__).error(
                 "Bot has failed to access the log Group. Make sure that you have added your bot to your log channel and promoted as admin!"
             )
@@ -71,7 +71,7 @@ class YukkiBot(Client):
                         ),
                     ]
                 )
-            except:
+            except BaseException:
                 pass
         else:
             pass

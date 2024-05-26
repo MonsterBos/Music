@@ -7,9 +7,14 @@ from typing import List
 
 from PIL import Image
 from pyrogram import Client, errors, filters, raw
-from pyrogram.errors import (PeerIdInvalid, ShortnameOccupyFailed,
-                             StickerEmojiInvalid, StickerPngDimensions,
-                             StickerPngNopng, UserIsBlocked)
+from pyrogram.errors import (
+    PeerIdInvalid,
+    ShortnameOccupyFailed,
+    StickerEmojiInvalid,
+    StickerPngDimensions,
+    StickerPngNopng,
+    UserIsBlocked,
+)
 from pyrogram.file_id import FileId
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
@@ -41,7 +46,8 @@ async def get_sticker_set_by_name(
 
 # Known errors: (I don't see a reason to catch them as we, for sure, won't face them right now):
 # errors.exceptions.bad_request_400.PackShortNameInvalid -> pack name needs to end with _by_botname
-# errors.exceptions.bad_request_400.ShortnameOccupyFailed -> pack's name is already in use
+# errors.exceptions.bad_request_400.ShortnameOccupyFailed -> pack's name
+# is already in use
 
 
 async def create_sticker_set(
@@ -244,7 +250,8 @@ async def kang(client, message: Message):
         return print(e)
 
     # Find an available pack & add the sticker to the pack; create a new pack if needed
-    # Would be a good idea to cache the number instead of searching it every single time...
+    # Would be a good idea to cache the number instead of searching it every
+    # single time...
     packnum = 0
     packname = "f" + str(message.from_user.id) + "_by_" + BOT_USERNAME
     limit = 0
@@ -307,7 +314,7 @@ async def kang(client, message: Message):
 __MODULE__ = "Sᴛɪᴄᴋᴇʀ"
 __HELP__ = """
 /stickerid - Rᴇᴘʟʏ ᴛᴏ ᴀ sᴛɪᴄᴋᴇʀ ᴛᴏ ɢᴇᴛ ʜɪs ɪᴅ
-/getsticker - 
+/getsticker -
     To get sticker as a photo and document.
 /kang
     To kang a Sticker or an Image."""

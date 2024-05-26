@@ -15,21 +15,31 @@ import requests
 from pykeyboard import InlineKeyboard
 from pyrogram import filters
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors import (ChatAdminRequired, InviteRequestSent,
-                             UserAlreadyParticipant, UserNotParticipant)
+from pyrogram.errors import (
+    ChatAdminRequired,
+    InviteRequestSent,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtube_search import YoutubeSearch
 
 from config import BANNED_USERS, SERVER_PLAYLIST_LIMIT
 from YukkiMusic import Carbon, app
-from YukkiMusic.utils.database import (delete_playlist, get_assistant,
-                                       get_playlist, get_playlist_names,
-                                       save_playlist)
+from YukkiMusic.utils.database import (
+    delete_playlist,
+    get_assistant,
+    get_playlist,
+    get_playlist_names,
+    save_playlist,
+)
 from YukkiMusic.utils.decorators.language import language, languageCB
-from YukkiMusic.utils.inline.playlist import (botplaylist_markup,
-                                              get_cplaylist_markup,
-                                              get_playlist_markup,
-                                              warning_markup)
+from YukkiMusic.utils.inline.playlist import (
+    botplaylist_markup,
+    get_cplaylist_markup,
+    get_playlist_markup,
+    warning_markup,
+)
 from YukkiMusic.utils.pastebin import Yukkibin
 from YukkiMusic.utils.stream.stream import stream
 
@@ -231,7 +241,7 @@ async def play_playlist(client, CallbackQuery, _):
 
         try:
             await userbot.resolve_peer(invitelink)
-        except:
+        except BaseException:
             pass
 
     callback_data = CallbackQuery.data.strip()
@@ -244,7 +254,7 @@ async def play_playlist(client, CallbackQuery, _):
                 _["playlist_3"],
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     chat_id = CallbackQuery.message.chat.id
     user_name = CallbackQuery.from_user.first_name
@@ -252,7 +262,7 @@ async def play_playlist(client, CallbackQuery, _):
     result = []
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     video = True if mode == "v" else None
     mystic = await CallbackQuery.message.reply_text(_["play_1"])
@@ -357,7 +367,7 @@ async def play_playlist_command(client, message, _):
 
         try:
             await userbot.resolve_peer(invitelink)
-        except:
+        except BaseException:
             pass
     await msg.delete()
     mode = message.command[0][0]
@@ -369,7 +379,7 @@ async def play_playlist_command(client, message, _):
                 _["playlist_3"],
                 quote=True,
             )
-        except:
+        except BaseException:
             return
 
     chat_id = message.chat.id
@@ -377,7 +387,7 @@ async def play_playlist_command(client, message, _):
 
     try:
         await message.delete()
-    except:
+    except BaseException:
         pass
 
     result = []
@@ -420,7 +430,7 @@ async def play_playlist(client, CallbackQuery, _):
                 _["playlist_19"],
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     chat_id = CallbackQuery.message.chat.id
     user_name = CallbackQuery.from_user.first_name
@@ -428,7 +438,7 @@ async def play_playlist(client, CallbackQuery, _):
     result = []
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     video = True if mode == "v" else None
     mystic = await CallbackQuery.message.reply_text(_["play_1"])
@@ -467,7 +477,7 @@ async def play_playlist_command(client, message, _):
                 _["playlist_3"],
                 quote=True,
             )
-        except:
+        except BaseException:
             return
 
     chat_id = message.chat.id
@@ -475,7 +485,7 @@ async def play_playlist_command(client, message, _):
 
     try:
         await message.delete()
-    except:
+    except BaseException:
         pass
 
     result = []
@@ -747,12 +757,12 @@ async def del_plist(client, CallbackQuery, _):
     if deleted:
         try:
             await CallbackQuery.answer(_["playlist_11"], show_alert=True)
-        except:
+        except BaseException:
             pass
     else:
         try:
             return await CallbackQuery.answer(_["playlist_12"], show_alert=True)
-        except:
+        except BaseException:
             return
     keyboards = InlineKeyboardMarkup(
         [
@@ -781,7 +791,7 @@ async def add_playlist(client, CallbackQuery, _):
     if _check:
         try:
             return await CallbackQuery.answer(_["playlist_8"], show_alert=True)
-        except:
+        except BaseException:
             return
     _count = await get_playlist_names(user_id)
     count = len(_count)
@@ -791,7 +801,7 @@ async def add_playlist(client, CallbackQuery, _):
                 _["playlist_9"].format(SERVER_PLAYLIST_LIMIT),
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     (
         title,
@@ -812,7 +822,7 @@ async def add_playlist(client, CallbackQuery, _):
         return await CallbackQuery.edit_message_text(
             text="**➻ ʀᴇᴄᴏᴠᴇʀᴇᴅ sᴏɴɢ ɪɴ ʏᴏᴜʀ ᴘʟᴀʏʟɪsᴛ**"
         )
-    except:
+    except BaseException:
         return
 
 
@@ -826,12 +836,12 @@ async def del_plist(client, CallbackQuery, _):
     if deleted:
         try:
             await CallbackQuery.answer(_["playlist_11"], show_alert=True)
-        except:
+        except BaseException:
             pass
     else:
         try:
             return await CallbackQuery.answer(_["playlist_12"], show_alert=True)
-        except:
+        except BaseException:
             return
 
     return await CallbackQuery.edit_message_text(
@@ -855,7 +865,7 @@ async def add_playlist(client, CallbackQuery, _):
     if _check:
         try:
             return await CallbackQuery.answer(_["playlist_8"], show_alert=True)
-        except:
+        except BaseException:
             return
     _count = await get_playlist_names(user_id)
     count = len(_count)
@@ -865,7 +875,7 @@ async def add_playlist(client, CallbackQuery, _):
                 _["playlist_9"].format(SERVER_PLAYLIST_LIMIT),
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     (
         title,
@@ -886,7 +896,7 @@ async def add_playlist(client, CallbackQuery, _):
         return await CallbackQuery.answer(
             _["playlist_10"].format(title), show_alert=True
         )
-    except:
+    except BaseException:
         return
 
 
@@ -909,7 +919,7 @@ async def add_playlist(client, CallbackQuery, _):
                 "ᴀʟʀᴇᴀᴅʏ ᴇxɪsᴛs\n\nᴛʜɪs ᴛʀᴀᴄᴋ ᴇxɪsᴛs ɪɴ ɢʀᴏᴜᴘ ᴘʟᴀʏʟɪsᴛ.",
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     _count = await get_playlist_names(CallbackQuery.message.chat.id)
     count = len(_count)
@@ -919,7 +929,7 @@ async def add_playlist(client, CallbackQuery, _):
                 _["playlist_9"].format(SERVER_PLAYLIST_LIMIT),
                 show_alert=True,
             )
-        except:
+        except BaseException:
             return
     (
         title,
@@ -940,7 +950,7 @@ async def add_playlist(client, CallbackQuery, _):
         return await CallbackQuery.answer(
             _["playlist_10"].format(title), show_alert=True
         )
-    except:
+    except BaseException:
         return
 
 
@@ -956,12 +966,12 @@ async def del_plist(client, CallbackQuery, _):
     if deleted:
         try:
             await CallbackQuery.answer(_["playlist_11"], show_alert=True)
-        except:
+        except BaseException:
             pass
     else:
         try:
             return await CallbackQuery.answer(_["playlist_12"], show_alert=True)
-        except:
+        except BaseException:
             return
     keyboard, count = await get_keyboard(_, user_id)
     return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)
@@ -979,12 +989,12 @@ async def del_plist(client, CallbackQuery, _):
     if deleted:
         try:
             await CallbackQuery.answer(_["playlist_11"], show_alert=True)
-        except:
+        except BaseException:
             pass
     else:
         try:
             return await CallbackQuery.answer(_["playlist_12"], show_alert=True)
-        except:
+        except BaseException:
             return
     keyboard, count = await get_keyboard(_, CallbackQuery.message.chat.id)
     return await CallbackQuery.edit_message_reply_markup(reply_markup=keyboard)
@@ -1010,7 +1020,7 @@ async def del_whole_playlist(client, CallbackQuery, _):
 async def get_playlist_playmode_(client, CallbackQuery, _):
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     if CallbackQuery.data.startswith("get_playlist_playmode"):
         buttons = get_playlist_markup(_)
@@ -1031,7 +1041,7 @@ async def delete_warning_message(client, CallbackQuery, _):
 
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     upl = warning_markup(_)
     return await CallbackQuery.edit_message_text(_["playlist_14"], reply_markup=upl)
@@ -1044,7 +1054,7 @@ async def home_play_(client, CallbackQuery, _):
 
     try:
         await CallbackQuery.answer()
-    except:
+    except BaseException:
         pass
     buttons = botplaylist_markup(_)
     return await CallbackQuery.edit_message_reply_markup(
@@ -1062,12 +1072,12 @@ async def del_back_playlist(client, CallbackQuery, _):
     if _playlist:
         try:
             await CallbackQuery.answer(_["playlist_2"], show_alert=True)
-        except:
+        except BaseException:
             pass
     else:
         try:
             return await CallbackQuery.answer(_["playlist_3"], show_alert=True)
-        except:
+        except BaseException:
             return
     keyboard, count = await get_keyboard(_, user_id)
     return await CallbackQuery.edit_message_text(

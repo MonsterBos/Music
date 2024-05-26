@@ -40,7 +40,7 @@ async def purge_messages(event):
 
     try:
         await event.client.delete_messages(event.chat_id, messages)
-    except:
+    except BaseException:
         pass
     time_ = time.perf_counter() - start
     text = f"`Purged Successfully in {time_:0.2f} Seconds.`"

@@ -18,7 +18,7 @@ from YukkiMusic import app
 from YukkiMusic.utils.database import set_cmode
 from YukkiMusic.utils.decorators.admins import AdminActual
 
-### Multi-Lang Commands
+# Multi-Lang Commands
 CHANNELPLAY_COMMAND = get_command("CHANNELPLAY_COMMAND")
 
 
@@ -46,7 +46,7 @@ async def playmode_(client, message: Message, _):
     else:
         try:
             chat = await app.get_chat(query)
-        except:
+        except BaseException:
             return await message.reply_text(_["cplay_4"])
         if chat.type != ChatType.CHANNEL:
             return await message.reply_text(_["cplay_5"])
@@ -54,7 +54,7 @@ async def playmode_(client, message: Message, _):
             admins = app.get_chat_members(
                 chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             )
-        except:
+        except BaseException:
             return await message.reply_text(_["cplay_4"])
         async for users in admins:
             if users.status == ChatMemberStatus.OWNER:

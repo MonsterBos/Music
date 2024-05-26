@@ -22,7 +22,7 @@ from .utils.active import _clear_
 async def pause_str(client, message: Message):
     try:
         await message.delete()
-    except:
+    except BaseException:
         pass
     if not await is_active_chat(message.chat.id):
         return await message.reply_text("ʙᴏᴛ ɪsɴ'ᴛ sᴛʀᴇᴀᴍɪɴɢ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ.")
@@ -67,7 +67,7 @@ async def pause_str(client, message: Message):
         try:
             await _clear_(message.chat.id)
             await pytgcalls.leave_call(message.chat.id)
-        except:
+        except BaseException:
             pass
 
         return await message.reply_text(

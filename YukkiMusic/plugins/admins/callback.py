@@ -13,14 +13,28 @@ import random
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup
 
-from config import (BANNED_USERS, SOUNCLOUD_IMG_URL, STREAM_IMG_URL,
-                    TELEGRAM_AUDIO_URL, TELEGRAM_VIDEO_URL, adminlist)
+from config import (
+    BANNED_USERS,
+    SOUNCLOUD_IMG_URL,
+    STREAM_IMG_URL,
+    TELEGRAM_AUDIO_URL,
+    TELEGRAM_VIDEO_URL,
+    adminlist,
+)
 from YukkiMusic import YouTube, app
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.misc import SUDOERS, db
-from YukkiMusic.utils.database import (is_active_chat, is_music_playing,
-                                       is_muted, is_nonadmin_chat, music_off,
-                                       music_on, mute_off, mute_on, set_loop)
+from YukkiMusic.utils.database import (
+    is_active_chat,
+    is_music_playing,
+    is_muted,
+    is_nonadmin_chat,
+    music_off,
+    music_on,
+    mute_off,
+    mute_on,
+    set_loop,
+)
 from YukkiMusic.utils.decorators.language import languageCB
 from YukkiMusic.utils.formatters import seconds_to_min
 from YukkiMusic.utils.inline.play import stream_markup, telegram_markup
@@ -105,7 +119,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(_["admin_21"], show_alert=True)
         try:
             popped = check.pop(0)
-        except:
+        except BaseException:
             return await CallbackQuery.answer(_["admin_22"], show_alert=True)
         check = db.get(chat_id)
         if not check:
@@ -133,16 +147,16 @@ async def del_back_playlist(client, CallbackQuery, _):
                 )
                 try:
                     return await Yukki.stop_stream(chat_id)
-                except:
+                except BaseException:
                     return
-        except:
+        except BaseException:
             try:
                 await CallbackQuery.edit_message_text(f"» ᴛʀᴀᴄᴋ sᴋɪᴩᴩᴇᴅ ʙʏ {mention} !")
                 await CallbackQuery.message.reply_text(
                     _["admin_10"].format(mention), disable_web_page_preview=True
                 )
                 return await Yukki.stop_stream(chat_id)
-            except:
+            except BaseException:
                 return
         await CallbackQuery.answer()
         queued = check[0]["file"]
@@ -188,7 +202,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     videoid=True,
                     video=status,
                 )
-            except:
+            except BaseException:
                 return await mystic.edit_text(_["call_9"])
             try:
                 await Yukki.skip_stream(chat_id, file_path, video=status)
@@ -317,7 +331,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 duration,
                 playing[0]["streamtype"],
             )
-        except:
+        except BaseException:
             return await mystic.edit_text(_["admin_34"])
         if int(command) in [1, 3]:
             db[chat_id][0]["played"] -= duration_to_skip

@@ -9,8 +9,7 @@
 #
 from strings import get_string
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.database import (get_lang, is_commanddelete_on,
-                                       is_maintenance)
+from YukkiMusic.utils.database import get_lang, is_commanddelete_on, is_maintenance
 
 
 def language(mystic):
@@ -23,12 +22,12 @@ def language(mystic):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
         try:
             language = await get_lang(message.chat.id)
             language = get_string(language)
-        except:
+        except BaseException:
             language = get_string("en")
         return await mystic(_, message, language)
 
@@ -46,7 +45,7 @@ def languageCB(mystic):
         try:
             language = await get_lang(CallbackQuery.message.chat.id)
             language = get_string(language)
-        except:
+        except BaseException:
             language = get_string("en")
         return await mystic(_, CallbackQuery, language)
 
@@ -58,7 +57,7 @@ def LanguageStart(mystic):
         try:
             language = await get_lang(message.chat.id)
             language = get_string(language)
-        except:
+        except BaseException:
             language = get_string("en")
         return await mystic(_, message, language)
 

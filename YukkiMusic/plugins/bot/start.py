@@ -24,15 +24,20 @@ from YukkiMusic import Telegram, YouTube, app
 from YukkiMusic.misc import SUDOERS, _boot_
 from YukkiMusic.plugins.play.playlist import del_plist_msg
 from YukkiMusic.plugins.sudo.sudoers import sudoers_list
-from YukkiMusic.utils.database import (add_served_chat, add_served_user,
-                                       blacklisted_chats, get_assistant,
-                                       get_lang, get_userss, is_on_off,
-                                       is_served_private_chat)
+from YukkiMusic.utils.database import (
+    add_served_chat,
+    add_served_user,
+    blacklisted_chats,
+    get_assistant,
+    get_lang,
+    get_userss,
+    is_on_off,
+    is_served_private_chat,
+)
 from YukkiMusic.utils.decorators.language import LanguageStart
 from YukkiMusic.utils.formatters import get_readable_time
 from YukkiMusic.utils.functions import MARKDOWN, WELCOMEHELP
-from YukkiMusic.utils.inline import (alive_panel, help_mark, private_panel,
-                                     start_pannel)
+from YukkiMusic.utils.inline import alive_panel, help_mark, private_panel, start_pannel
 
 loop = asyncio.get_running_loop()
 
@@ -203,7 +208,7 @@ async def start_comm(client, message: Message, _):
         try:
             await app.resolve_peer(OWNER_ID[0])
             OWNER = OWNER_ID[0]
-        except:
+        except BaseException:
             OWNER = None
         out = private_panel(_, app.username, OWNER)
         if config.START_IMG_URL:
@@ -213,7 +218,7 @@ async def start_comm(client, message: Message, _):
                     caption=_["start_2"].format(app.mention),
                     reply_markup=InlineKeyboardMarkup(out),
                 )
-            except:
+            except BaseException:
                 await message.reply_photo(
                     photo=choice(PHOTO),
                     caption=_["start_2"].format(app.mention),
@@ -301,7 +306,7 @@ async def welcome(client, message: Message):
                     _["start_5"].format(app.mention, member.mention)
                 )
             return
-        except:
+        except BaseException:
 
             return
 

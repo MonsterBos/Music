@@ -10,8 +10,12 @@
 import asyncio
 
 from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors import (ChatAdminRequired, InviteRequestSent,
-                             UserAlreadyParticipant, UserNotParticipant)
+from pyrogram.errors import (
+    ChatAdminRequired,
+    InviteRequestSent,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from config import PLAYLIST_IMG_URL, PRIVATE_BOT_MODE
@@ -20,10 +24,17 @@ from config import adminlist
 from strings import get_string
 from YukkiMusic import YouTube, app
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.database import (get_assistant, get_cmode, get_lang,
-                                       get_playmode, get_playtype,
-                                       is_active_chat, is_commanddelete_on,
-                                       is_maintenance, is_served_private_chat)
+from YukkiMusic.utils.database import (
+    get_assistant,
+    get_cmode,
+    get_lang,
+    get_playmode,
+    get_playtype,
+    is_active_chat,
+    is_commanddelete_on,
+    is_maintenance,
+    is_served_private_chat,
+)
 from YukkiMusic.utils.inline import botplaylist_markup
 
 links = {}
@@ -61,7 +72,7 @@ def PlayWrapper(command):
         if await is_commanddelete_on(message.chat.id):
             try:
                 await message.delete()
-            except:
+            except BaseException:
                 pass
 
         audio_telegram = (
@@ -91,7 +102,7 @@ def PlayWrapper(command):
                 return await message.reply_text(_["setting_12"])
             try:
                 chat = await app.get_chat(chat_id)
-            except:
+            except BaseException:
                 return await message.reply_text(_["cplay_4"])
             channel = chat.title
         else:
@@ -143,7 +154,7 @@ def PlayWrapper(command):
                         invitelink = message.chat.username
                         try:
                             await userbot.resolve_peer(invitelink)
-                        except:
+                        except BaseException:
                             pass
                     else:
                         try:
@@ -186,7 +197,7 @@ def PlayWrapper(command):
 
                 try:
                     await userbot.resolve_peer(chat_id)
-                except:
+                except BaseException:
                     pass
 
         return await command(

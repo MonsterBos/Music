@@ -54,14 +54,14 @@ class TeleAPI:
             if file_name is None:
                 file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ ғɪʟᴇ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ ғɪʟᴇ"
 
-        except:
+        except BaseException:
             file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ ғɪʟᴇ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ ғɪʟᴇ"
         return file_name
 
     async def get_duration(self, file):
         try:
             dur = seconds_to_min(file.duration)
-        except:
+        except BaseException:
             dur = "Unknown"
         return dur
 
@@ -81,7 +81,7 @@ class TeleAPI:
                         else "ogg"
                     )
                 )
-            except:
+            except BaseException:
                 file_name = audio.file_unique_id + "." + ".ogg"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         if video:
@@ -89,7 +89,7 @@ class TeleAPI:
                 file_name = (
                     video.file_unique_id + "." + (video.file_name.split(".")[-1])
                 )
-            except:
+            except BaseException:
                 file_name = video.file_unique_id + "." + "mp4"
             file_name = os.path.join(os.path.realpath("downloads"), file_name)
         return file_name
@@ -133,14 +133,14 @@ class TeleAPI:
 **{app.mention} ᴛᴇʟᴇɢʀᴀᴍ ᴍᴇᴅɪᴀ ᴅᴏᴡɴʟᴏᴀᴅᴇʀ**
 
 **ᴛᴏᴛᴀʟ ғɪʟᴇ sɪᴢᴇ:** {total_size}
-**ᴄᴏᴍᴘʟᴇᴛᴇᴅ:** {completed_size} 
+**ᴄᴏᴍᴘʟᴇᴛᴇᴅ:** {completed_size}
 **ᴘᴇʀᴄᴇɴᴛᴀɢᴇ:** {percentage[:5]}%
 
 **sᴘᴇᴇᴅ:** {speed}/s
 **ᴇʟᴘᴀsᴇᴅ ᴛɪᴍᴇ:** {eta}"""
                     try:
                         await mystic.edit_text(text, reply_markup=upl)
-                    except:
+                    except BaseException:
                         pass
                     left_time[message.id] = datetime.now() + timedelta(
                         seconds=self.sleep
@@ -159,7 +159,7 @@ class TeleAPI:
                     "sᴜᴄᴄᴇssғᴜʟʟʏ ᴅᴏᴡɴʟᴏᴀᴅᴇᴅ...\n ᴘʀᴏᴄᴇssɪɴɢ ғɪʟᴇ ɴᴏᴡ"
                 )
                 downloader.pop(message.id)
-            except:
+            except BaseException:
                 await mystic.edit_text(_["tg_2"])
 
         if len(downloader) > 10:
@@ -169,7 +169,7 @@ class TeleAPI:
             try:
                 low = min(timers)
                 eta = get_readable_time(low)
-            except:
+            except BaseException:
                 eta = "Unknown"
             await mystic.edit_text(_["tg_1"].format(eta))
             return False

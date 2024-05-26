@@ -19,11 +19,17 @@ import config
 from config import adminlist, chatstats, clean, userstats
 from strings import get_command
 from YukkiMusic import app
-from YukkiMusic.utils.database import (get_active_chats, get_authuser_names,
-                                       get_client, get_particular_top,
-                                       get_served_chats, get_served_users,
-                                       get_user_top, update_particular_top,
-                                       update_user_top)
+from YukkiMusic.utils.database import (
+    get_active_chats,
+    get_authuser_names,
+    get_client,
+    get_particular_top,
+    get_served_chats,
+    get_served_users,
+    get_user_top,
+    update_particular_top,
+    update_user_top,
+)
 from YukkiMusic.utils.decorators.language import language
 from YukkiMusic.utils.formatters import alpha_to_int
 
@@ -96,7 +102,7 @@ async def braodcast_message(client, message, _):
                 continue
         try:
             await message.reply_text(_["broad_1"].format(sent, pin))
-        except:
+        except BaseException:
             pass
 
     # Bot broadcasting to users
@@ -123,7 +129,7 @@ async def braodcast_message(client, message, _):
                 pass
         try:
             await message.reply_text(_["broad_7"].format(susr))
-        except:
+        except BaseException:
             pass
 
     # Bot broadcasting by assistant
@@ -156,7 +162,7 @@ async def braodcast_message(client, message, _):
             text += _["broad_4"].format(num, sent)
         try:
             await aw.edit_text(text)
-        except:
+        except BaseException:
             pass
     IS_BROADCASTING = False
 
@@ -194,7 +200,7 @@ async def auto_clean():
                         next_spot = 1
                         new_spot = {"spot": next_spot, "title": title}
                         await update_user_top(user_id, vidid, new_spot)
-        except:
+        except BaseException:
             continue
         try:
             for chat_id in clean:
@@ -206,11 +212,11 @@ async def auto_clean():
                             await app.delete_messages(chat_id, x["msg_id"])
                         except FloodWait as e:
                             await asyncio.sleep(e.value)
-                        except:
+                        except BaseException:
                             continue
                     else:
                         continue
-        except:
+        except BaseException:
             continue
         try:
             served_chats = await get_active_chats()
@@ -227,7 +233,7 @@ async def auto_clean():
                     for user in authusers:
                         user_id = await alpha_to_int(user)
                         adminlist[chat_id].append(user_id)
-        except:
+        except BaseException:
             continue
 
 

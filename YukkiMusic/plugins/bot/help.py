@@ -21,10 +21,14 @@ from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
 from YukkiMusic.utils.database import get_lang, is_commanddelete_on
 from YukkiMusic.utils.decorators.language import LanguageStart, languageCB
-from YukkiMusic.utils.inline.help import (help_back_markup, help_mark,
-                                          help_pannel, private_help_panel)
+from YukkiMusic.utils.inline.help import (
+    help_back_markup,
+    help_mark,
+    help_pannel,
+    private_help_panel,
+)
 
-### Command
+# Command
 HELP_COMMAND = get_command("HELP_COMMAND")
 
 
@@ -37,7 +41,7 @@ async def helper_private(
     if is_callback:
         try:
             await update.answer()
-        except:
+        except BaseException:
             pass
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
@@ -49,7 +53,7 @@ async def helper_private(
         if await is_commanddelete_on(update.chat.id):
             try:
                 await update.delete()
-            except:
+            except BaseException:
                 pass
         language = await get_lang(chat_id)
         _ = get_string(language)
@@ -83,7 +87,7 @@ async def yukki_pages(client, CallbackQuery, _):
     try:
         await CallbackQuery.message.edit_text(_["help_1"], reply_markup=keyboard)
         return
-    except:
+    except BaseException:
         return
 
 
@@ -106,7 +110,7 @@ async def helper_cb(client, CallbackQuery, _):
                 return await CallbackQuery.answer()
         try:
             await CallbackQuery.answer()
-        except:
+        except BaseException:
             pass
         if cb == "hb1":
             await CallbackQuery.edit_message_text(helpers.HELP_1, reply_markup=keyboard)

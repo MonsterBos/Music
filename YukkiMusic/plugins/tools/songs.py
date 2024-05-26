@@ -14,11 +14,15 @@ import re
 import yt_dlp
 from pykeyboard import InlineKeyboard
 from pyrogram import enums, filters
-from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,
-                            InputMediaAudio, InputMediaVideo, Message)
+from pyrogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    InputMediaAudio,
+    InputMediaVideo,
+    Message,
+)
 
-from config import (BANNED_USERS, SONG_DOWNLOAD_DURATION,
-                    SONG_DOWNLOAD_DURATION_LIMIT)
+from config import BANNED_USERS, SONG_DOWNLOAD_DURATION, SONG_DOWNLOAD_DURATION_LIMIT
 from strings import get_command
 from YukkiMusic import YouTube, app
 from YukkiMusic.utils.decorators.language import language, languageCB
@@ -115,7 +119,7 @@ async def song_commad_private(client, message: Message, _):
             vidid,
         ) = await YouTube.details(query)
 
-    except:
+    except BaseException:
 
         return await mystic.edit_text(_["play_3"])
 
@@ -171,7 +175,7 @@ async def song_helper_cb(client, CallbackQuery, _):
 
         await CallbackQuery.answer(_["song_6"], show_alert=True)
 
-    except:
+    except BaseException:
 
         pass
 
@@ -181,7 +185,7 @@ async def song_helper_cb(client, CallbackQuery, _):
 
             formats_available, link = await YouTube.formats(vidid, True)
 
-        except:
+        except BaseException:
 
             return await CallbackQuery.edit_message_text(_["song_7"])
 
@@ -295,7 +299,7 @@ async def song_download_cb(client, CallbackQuery, _):
 
         await CallbackQuery.answer("ᴅᴏᴡɴʟᴏᴀᴅɪɴɢ...")
 
-    except:
+    except BaseException:
 
         pass
 
@@ -315,7 +319,7 @@ async def song_download_cb(client, CallbackQuery, _):
 
     title = (x["title"]).title()
 
-    title = re.sub("\W+", " ", title)
+    title = re.sub("\\W+", " ", title)
 
     thumb_image_path = await CallbackQuery.message.download()
 

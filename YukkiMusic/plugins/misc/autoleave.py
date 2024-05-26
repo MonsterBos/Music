@@ -43,9 +43,9 @@ async def auto_leave():
                                     try:
                                         await client.leave_chat(chat_id)
                                         left += 1
-                                    except:
+                                    except BaseException:
                                         continue
-                except:
+                except BaseException:
                     pass
 
 
@@ -67,14 +67,14 @@ async def auto_end():
                 autoend[chat_id] = {}
                 try:
                     await Yukki.stop_stream(chat_id)
-                except:
+                except BaseException:
                     continue
                 try:
                     await app.send_message(
                         chat_id,
                         "Bot has left voice chat due to inactivity to avoid overload on servers. No-one was listening to the bot on voice chat.",
                     )
-                except:
+                except BaseException:
                     continue
 
 

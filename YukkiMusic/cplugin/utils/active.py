@@ -51,5 +51,5 @@ async def _clear_(chat_id):
     try:
         clonedb[chat_id] = []
         await remove_active_chat(chat_id)
-    except:
+    except BaseException:
         return
