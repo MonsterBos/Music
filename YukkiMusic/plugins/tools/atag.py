@@ -36,9 +36,11 @@ async def tag_all_useres(_, message):
             if message.chat.id not in SPAM_CHATS:
                 break
             usernum += 1
-            usertxt += f"\n⊚ [{m.user.first_name}](tg://user?id={m.user.id})\n"
-            if usernum == 5:
-                await replied.reply_text(usertxt, ParseMode.MARKDOWN)
+            usertxt += (
+                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n' or f'[{m.user.first_name}](tg://user?id={m.user.id})'
+            )
+            if usernum == 4:
+                await replied.reply_text(usertxt, ParseMode.DEFAULT)
                 await asyncio.sleep(2)
                 usernum = 0
                 usertxt = ""
@@ -57,14 +59,14 @@ async def tag_all_useres(_, message):
                 break
             usernum += 1
             usertxt += (
-                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n'
+                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n' or f'[{m.user.first_name}](tg://user?id={m.user.id})'
             )
 
-            if usernum == 5:
+            if usernum == 4:
                 await userbot.send_message(
                     message.chat.id,
                     f"{text}\n{usertxt}\n\n|| ➥ ᴏғғ ᴛᴀɢɢɪɴɢ ʙʏ » /acancel ||",
-                    ParseMode.HTML,
+                    ParseMode.DEFAULT,
                 )
                 await asyncio.sleep(2)
                 usernum = 0
