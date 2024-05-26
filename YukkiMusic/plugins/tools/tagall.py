@@ -177,7 +177,11 @@ async def tag_all_useres(_, message):
             usernum += 1
             usertxt += f"[{m.user.first_name}](tg://openmessage?user_id={m.user.id})"
             if usernum == 7:
-                await userbot.send_message(message.chat.id, f"{replied.text}\nusertxt",disable_web_page_preview=True)
+                await userbot.send_message(
+                    message.chat.id,
+                    f"{replied.text}\nusertxt",
+                    disable_web_page_preview=True,
+                )
                 await asyncio.sleep(2)
                 usernum = 0
                 usertxt = ""
@@ -199,8 +203,7 @@ async def tag_all_useres(_, message):
 
             if usernum == 7:
                 await userbot.send_message(
-                    message.chat.id,
-                    f"{text}\n{usertxt}",disable_web_page_preview=True
+                    message.chat.id, f"{text}\n{usertxt}", disable_web_page_preview=True
                 )
                 await asyncio.sleep(2)
                 usernum = 0
