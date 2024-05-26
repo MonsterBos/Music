@@ -1,4 +1,4 @@
-name: Recover Previous Files in Dev Branch (with Commit)
+name: Recover Previous Files in Dev Branch (with Verification and Commit)
 
 on:
   workflow_dispatch: # Manual trigger
@@ -16,10 +16,16 @@ jobs:
       - name: Checkout specific commit
         run: |
           git checkout ${{ steps.commit_sha.outputs.SHA }}
+      - name: Verify changes
+        run: git status
       - name: Add all changes (stage for commit)
-        run: git add .
-      - name: Commit changes with message
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git commit -m "Recovered files from commit ${{ steps.commit_sha.outputs.SHA }}"
+          git add .
+          echo $?
+      - name: Commit changes with message (if changes detected)
+        run: |
+          if [ $? -eq 0 ]; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git commit -m "Recovered files from commit ${{ steps.commit_sha.outputs.SHA }}"
+          fi
