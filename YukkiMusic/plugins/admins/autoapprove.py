@@ -17,6 +17,7 @@ from YukkiMusic.utils.keyboard import ikb
 
 approvaldb = mongodb.autoapprove
 
+
 @app.on_message(filters.command("autoapprove") & filters.group)
 @adminsOnly("can_change_info")
 async def approval_command(client, message):
@@ -194,4 +195,3 @@ Tʜɪs ᴍᴏᴅᴜʟᴇ ʜᴇʟᴘs ᴛᴏ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ 
 
 Usᴇ: /clearpending ᴄᴏᴍᴍᴀɴᴅ ᴛᴏ ʀᴇᴍᴏᴠᴇ ᴀʟʟ ᴘᴇɴᴅɪɴɢ ᴜsᴇʀ ɪᴅ ғʀᴏᴍ ᴅʙ. ᴛʜɪs ᴡɪʟʟ ᴀʟʟᴏᴡ ᴛʜᴇ ᴜsᴇʀ ᴛᴏ sᴇɴᴅ ʀᴇǫᴜᴇsᴛ ᴀɢᴀɪɴ.
 """
-
