@@ -1,4 +1,4 @@
-name: Black
+'''name: Black
 
 on: push
 
@@ -21,4 +21,4 @@ jobs:
             repository: .
             commit_user_name: VivekKumar-IN
             commit_user_email: VivekKumar-IN@users.noreply.github.com
-            commit_author: VivekKumar-IN <VivekKumar-IN@users.noreply.github.com>
+            commit_author: VivekKumar-IN <VivekKumar-IN@users.noreply.github.com>'''
