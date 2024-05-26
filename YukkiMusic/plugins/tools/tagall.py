@@ -79,12 +79,7 @@ async def tag_all_users(_, message):
         except Exception:
             pass
 
-
-@app.on_message(
-    filters.command(["admin", "admins", "admintag", "tagadmin"], prefixes=["/", "@"])
-    & admin_filter
-)
-async def tag_all_users(_, message):
+async def tag_all_admins(_, message):
     if message.chat.id in SPAM_CHATS:
         return await message.reply_text(
             "ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /cancel"
@@ -157,7 +152,7 @@ async def tag_all_users(_, message):
     )
     & admin_filter
 )
-async def tag_all_useres(_, message):
+async def atag_all_useres(_, message):
     userbot = await get_assistant(message.chat.id)
     if message.chat.id in SPAM_CHATS:
         return await message.reply_text(
@@ -215,6 +210,12 @@ async def tag_all_useres(_, message):
         except Exception:
             pass
 
+@app.on_message(
+    filters.command(["admin", "admins", "admintag", "tagadmin"], prefixes=["/", "@"])
+    & admin_filter
+)
+async def atag_all_useres(_, message):
+    await tag_all_admins(_, message)
 
 @app.on_message(
     filters.command(
