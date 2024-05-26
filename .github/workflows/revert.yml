@@ -1,48 +1,16 @@
-name: Revert to Specific Commit
+name: Recover Previous Files
 
 on:
-  workflow_dispatch:
-    inputs:
-      commit_sha:
-        description: 'The commit SHA to revert to'
-        required: true
-        default: '1dca484798d537296f5161e8e177815da7504105'
+  workflow_dispatch: # Manual trigger
 
 jobs:
-  revert:
+  recover:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          ref: dev  # Ensure we are working on the dev branch
-
-      - name: Fetch All Branches and Tags
+      - uses: actions/checkout@v3
+      - name: Identify commit SHA
+        id: commit_sha
+        run: echo "::set-output name=SHA c1a5f23f421ad01eae2a50fcb18bec3d40e4e970"
+      - name: Checkout specific commit
         run: |
-          git fetch --all
-          git fetch --tags
-
-      - name: Verify Commit SHA
-        id: verify
-        run: |
-          echo "Verifying commit SHA: ${{ github.event.inputs.commit_sha }}"
-          if ! git cat-file -e ${{ github.event.inputs.commit_sha }} 2>/dev/null; then
-            echo "Commit SHA ${{ github.event.inputs.commit_sha }} does not exist."
-            exit 1
-          fi
-
-      - name: Debug: List All Commits
-        run: |
-          echo "Listing all commits for debugging:"
-          git log --oneline -n 20
-
-      - name: Revert to Specific Commit
-        run: |
-          git reset --hard ${{ github.event.inputs.commit_sha }}
-
-      - name: Push Changes
-        run: |
-          git push --force origin dev
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git checkout ${{ steps.commit_sha.outputs.SHA }}
