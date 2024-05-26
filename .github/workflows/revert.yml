@@ -15,14 +15,29 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: dev  # Ensure we are working on the dev branch
+
+      - name: Verify Commit SHA
+        id: verify
+        run: |
+          if ! git cat-file -e ${{ github.event.inputs.commit_sha }} 2>/dev/null; then
+            echo "Commit SHA ${{ github.event.inputs.commit_sha }} does not exist."
+            exit 1
+          fi
+
+      - name: Fetch All Branches and Commits
+        run: |
+          git fetch --all
 
       - name: Revert to Specific Commit
+        if: success()
         run: |
-          git fetch origin
           git reset --hard ${{ github.event.inputs.commit_sha }}
 
       - name: Push Changes
+        if: success()
         run: |
-          git push --force origin HEAD
+          git push --force origin dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
