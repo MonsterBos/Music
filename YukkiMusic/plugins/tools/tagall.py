@@ -7,9 +7,9 @@ from pyrogram.types import ChatPermissions
 from YukkiMusic import app
 from YukkiMusic.utils.filter import admin_filter
 from YukkiMusic.utils.database import get_assistant
-from config import adminlist 
+from config import adminlist
 from pyrogram.enums import ChatMembersFilter
- 
+
 
 SPAM_CHATS = []
 
@@ -215,7 +215,6 @@ async def atag_all_useres(_, message):
             pass
 
 
-
 @app.on_message(
     filters.command(["admin", "admins"], prefixes=["/", "@"])
     & admin_filter
@@ -229,9 +228,7 @@ async def admintag_with_reporting(_, message):
         await tag_all_admins(_, message)
     else:
         if not message.reply_to_message:
-            return await message.reply_text(
-                "Reply to a message to report that user."
-            )
+            return await message.reply_text("Reply to a message to report that user.")
         reply_id = reply.from_user.id
         reply = message.reply_to_message if message.reply_to_message else message
         linked_chat = (await app.get_chat(message.chat.id)).linked_chat
@@ -253,7 +250,7 @@ async def admintag_with_reporting(_, message):
         admin_data = [
             i
             async for i in app.get_chat_members(
-                chat_id=message.chat.id,     filter=ChatMembersFilter.ADMINISTRATORS
+                chat_id=message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             )
         ]  # will it give floods ???
         for admin in admin_data:
@@ -263,8 +260,6 @@ async def admintag_with_reporting(_, message):
             text += f"[\u2063](tg://user?id={admin.user.id})"
 
         await reply.reply_text(text)
-        
-    	
 
 
 @app.on_message(
