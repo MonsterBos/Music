@@ -224,7 +224,13 @@ async def admintag_with_reporting(_, message):
     if message.from_user is None:
         return
     adam = adminlist.get(message.chat.id)
-    admins = await app.get_chat_member(message.chat.id, message.from_user.id)
+    admins = []
+    async for i in app.get_chat_members(
+                chat_id=message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+            ):
+        admins.append(i.user.id)
+
+
     if message.from_user.id in [
         ChatMemberStatus.OWNER,
         ChatMemberStatus.ADMINISTRATOR,
