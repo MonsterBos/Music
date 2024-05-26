@@ -18,17 +18,24 @@ jobs:
         with:
           ref: dev  # Ensure we are working on the dev branch
 
-      - name: Fetch All Branches and Commits
+      - name: Fetch All Branches and Tags
         run: |
           git fetch --all
+          git fetch --tags
 
       - name: Verify Commit SHA
         id: verify
         run: |
+          echo "Verifying commit SHA: ${{ github.event.inputs.commit_sha }}"
           if ! git cat-file -e ${{ github.event.inputs.commit_sha }} 2>/dev/null; then
             echo "Commit SHA ${{ github.event.inputs.commit_sha }} does not exist."
             exit 1
           fi
+
+      - name: Debug: List All Commits
+        run: |
+          echo "Listing all commits for debugging:"
+          git log --oneline -n 20
 
       - name: Revert to Specific Commit
         run: |
