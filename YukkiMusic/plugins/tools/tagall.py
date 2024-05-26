@@ -179,7 +179,7 @@ async def tag_all_useres(_, message):
             if usernum == 7:
                 await userbot.send_message(
                     message.chat.id,
-                    f"{replied.text}\nusertxt",
+                    f"{replied.text}\n{usertxt}",
                     disable_web_page_preview=True,
                 )
                 await asyncio.sleep(2)
