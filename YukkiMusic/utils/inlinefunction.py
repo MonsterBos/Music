@@ -3,7 +3,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from YukkiMusic import MOD_LOAD, MOD_NOLOAD
 
 COLUMN_SIZE = 3  # Controls the number of rows
-NUM_COLUMNS = 3  # Controls the number of columns
+NUM_COLUMNS = 4  # Controls the number of columns
 
 
 class EqInlineKeyboardButton(InlineKeyboardButton):
