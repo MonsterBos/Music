@@ -16,18 +16,11 @@ from typing import Union
 from ntgcalls import ConnectionError, TelegramServerError
 from pyrogram import Client, filters
 from pyrogram.enums import ChatMemberStatus, MessageEntityType
-from pyrogram.errors import (
-    ChatAdminRequired,
-    UserAlreadyParticipant,
-    UserNotParticipant,
-)
+from pyrogram.errors import (ChatAdminRequired, UserAlreadyParticipant,
+                             UserNotParticipant)
 from pyrogram.types import Audio, Message, Voice
-from pytgcalls.exceptions import (
-    AlreadyJoinedError,
-    NoActiveGroupCall,
-    NotInCallError,
-    UnMuteNeeded,
-)
+from pytgcalls.exceptions import (AlreadyJoinedError, NoActiveGroupCall,
+                                  NotInCallError, UnMuteNeeded)
 from pytgcalls.types import AudioQuality, MediaStream
 from youtube_search import YoutubeSearch
 

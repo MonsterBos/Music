@@ -2,7 +2,8 @@ from random import choice
 
 import pyfiglet
 from pyrogram import filters
-from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup)
 
 from YukkiMusic import app
 

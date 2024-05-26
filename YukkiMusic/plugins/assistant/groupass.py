@@ -5,7 +5,8 @@ from config import PK
 from YukkiMusic import app
 from YukkiMusic.core.userbot import assistants
 from YukkiMusic.utils.assistant import assistant, get_assistant_details
-from YukkiMusic.utils.database import get_assistant, save_assistant, set_assistant
+from YukkiMusic.utils.database import (get_assistant, save_assistant,
+                                       set_assistant)
 from YukkiMusic.utils.filter import admin_filter
 
 
