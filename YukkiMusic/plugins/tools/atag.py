@@ -37,7 +37,8 @@ async def tag_all_useres(_, message):
                 break
             usernum += 1
             usertxt += (
-                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n' or f'[{m.user.first_name}](tg://user?id={m.user.id})'
+                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n'
+                or f"[{m.user.first_name}](tg://user?id={m.user.id})"
             )
             if usernum == 4:
                 await replied.reply_text(usertxt, ParseMode.DEFAULT)
@@ -59,7 +60,8 @@ async def tag_all_useres(_, message):
                 break
             usernum += 1
             usertxt += (
-                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n' or f'[{m.user.first_name}](tg://user?id={m.user.id})'
+                f'\n⊚ <a href="tg://user?id={m.user.id}">{m.user.first_name}</a>\n'
+                or f"[{m.user.first_name}](tg://user?id={m.user.id})"
             )
 
             if usernum == 4:
