@@ -7,6 +7,9 @@ from pyrogram.types import ChatPermissions
 from YukkiMusic import app
 from YukkiMusic.utils.filter import admin_filter
 from YukkiMusic.utils.database import get_assistant
+from config import adminlist 
+from pyrogram.enums import ChatMembersFilter
+ 
 
 SPAM_CHATS = []
 
@@ -212,12 +215,56 @@ async def atag_all_useres(_, message):
             pass
 
 
+
 @app.on_message(
-    filters.command(["admin", "admins", "admintag", "tagadmin"], prefixes=["/", "@"])
+    filters.command(["admin", "admins"], prefixes=["/", "@"])
     & admin_filter
+    & ~filters.private
 )
-async def atag_all_useres(_, message):
-    await tag_all_admins(_, message)
+async def admintag_with_reporting(_, message):
+    if message.from_user is None:
+        return
+    admins = adminlist.get(message.chat.id)
+    if message.from_user.id in admins:
+        await tag_all_admins(_, message)
+    else:
+    	if not message.reply_to_message:
+            return await message.reply_text(
+                "Reply to a message to report that user."
+            )
+    	reply_id = reply.from_user.id
+        reply = message.reply_to_message if message.reply_to_message else message
+        linked_chat = (await app.get_chat(message.chat.id)).linked_chat
+        if (
+            reply_id in admins
+            or reply_id == message.chat.id
+            or reply_id == linked_chat.id
+        ):
+            return await message.reply_text(
+                "Do you know that the user you are replying is an admin ?"
+            )
+        else:
+            if reply_id in admins or reply_id == message.chat.id:
+                return await message.reply_text(
+                    "Do you know that the user you are replying is an admin ?"
+                )
+        user_mention = reply.from_user.mention
+        text = f"Reported {user_mention} to admins!."
+        admin_data = [
+            i
+            async for i in app.get_chat_members(
+                chat_id=message.chat.id,     filter=ChatMembersFilter.ADMINISTRATORS
+            )
+        ]  # will it give floods ???
+        for admin in admin_data:
+            if admin.user.is_bot or admin.user.is_deleted:
+                # return bots or deleted admins
+                continue
+            text += f"[\u2063](tg://user?id={admin.user.id})"
+
+        await reply.reply_text(text)
+        
+    	
 
 
 @app.on_message(
@@ -256,7 +303,7 @@ __HELP__ = """
 @aall ᴏʀ /aall | /atagall ᴏʀ  @atagall | /amentionall ᴏʀ  @amentionall  [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴜsᴇʀ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ʙʏ ʙᴏᴛ's ᴀssɪsᴛᴀɴᴛ
 
 
-/admin ᴏʀ @admin | /admintag ᴏʀ @admintag | /tagadmin ᴏʀ @tagadmin | /admins Oʀ @admins [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ
+/admins Oʀ @admins [ᴛᴇxᴛ] ᴏʀ [ʀᴇᴘʟʏ ᴛᴏ ᴀɴʏ ᴍᴇssᴀɢᴇ] ᴛᴏ ᴛᴀɢ ᴀʟʟ ᴀᴅᴍɪɴ's ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ
 
 /cancel Oʀ @cancel |  /offmention Oʀ @offmention | /mentionoff Oʀ @mentionoff | /cancelall Oʀ @cancelall - ᴛᴏ sᴛᴏᴘ ʀᴜɴɴɪɴɢ ᴀɴʏ ᴛᴀɢ ᴘʀᴏᴄᴇss
 
