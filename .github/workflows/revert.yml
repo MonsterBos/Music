@@ -1,4 +1,4 @@
-name: Recover Previous Files
+name: Recover Previous Files in Dev Branch
 
 on:
   workflow_dispatch: # Manual trigger
@@ -11,6 +11,8 @@ jobs:
       - name: Identify commit SHA
         id: commit_sha
         run: echo "::set-output name=SHA c1a5f23f421ad01eae2a50fcb18bec3d40e4e970"
+      - name: Checkout dev branch
+        run: git checkout dev
       - name: Checkout specific commit
         run: |
           git checkout ${{ steps.commit_sha.outputs.SHA }}
