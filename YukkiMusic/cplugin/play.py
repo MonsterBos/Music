@@ -9,50 +9,30 @@
 #
 
 import asyncio
-import os
 import logging
-from ntgcalls import TelegramServerError, ConnectionError
+import os
+from typing import Union
+
+from ntgcalls import ConnectionError, TelegramServerError
 from pyrogram import Client, filters
 from pyrogram.enums import ChatMemberStatus, MessageEntityType
-from pyrogram.errors import (
-    ChatAdminRequired,
-    UserAlreadyParticipant,
-    UserNotParticipant,
-)
-from pytgcalls import PyTgCalls
-from pyrogram.types import (
-    Message,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Audio,
-    Voice,
-)
-from pytgcalls.exceptions import (
-    NoActiveGroupCall,
-    UnMuteNeeded,
-    NotInCallError,
-    AlreadyJoinedError,
-)
-from pytgcalls.types import MediaStream, AudioQuality
-from youtube_search import YoutubeSearch
-from datetime import datetime
-
-import config
-from config import DURATION_LIMIT_MIN
-from YukkiMusic.misc import clonedb
-from YukkiMusic.cplugin.utils import add_active_chat, is_active_chat, stream_on
-from YukkiMusic.utils.downloaders import audio_dl
-from YukkiMusic.utils.thumbnails import gen_qthumb
-from YukkiMusic.utils.thumbnails import gen_thumb
-
-from typing import Union
-from pyrogram.enums import MessageEntityType
+from pyrogram.errors import (ChatAdminRequired, UserAlreadyParticipant,
+                             UserNotParticipant)
 from pyrogram.types import Audio, Message, Voice
-from YukkiMusic.utils.database import get_assistant
+from pytgcalls.exceptions import (AlreadyJoinedError, NoActiveGroupCall,
+                                  NotInCallError, UnMuteNeeded)
+from pytgcalls.types import AudioQuality, MediaStream
+from youtube_search import YoutubeSearch
+
+from config import DURATION_LIMIT_MIN
 from YukkiMusic import userbot
 from YukkiMusic.core.call import Yukki
-from .utils.inline import close_key
+from YukkiMusic.cplugin.utils import add_active_chat, is_active_chat, stream_on
+from YukkiMusic.utils.downloaders import audio_dl
+from YukkiMusic.utils.thumbnails import gen_thumb
+
 from .utils.active import _clear_
+from .utils.inline import close_key
 
 
 def get_url(message_1: Message) -> Union[str, None]:

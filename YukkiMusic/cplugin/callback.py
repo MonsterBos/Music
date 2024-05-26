@@ -7,33 +7,17 @@
 #
 # All rights reserved.
 #
-from pyrogram import Client, filters
-from pyrogram.types import CallbackQuery, InlineKeyboardMarkup, InlineKeyboardButton
-from pyrogram.enums import ChatMemberStatus
-from pytgcalls.types import MediaStream, AudioQuality
+import logging
 from random import choice
 
+from pyrogram import Client, filters
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup)
+
 from config import *
-import logging
-from YukkiMusic.utils.thumbnails import gen_thumb
-from .utils import (
-    HELP_TEXT,
-    PM_START_TEXT,
-    helpmenu,
-)
+
+from .utils import HELP_TEXT, PM_START_TEXT, helpmenu
 from .utils.dossier import *
-from .utils.active import (
-    is_active_chat,
-    is_streaming,
-    iss_streaming,
-    stream_on,
-    stream_off,
-)
-from YukkiMusic.misc import SUDOERS
-from .utils.active import _clear_
-from .utils.inline import close_key
-from .play import pytgcalls
-from YukkiMusic.misc import clonedb
 
 
 @Client.on_callback_query(filters.regex("forceclose"))

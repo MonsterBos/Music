@@ -11,25 +11,19 @@
 import asyncio
 
 from pyrogram import filters
-from pyrogram.types import InlineKeyboardMarkup
-from pyrogram.errors import (
-    ChatAdminRequired,
-    UserAlreadyParticipant,
-    InviteRequestSent,
-    UserNotParticipant,
-)
 from pyrogram.enums import ChatMemberStatus
-from YukkiMusic.utils.database import get_assistant
+from pyrogram.errors import (ChatAdminRequired, InviteRequestSent,
+                             UserAlreadyParticipant, UserNotParticipant)
+from pyrogram.types import InlineKeyboardMarkup
 
 from config import BANNED_USERS
 from YukkiMusic import app
-from YukkiMusic.utils.database import get_global_tops, get_particulars, get_userss
+from YukkiMusic.utils.database import (get_assistant, get_global_tops,
+                                       get_particulars, get_userss)
 from YukkiMusic.utils.decorators.language import languageCB
-from YukkiMusic.utils.inline.playlist import (
-    botplaylist_markup,
-    failed_top_markup,
-    top_play_markup,
-)
+from YukkiMusic.utils.inline.playlist import (botplaylist_markup,
+                                              failed_top_markup,
+                                              top_play_markup)
 from YukkiMusic.utils.stream.stream import stream
 
 loop = asyncio.get_running_loop()

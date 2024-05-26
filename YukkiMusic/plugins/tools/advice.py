@@ -1,6 +1,7 @@
 from pyrogram import filters
-from YukkiMusic import app, api
+
 from config import LOG_GROUP_ID
+from YukkiMusic import api, app
 
 
 @app.on_message(filters.command("advice"))

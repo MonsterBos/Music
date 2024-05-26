@@ -1,5 +1,5 @@
 import requests
-import json
+
 from config import START_IMG_URL
 
 

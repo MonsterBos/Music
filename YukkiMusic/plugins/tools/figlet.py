@@ -1,13 +1,9 @@
-from pyrogram import filters
-import asyncio
-import pyfiglet
 from random import choice
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    CallbackQuery,
-)
+
+import pyfiglet
+from pyrogram import filters
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup)
 
 from YukkiMusic import app
 

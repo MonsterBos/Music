@@ -1,8 +1,7 @@
 import requests
 from pyrogram import filters
-from pyrogram.enums import ChatAction
 
-from YukkiMusic import app, api
+from YukkiMusic import api, app
 
 
 @app.on_message(filters.command(["bard"]))

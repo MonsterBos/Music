@@ -1,8 +1,8 @@
-import random
 import requests
-from pyrogram import Client, filters
+from pyrogram import filters
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
+
 from YukkiMusic import app
 
 

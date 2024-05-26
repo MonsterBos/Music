@@ -15,9 +15,10 @@ import psutil
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import SUPPORT_GROUP, PING_IMG_URL
-from .utils import StartTime
+from config import PING_IMG_URL, SUPPORT_GROUP
 from YukkiMusic.utils import get_readable_time
+
+from .utils import StartTime
 
 
 @Client.on_message(filters.command("ping"))

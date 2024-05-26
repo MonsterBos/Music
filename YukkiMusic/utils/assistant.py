@@ -1,5 +1,5 @@
-from YukkiMusic.utils.database import get_client
 from YukkiMusic import app
+from YukkiMusic.utils.database import get_client
 
 
 async def get_assistant_details():

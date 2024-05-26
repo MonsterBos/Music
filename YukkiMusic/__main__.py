@@ -6,25 +6,23 @@
 #
 # All rights reserved.
 #
-import re
-import sys
-import config
 import asyncio
 import importlib
+import re
 from sys import argv
 
-from pyrogram import idle, filters
+from pyrogram import filters, idle
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from config import BANNED_USERS, OWNER_ID
 
-from YukkiMusic import LOGGER, app, userbot
-from YukkiMusic import telethn
+import config
+from config import BANNED_USERS, OWNER_ID
+from YukkiMusic import LOGGER, app, telethn, userbot
 from YukkiMusic.core.call import Yukki
 from YukkiMusic.plugins import ALL_MODULES
 from YukkiMusic.utils.database import get_banned_users, get_gbanned
 from YukkiMusic.utils.decorators.language import LanguageStart
-from YukkiMusic.utils.inlinefunction import paginate_modules
 from YukkiMusic.utils.inline import private_panel
+from YukkiMusic.utils.inlinefunction import paginate_modules
 
 # from YukkiMusic.plugins.tools.clone import restart_bots
 

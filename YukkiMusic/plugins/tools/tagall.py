@@ -1,15 +1,13 @@
 import asyncio
-import random
-from pyrogram import Client, filters
-from pyrogram.enums import ChatType, ChatMemberStatus, ChatMembersFilter
-from pyrogram.errors import UserNotParticipant, FloodWait
-from pyrogram.types import ChatPermissions
-from YukkiMusic import app
-from YukkiMusic.utils.filter import admin_filter
-from YukkiMusic.utils.database import get_assistant
+
+from pyrogram import filters
+from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
+from pyrogram.errors import FloodWait
+
 from config import adminlist
-from pyrogram.enums import ChatMembersFilter
-from pyrogram.enums import ChatMemberStatus
+from YukkiMusic import app
+from YukkiMusic.utils.database import get_assistant
+from YukkiMusic.utils.filter import admin_filter
 
 SPAM_CHATS = []
 

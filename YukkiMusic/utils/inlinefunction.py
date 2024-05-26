@@ -1,5 +1,6 @@
 from math import ceil
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from pyrogram.types import InlineKeyboardButton
 
 COLUMN_SIZE = 5  # Controls the number of rows
 NUM_COLUMNS = 3  # Controls the number of columns

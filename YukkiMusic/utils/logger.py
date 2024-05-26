@@ -8,9 +8,9 @@
 # All rights reserved.
 #
 
+from config import LOG_GROUP_ID
 from YukkiMusic import app
 from YukkiMusic.utils.database import is_on_off
-from config import LOG_GROUP_ID
 
 
 async def play_logs(message, streamtype):

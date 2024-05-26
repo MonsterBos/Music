@@ -1,6 +1,7 @@
 import os
-from telegraph import upload_file
+
 from pyrogram import Client, filters
+from telegraph import upload_file
 
 
 @Client.on_message(filters.command(["tgm", "telegraph"]))

@@ -7,23 +7,15 @@
 #
 # All rights reserved.
 #
-import logging
-from pytgcalls.types import MediaStream, AudioQuality
 from pyrogram import Client, filters
-from pyrogram.types import Message
 from pyrogram.enums import ChatMemberStatus
-from .play import pytgcalls
-from .utils import (
-    close_key,
-    is_streaming,
-    stream_off,
-    stream_on,
-    is_active_chat,
-)
-from .utils.active import _clear_
+from pyrogram.types import Message
+
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.thumbnails import gen_thumb
-from YukkiMusic.misc import clonedb
+
+from .play import pytgcalls
+from .utils import is_active_chat, is_streaming, stream_off, stream_on
+from .utils.active import _clear_
 
 
 @Client.on_message(filters.command(["pause", "resume", "end", "stop"]) & filters.group)

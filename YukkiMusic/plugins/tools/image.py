@@ -1,9 +1,9 @@
-import requests
-from requests import get
-from YukkiMusic import app
+from bing_image_urls import bing_image_urls
 from pyrogram import filters
 from pyrogram.types import InputMediaPhoto
-from bing_image_urls import bing_image_urls
+from requests import get
+
+from YukkiMusic import app
 
 
 @app.on_message(filters.command(["pinterest", "image"], prefixes=["/", "!", "."]))

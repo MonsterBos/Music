@@ -1,16 +1,14 @@
-import re
 import logging
+import re
+
 from pyrogram import Client, filters
-from pyrogram.types import Message
-from pyrogram.errors.exceptions.bad_request_400 import (
-    AccessTokenExpired,
-    AccessTokenInvalid,
-)
-from config import API_ID, API_HASH
+from pyrogram.errors.exceptions.bad_request_400 import (AccessTokenExpired,
+                                                        AccessTokenInvalid)
+
+from config import API_HASH, API_ID, LOG_GROUP_ID
 from YukkiMusic import app
-from YukkiMusic.utils.database import get_assistant, clonebotdb
 from YukkiMusic.misc import SUDOERS
-from config import LOG_GROUP_ID
+from YukkiMusic.utils.database import clonebotdb
 
 CLONES = set()
 

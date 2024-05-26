@@ -1,8 +1,9 @@
 from pyrogram import filters
-from YukkiMusic.core.call import Yukki
-from YukkiMusic import app
 from pyrogram.errors.exceptions.bad_request_400 import PeerIdInvalid
 from pytgcalls.exceptions import GroupCallNotFound
+
+from YukkiMusic import app
+from YukkiMusic.core.call import Yukki
 
 
 @app.on_message(

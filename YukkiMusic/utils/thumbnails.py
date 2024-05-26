@@ -7,8 +7,6 @@
 #
 # All rights reserved.
 
-from YukkiMusic import app
-from config import YOUTUBE_IMG_URL
 from youtubesearchpython.__future__ import VideosSearch
 
 

@@ -1,36 +1,20 @@
 from re import findall
+
 from pyrogram import filters
-from pyrogram.enums import ChatMemberStatus
-from pyrogram.errors.exceptions.bad_request_400 import (
-    ChatAdminRequired,
-)
 from pyrogram.enums import ChatMemberStatus as CMS
-from pyrogram.types import (
-    Chat,
-    ChatPermissions,
-    ChatMemberUpdated,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    Message,
-    User,
-)
+from pyrogram.errors.exceptions.bad_request_400 import ChatAdminRequired
+from pyrogram.types import (Chat, ChatMemberUpdated, InlineKeyboardButton,
+                            InlineKeyboardMarkup)
 
 from YukkiMusic import app
 from YukkiMusic.misc import SUDOERS
-from YukkiMusic.utils.error import capture_err
-from YukkiMusic.utils.permissions import adminsOnly
-from YukkiMusic.utils.keyboard import ikb
 from YukkiMusic.plugins.admins.notes import extract_urls
-from YukkiMusic.utils.database import (
-    del_welcome,
-    get_welcome,
-    is_gbanned_user,
-    set_welcome,
-)
-from YukkiMusic.utils.functions import (
-    check_format,
-    extract_text_and_keyb,
-)
+from YukkiMusic.utils.database import (del_welcome, get_welcome,
+                                       is_gbanned_user, set_welcome)
+from YukkiMusic.utils.error import capture_err
+from YukkiMusic.utils.functions import check_format, extract_text_and_keyb
+from YukkiMusic.utils.keyboard import ikb
+from YukkiMusic.utils.permissions import adminsOnly
 
 
 async def handle_new_member(member, chat):

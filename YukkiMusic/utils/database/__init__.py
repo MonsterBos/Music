@@ -9,6 +9,6 @@
 #
 
 from .assistantdatabase import *
+from .clone import *
 from .memorydatabase import *
 from .mongodatabase import *
-from .clone import *

@@ -10,10 +10,11 @@
 
 from pyrogram import filters
 from pyrogram.types import Message
+
 from config import BANNED_USERS
 from YukkiMusic import app
 from YukkiMusic.core.call import Yukki
-from YukkiMusic.utils.database import is_muted, mute_on, mute_off
+from YukkiMusic.utils.database import is_muted, mute_off, mute_on
 from YukkiMusic.utils.decorators import AdminRightsCheck
 
 

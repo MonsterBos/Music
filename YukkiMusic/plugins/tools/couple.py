@@ -1,11 +1,12 @@
 import os
 import random
-from config import OWNER_ID
-import asyncio
+
 from PIL import Image, ImageDraw
-from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram import filters
 from pyrogram.enums import ChatAction, ChatType
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+
+from config import OWNER_ID
 from YukkiMusic import app
 
 
