@@ -9,7 +9,7 @@ from YukkiMusic.utils.filter import admin_filter
 from YukkiMusic.utils.database import get_assistant
 from config import adminlist
 from pyrogram.enums import ChatMembersFilter
-
+from pyrogram.enums import ChatMemberStatus
 
 SPAM_CHATS = []
 
@@ -223,8 +223,12 @@ async def atag_all_useres(_, message):
 async def admintag_with_reporting(_, message):
     if message.from_user is None:
         return
-    admins = adminlist.get(message.chat.id)
-    if message.from_user.id in admins:
+    adam = adminlist.get(message.chat.id)
+    admins = await app.get_chat_member(message.chat.id, message.from_user.id)
+    if message.from_user.id in [
+        ChatMemberStatus.OWNER,
+        ChatMemberStatus.ADMINISTRATOR,
+    ]:
         await tag_all_admins(_, message)
     else:
         if not message.reply_to_message:
@@ -233,7 +237,7 @@ async def admintag_with_reporting(_, message):
         reply = message.reply_to_message if message.reply_to_message else message
         linked_chat = (await app.get_chat(message.chat.id)).linked_chat
         if (
-            reply_id in admins
+            reply_id in adam
             or reply_id == message.chat.id
             or reply_id == linked_chat.id
         ):
@@ -252,10 +256,9 @@ async def admintag_with_reporting(_, message):
             async for i in app.get_chat_members(
                 chat_id=message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             )
-        ]  # will it give floods ???
+        ]
         for admin in admin_data:
             if admin.user.is_bot or admin.user.is_deleted:
-                # return bots or deleted admins
                 continue
             text += f"[\u2063](tg://user?id={admin.user.id})"
 
