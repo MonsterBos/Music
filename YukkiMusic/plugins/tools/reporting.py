@@ -1,9 +1,9 @@
 from pyrogram import filters
 from YukkiMusic import app
 from YukkiMusic.utils.error import capture_err
-from pyrogram.enums import ChatMemberStatus
+from pyrogram.enums import ChatMemberStatus, ChatMembersFilter
 from config import adminlist
-
+import logging 
 
 @app.on_message(
     (filters.command("report") | filters.command(["admins", "admin"], prefixes="@"))
@@ -18,8 +18,8 @@ async def report_user(_, message):
             or a.status == ChatMemberStatus.OWNER
         ):
             return
-    except Exception:
-        return
+    except Exception as e:
+        logging.exception(e)
 
     if len(message.text.split()) <= 1 and not message.reply_to_message:
         return await message.reply_text("Reply to a message to report that user.")
