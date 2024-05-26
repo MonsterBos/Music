@@ -79,6 +79,7 @@ async def tag_all_users(_, message):
         except Exception:
             pass
 
+
 async def tag_all_admins(_, message):
     if message.chat.id in SPAM_CHATS:
         return await message.reply_text(
@@ -210,12 +211,14 @@ async def atag_all_useres(_, message):
         except Exception:
             pass
 
+
 @app.on_message(
     filters.command(["admin", "admins", "admintag", "tagadmin"], prefixes=["/", "@"])
     & admin_filter
 )
 async def atag_all_useres(_, message):
     await tag_all_admins(_, message)
+
 
 @app.on_message(
     filters.command(
