@@ -23,7 +23,7 @@ async def tag_all_useres(_, message):
             "ᴛᴀɢɢɪɴɢ ᴘʀᴏᴄᴇss ɪs ᴀʟʀᴇᴀᴅʏ ʀᴜɴɴɪɴɢ ɪғ ʏᴏᴜ ᴡᴀɴᴛ ᴛᴏ sᴛᴏᴘ sᴏ ᴜsᴇ /acancel"
         )
     replied = message.reply_to_message
-    if len(message.command) < 2 aknd not replied:
+    if len(message.command) < 2 and not replied:
         await message.reply_text(
             "** ɢɪᴠᴇ sᴏᴍᴇ ᴛᴇxᴛ ᴛᴏ ᴛᴀɢ ᴀʟʟ, ʟɪᴋᴇ »** `@aall Hi Friends`"
         )
