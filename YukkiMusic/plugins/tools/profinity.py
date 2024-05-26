@@ -14,6 +14,8 @@ from YukkiMusic.utils.error import capture_err
 @app.on_message(filters.text & filters.group, group=11)
 @capture_err
 async def handle_bad_words(client, message):
+    if message.from_user is None:
+        return
     try:
         txt = message.text
         user_id = message.from_user.id
