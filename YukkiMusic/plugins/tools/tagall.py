@@ -228,11 +228,11 @@ async def admintag_with_reporting(_, message):
     if message.from_user.id in admins:
         await tag_all_admins(_, message)
     else:
-    	if not message.reply_to_message:
+        if not message.reply_to_message:
             return await message.reply_text(
                 "Reply to a message to report that user."
             )
-    	reply_id = reply.from_user.id
+        reply_id = reply.from_user.id
         reply = message.reply_to_message if message.reply_to_message else message
         linked_chat = (await app.get_chat(message.chat.id)).linked_chat
         if (
