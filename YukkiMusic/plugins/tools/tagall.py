@@ -37,7 +37,8 @@ async def tag_all_users(_, message):
                 usernum += 1
                 usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})"
                 if usernum == 7:
-                    await app.send_message(message.chat.id,
+                    await app.send_message(
+                        message.chat.id,
                         f"{replied.text}\n\n{usertxt}",
                         disable_web_page_preview=True,
                     )
@@ -107,8 +108,9 @@ async def tag_all_users(_, message):
                 usernum += 1
                 usertxt += f"[{m.user.first_name}](tg://user?id={m.user.id})"
                 if usernum == 7:
-                    await app.send_message(message.chat.id,
-                       f"{replied.text}\n\n usertxt",
+                    await app.send_message(
+                        message.chat.id,
+                        f"{replied.text}\n\n usertxt",
                         disable_web_page_preview=True,
                     )
                     await asyncio.sleep(1)
