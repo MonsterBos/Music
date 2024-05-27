@@ -1,3 +1,4 @@
+"""
 import os
 
 from pyrogram import Client, filters
@@ -20,3 +21,4 @@ def ul(_, message):
             os.remove(path)
         except Exception as e:
             i.edit(f"❌Error \n{e}")
+"""
